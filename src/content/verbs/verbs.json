@@ -115,7 +115,7 @@
           "plural": "fietsten",
           "examples": {
             "singular": { "nl": "Ik fietste naar het werk.", "en": "I cycled to work" },
-            "plural": { "nl": "Wij fietsten naar het werk.", "en": "We cycled to work" }
+            "plural": { "nl": "Wij fietsten naar het werk.", "en": "We cycled to work", "acceptedVariants": ["We fietsten naar het werk."] }
           }
         }
       },

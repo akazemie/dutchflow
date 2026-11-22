@@ -42,6 +42,17 @@ describe("Dutch verb exercise evaluation", () => {
     });
   });
 
+  it("accepts the we pronoun for the fietsen plural imperfectum example", async () => {
+    const exercise = await verbsModule.createExercise("verb:fietsen", { focusId: "imperfectum-plural" });
+
+    expect(exercise.acceptedAnswers).toContain("Wij fietsten naar het werk.");
+    expect(exercise.acceptedAnswers).toContain("We fietsten naar het werk.");
+    await expect(verbsModule.evaluate(exercise, "we fietsten naar het werk")).resolves.toMatchObject({
+      correct: true,
+      rating: "good",
+    });
+  });
+
   it("keeps separable and auxiliary variants as accepted answers", async () => {
     const separable = await verbsModule.createExercise("verb:opbellen", { focusId: "perfectum" });
     const bothAuxiliaries = await verbsModule.createExercise("verb:lopen", { focusId: "perfectum" });
