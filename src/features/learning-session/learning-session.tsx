@@ -129,10 +129,10 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         </div>
       </div>
       <div className="practice-controls">
-        <label className="verb-select-label" htmlFor="verb-select">Verb</label>
+        <label className="learning-item-select-label" htmlFor="study-item-select">Study item</label>
         <select
-          id="verb-select"
-          className="verb-select"
+          id="study-item-select"
+          className="learning-item-select"
           value={selectedItemId ?? ""}
           onChange={(event) => void changeExercise(event.currentTarget.value, focusId)}
           disabled={isSaving}

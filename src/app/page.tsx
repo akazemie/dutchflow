@@ -23,9 +23,15 @@ export default function HomePage() {
         </div>
         <div className="hero-index">DUTCHFLOW <span>·</span> 01 / 05</div>
       </section>
-      <section className="module-preview" aria-label="Available practice module">
-        <div><span className="eyebrow">FIRST UP</span><h2>Dutch verbs</h2><p>Start with one useful verb and the Perfectum tense.</p></div>
-        <span className="module-arrow" aria-hidden="true">↗</span>
+      <section className="module-grid" aria-label="Available learning modules">
+        <Link className="module-preview" href="/learn/verbs/">
+          <div><span className="eyebrow">VERB TRAINING</span><h2>Dutch verbs</h2><p>Practice Perfectum and Imperfectum.</p></div>
+          <span className="module-arrow" aria-hidden="true">↗</span>
+        </Link>
+        <Link className="module-preview" href="/learn/vocabulary/">
+          <div><span className="eyebrow">WORD PRACTICE</span><h2>Dutch vocabulary</h2><p>Build useful words with short translations.</p></div>
+          <span className="module-arrow" aria-hidden="true">↗</span>
+        </Link>
       </section>
     </div>
   );

@@ -27,9 +27,15 @@ function createLearningRuntime(): LearningRuntime {
   const learnerData = new DexieLearnerDataRepository(db);
   if (navigator.storage?.persist) void navigator.storage.persist().catch(() => false);
   async function loadLearningModule(moduleId: string) {
-    if (moduleId !== "verbs") throw new Error(`Unknown learning module: ${moduleId}`);
-    const loaded = await import("@/learning/modules/verbs/module");
-    return loaded.verbsModule;
+    if (moduleId === "verbs") {
+      const loaded = await import("@/learning/modules/verbs/module");
+      return loaded.verbsModule;
+    }
+    if (moduleId === "vocabulary") {
+      const loaded = await import("@/learning/modules/vocabulary/module");
+      return loaded.vocabularyModule;
+    }
+    throw new Error(`Unknown learning module: ${moduleId}`);
   }
 
   return {
@@ -44,14 +50,15 @@ function createLearningRuntime(): LearningRuntime {
       const learningModule = await loadLearningModule(moduleId);
       const learnerPreferences = await getPreferences(LOCAL_LEARNER_ID, { preferences });
       const now = new Date().toISOString();
-      const [knownProgress, dueSchedules] = await Promise.all([
+      const [knownProgress, allDueSchedules] = await Promise.all([
         progress.listByLearner(LOCAL_LEARNER_ID),
         reviewSchedules.listDue(LOCAL_LEARNER_ID, now),
       ]);
+      const dueSchedules = allDueSchedules.filter((schedule) => schedule.moduleId === moduleId);
       return startSession({
         module: learningModule,
         preferences: learnerPreferences,
-        knownSkillIds: knownProgress.map((record) => record.skillId),
+        knownSkillIds: knownProgress.filter((record) => record.moduleId === moduleId).map((record) => record.skillId),
         dueReviews: dueSchedules.map((schedule) => ({
           skillId: schedule.skillId,
           moduleId: schedule.moduleId,

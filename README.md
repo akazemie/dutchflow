@@ -1,6 +1,6 @@
 # DutchFlow
 
-DutchFlow is a local-first Dutch-learning application. Its first learning slice practices the Perfectum and Imperfectum with Dutch verbs, lets learners configure their study preferences, and saves attempts, per-skill progress, and FSRS review schedules to IndexedDB on the learner's device. Learners can view due reviews and export or restore a versioned JSON backup from Settings.
+DutchFlow is a local-first Dutch-learning application. It practices the Perfectum and Imperfectum with Dutch verbs and includes an initial Vocabulary module. Learners can configure study preferences, while attempts, per-skill progress, and FSRS review schedules stay in IndexedDB on their device. The Progress screen shows due reviews, and Settings can export or restore a versioned JSON backup.
 
 ## Requirements
 

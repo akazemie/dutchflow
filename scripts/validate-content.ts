@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { verbCollectionSchema } from "../src/content/verbs/schema";
 import { generateWeakForms } from "../src/learning/modules/verbs/conjugation/weak-forms";
+import { vocabularyCollectionSchema } from "../src/content/vocabulary/schema";
 
 const source = new URL("../src/content/verbs/verbs.json", import.meta.url);
+const vocabularySource = new URL("../src/content/vocabulary/vocabulary.json", import.meta.url);
 const parsed = verbCollectionSchema.safeParse(JSON.parse(await readFile(source, "utf8")));
 
 if (!parsed.success) {
@@ -36,5 +38,19 @@ if (!parsed.success) {
     } else {
       console.log(`Validated ${ids.length} verb content item(s) and generated forms.`);
     }
+  }
+}
+
+const vocabulary = vocabularyCollectionSchema.safeParse(JSON.parse(await readFile(vocabularySource, "utf8")));
+if (!vocabulary.success) {
+  console.error(vocabulary.error.format());
+  process.exitCode = 1;
+} else {
+  const ids = vocabulary.data.items.map(({ id }) => id);
+  if (new Set(ids).size !== ids.length) {
+    console.error("Vocabulary content IDs must be unique.");
+    process.exitCode = 1;
+  } else {
+    console.log(`Validated ${ids.length} vocabulary content item(s).`);
   }
 }

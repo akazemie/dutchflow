@@ -16,7 +16,7 @@ Create the smallest complete learning path: one verb, one exercise, answer evalu
 
 **Done when:** a user can complete the exercise locally, see feedback, reload the app, and find the attempt still persisted.
 
-If using static export, dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; the MVP returns its single verb module.
+If using static export, dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; it lists the supported MVP modules.
 
 **Status: Complete (2026-11-22).** The local Perfectum exercise and Dexie attempt flow are implemented. ESLint, TypeScript, content validation, all four unit tests, the static export build, and `npm audit` passed; the persisted-attempt repository behavior is covered by a Dexie test.
 
@@ -65,6 +65,8 @@ Build the due-review queue and progress screens. Request persistent browser stor
 Add a small second module (for example Vocabulary or Grammar) with its own content and evaluation while reusing the contracts, renderer types where applicable, session planner, persistence, and scheduling. Add module content via dynamic imports.
 
 **Done when:** the second module does not require changing verb logic or adding a custom routing layer.
+
+**Status: Complete (2026-11-22).** Vocabulary has an independent Zod schema, authored content, skill IDs, and evaluation. It uses the shared typed-answer renderer, preferences, planner, IndexedDB progress, and FSRS scheduling. App Router static params list both modules, and content validation checks both datasets.
 
 ### 8. Optional listening and speaking capabilities
 

@@ -31,7 +31,7 @@ This is a modular monolith, not a distributed system. The initial implementation
 - `application` defines the ports needed by use cases. `infrastructure` implements them. The client-only composition root constructs Dexie repositories and injects them into application services.
 - Keep UI, persistence, browser APIs, and framework imports out of learning-domain rules.
 - Use `eslint-plugin-boundaries` to enforce the dependency direction. Give the composition root a narrow exception to import both `application` and `infrastructure`, since its purpose is to wire them together.
-- Consider Next.js `output: 'export'` for static hosting and a future PWA. Keep browser-dependent initialization behind client boundaries and confirm the selected Next.js features support static export when implementation begins. Dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; the MVP returns the single `verbs` module.
+- Consider Next.js `output: 'export'` for static hosting and a future PWA. Keep browser-dependent initialization behind client boundaries and confirm the selected Next.js features support static export when implementation begins. Dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; it lists each supported module.
 
 ## Project structure
 
@@ -66,10 +66,14 @@ src/
         module.ts
         conjugation/
         evaluation/
+      vocabulary/
+        module.ts
   content/                          # Educational data, separate from logic
     verbs/
       verbs.json
       authored-exercises.json
+    vocabulary/
+      vocabulary.json
   exercise-renderers/               # Client renderers keyed by exercise type
     multiple-choice/
     typed-answer/
@@ -96,7 +100,7 @@ Exercises use a discriminated union on `exercise.type`, with a typed payload per
 
 Exercise rendering is independent of modules. An `ExerciseRenderer` registry maps shared exercise types such as `multiple-choice`, `typed-answer`, and `audio-prompt` to UI components. Several modules may use one renderer; a new exercise type adds a renderer without requiring route registration. Next.js App Router remains the only routing system.
 
-The application can import the initial verb module directly. A catalog or dynamic module discovery is unnecessary until multiple modules make it useful.
+The composition root loads each supported module with an explicit dynamic import. App Router remains responsible for module URLs, with `generateStaticParams` listing the supported modules for static export. Automatic discovery and a separate module registry are unnecessary at this scale.
 
 ## Content and Dutch verb modeling
 
@@ -112,7 +116,7 @@ Routine conjugation exercises are generated from verb data. Authored exercises a
 
 Review is keyed by a reviewable facet, or skill, rather than by a whole learning item. Example skill IDs include `verb:lopen:imperfectum:plural` and `verb:lopen:perfectum`. Progress and review schedule records are keyed by `(learnerId, skillId)`, allowing different aspects of the same verb to be learned independently.
 
-Use a scheduler interface so learning-domain code does not depend on a third-party API. FSRS via `ts-fsrs` is the leading candidate; verify Node compatibility, browser bundling, and the selected release before adoption. Store scheduler state and model/version metadata needed to interpret review history. Keep the scheduler replaceable without changing session or UI code. Make scheduler tests deterministic by injecting a fixed clock and disabling fuzzing.
+Use a scheduler interface so learning-domain code does not depend on a third-party API. The MVP pins `ts-fsrs@5.4.2` with the FSRS-6 model, records package/model metadata in review state, and disables fuzzing and short learning steps for reproducible daily scheduling. Keep the scheduler replaceable without changing session or UI code.
 
 ## Persistence, durability, and portability
 

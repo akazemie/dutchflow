@@ -1,0 +1,45 @@
+{
+  "contentVersion": 1,
+  "items": [
+    {
+      "id": "vocabulary:boek",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het boek",
+      "prompt": { "en": "I read a book.", "nl": "Ik lees een boek.", "fa": "من یک کتاب می‌خوانم." },
+      "answer": "Ik lees een boek.",
+      "acceptedVariants": [],
+      "explanation": { "en": "Boek means book. It uses the article het.", "nl": "Boek betekent book. Het gebruikt het lidwoord het.", "fa": "Boek یعنی کتاب و با حرف تعریف het می‌آید." }
+    },
+    {
+      "id": "vocabulary:fiets",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de fiets",
+      "prompt": { "en": "I have a bicycle.", "nl": "Ik heb een fiets.", "fa": "من یک دوچرخه دارم." },
+      "answer": "Ik heb een fiets.",
+      "acceptedVariants": [],
+      "explanation": { "en": "Fiets means bicycle. It uses the article de.", "nl": "Fiets betekent bicycle. Het gebruikt het lidwoord de.", "fa": "Fiets یعنی دوچرخه و با حرف تعریف de می‌آید." }
+    },
+    {
+      "id": "vocabulary:appel",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de appel",
+      "prompt": { "en": "She eats an apple.", "nl": "Zij eet een appel.", "fa": "او یک سیب می‌خورد." },
+      "answer": "Zij eet een appel.",
+      "acceptedVariants": ["Ze eet een appel."],
+      "explanation": { "en": "Appel means apple. It uses the article de.", "nl": "Appel betekent apple. Het gebruikt het lidwoord de.", "fa": "Appel یعنی سیب و با حرف تعریف de می‌آید." }
+    },
+    {
+      "id": "vocabulary:station",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het station",
+      "prompt": { "en": "The train arrives at the station.", "nl": "De trein komt aan op het station.", "fa": "قطار به ایستگاه می‌رسد." },
+      "answer": "De trein komt aan op het station.",
+      "acceptedVariants": [],
+      "explanation": { "en": "Station means station. It uses the article het.", "nl": "Station betekent station. Het gebruikt het lidwoord het.", "fa": "Station یعنی ایستگاه و با حرف تعریف het می‌آید." }
+    }
+  ]
+}

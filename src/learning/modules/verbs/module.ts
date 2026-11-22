@@ -1,7 +1,7 @@
 import rawVerbContent from "@/content/verbs/verbs.json";
 import { verbCollectionSchema, type VerbContent } from "@/content/verbs/schema";
 import type { EvaluationResult, ExerciseFocus, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
-import { normalizeAnswer } from "./normalize-answer";
+import { normalizeAnswer } from "@/learning/core/normalize-answer";
 
 const verbCollection = verbCollectionSchema.parse(rawVerbContent);
 const verbsById = new Map(verbCollection.items.map((item) => [item.id, item]));
