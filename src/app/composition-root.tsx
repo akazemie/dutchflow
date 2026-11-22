@@ -14,6 +14,8 @@ import { DexiePreferencesRepository } from "@/infrastructure/dexie/preferences-r
 import { DexieProgressRepository } from "@/infrastructure/dexie/progress-repository";
 import { DexieReviewScheduleRepository } from "@/infrastructure/dexie/review-schedule-repository";
 import { createFsrsReviewScheduler } from "@/learning/scheduling/review-scheduler";
+import { DexieLearnerDataRepository } from "@/infrastructure/dexie/learner-data-repository";
+import { exportLearnerData, importLearnerData } from "@/application/export-import-data";
 
 function createLearningRuntime(): LearningRuntime {
   const db = new DutchFlowDatabase();
@@ -22,6 +24,8 @@ function createLearningRuntime(): LearningRuntime {
   const progress = new DexieProgressRepository(db);
   const reviewSchedules = new DexieReviewScheduleRepository(db);
   const scheduler = createFsrsReviewScheduler();
+  const learnerData = new DexieLearnerDataRepository(db);
+  if (navigator.storage?.persist) void navigator.storage.persist().catch(() => false);
   async function loadLearningModule(moduleId: string) {
     if (moduleId !== "verbs") throw new Error(`Unknown learning module: ${moduleId}`);
     const loaded = await import("@/learning/modules/verbs/module");
@@ -33,6 +37,9 @@ function createLearningRuntime(): LearningRuntime {
     getPreferences: () => getPreferences(LOCAL_LEARNER_ID, { preferences }),
     updatePreferences: (changes) => updatePreferences(LOCAL_LEARNER_ID, changes, { preferences }),
     getProgress: () => progress.listByLearner(LOCAL_LEARNER_ID),
+    getDueReviews: () => reviewSchedules.listDue(LOCAL_LEARNER_ID, new Date().toISOString()),
+    exportData: () => exportLearnerData(LOCAL_LEARNER_ID, { data: learnerData }),
+    importData: (serialized) => importLearnerData(LOCAL_LEARNER_ID, serialized, { data: learnerData }).then(() => undefined),
     async createSession(moduleId) {
       const learningModule = await loadLearningModule(moduleId);
       const learnerPreferences = await getPreferences(LOCAL_LEARNER_ID, { preferences });

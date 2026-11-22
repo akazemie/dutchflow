@@ -58,6 +58,8 @@ Build the due-review queue and progress screens. Request persistent browser stor
 
 **Done when:** a learner can export a backup, restore it, and continue with equivalent local progress.
 
+**Status: Complete (2026-11-22).** The progress screen reports practiced skills and due reviews. Settings can export and restore versioned JSON backups for preferences, attempts, progress, and schedules. Imports are schema-validated before an atomic learner-scoped Dexie replacement, and the app requests persistent browser storage when supported.
+
 ### 7. Validate extensibility with another module
 
 Add a small second module (for example Vocabulary or Grammar) with its own content and evaluation while reusing the contracts, renderer types where applicable, session planner, persistence, and scheduling. Add module content via dynamic imports.

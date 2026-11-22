@@ -1,4 +1,5 @@
 import { PreferencesForm } from "@/features/preferences/preferences-form";
+import { DataBackup } from "@/features/preferences/data-backup";
 
 export default function SettingsPage() {
   return (
@@ -12,6 +13,7 @@ export default function SettingsPage() {
         <p>Your choices are saved locally on this device.</p>
       </section>
       <PreferencesForm />
+      <DataBackup />
     </div>
   );
 }
