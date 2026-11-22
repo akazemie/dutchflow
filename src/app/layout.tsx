@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <header className="site-header">
           <Link aria-label="DutchFlow home" className="brand" href="/">
             <span className="brand-mark" aria-hidden="true">D</span>

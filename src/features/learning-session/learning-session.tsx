@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
@@ -22,6 +23,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const [explanationLanguage, setExplanationLanguage] = useState<ExplanationLanguage>("en");
   const [exercise, setExercise] = useState<LearningExercise | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [emptySession, setEmptySession] = useState(false);
   const [feedback, setFeedback] = useState<{ correct: boolean; text: string } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -32,8 +34,17 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       try {
         if (!runtime) return;
         const session = await runtime.createSession(moduleId);
-        if (session.plan.length === 0) throw new Error("There are no exercises within today's time budget.");
         const items = await session.module.loadItems({ level: session.preferences.level });
+        if (session.plan.length === 0) {
+          if (isCurrent) {
+            setModule(session.module);
+            setItems(items);
+            setPlan([]);
+            setExplanationLanguage(session.preferences.explanationLanguage);
+            setEmptySession(true);
+          }
+          return;
+        }
         const firstCandidate = session.plan[0];
         const firstExercise = await session.module.createExercise(firstCandidate.itemId, {
           focusId: firstCandidate.focusId,
@@ -115,6 +126,22 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   }
 
   if (error && !exercise) return <p className="notice notice-error" role="alert">{error}</p>;
+  if (emptySession) {
+    return (
+      <section className="lesson-card empty-session" aria-labelledby="empty-session-title">
+        <span className="lesson-label">SESSION COMPLETE</span>
+        <h1 id="empty-session-title">You’re caught up for now.</h1>
+        <p>There are no new or due exercises for this module at your current level. Try another module or check your progress.</p>
+        <div className="empty-session-actions">
+          <Link className="primary-button" href={moduleId === "verbs" ? "/learn/vocabulary/" : "/learn/verbs/"}>
+            Try {moduleId === "verbs" ? "vocabulary" : "verbs"}
+          </Link>
+          <Link className="text-link" href="/progress/">View progress</Link>
+          <Link className="text-link" href="/settings/">Change level</Link>
+        </div>
+      </section>
+    );
+  }
   if (!module || !exercise) return <p className="loading-copy" role="status">Preparing your exercise…</p>;
 
   const Renderer = exerciseRendererRegistry[exercise.type];
