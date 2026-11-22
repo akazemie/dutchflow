@@ -2,6 +2,7 @@ import rawContent from "@/content/vocabulary/vocabulary.json";
 import { vocabularyCollectionSchema } from "@/content/vocabulary/schema";
 import type { EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import { isLevelAvailableAt } from "@/learning/core/preferences";
 
 const collection = vocabularyCollectionSchema.parse(rawContent);
 const itemById = new Map(collection.items.map((item) => [item.id, item]));
@@ -14,7 +15,7 @@ export const vocabularyModule: LearningModule = {
   exerciseFocuses: [{ id: "meaning", label: "Vocabulary" }],
 
   async loadItems(query): Promise<LearningItem[]> {
-    return collection.items.filter((item) => !query?.level || item.level === query.level).map((item) => ({
+    return collection.items.filter((item) => !query?.level || isLevelAvailableAt(item.level, query.level)).map((item) => ({
       id: item.id,
       moduleId: item.moduleId,
       displayName: item.lemma,

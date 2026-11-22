@@ -1,5 +1,5 @@
 {
-  "contentVersion": 2,
+  "contentVersion": 3,
   "items": [
     {
       "id": "verb:lopen",
@@ -7,19 +7,35 @@
       "level": "A1",
       "lemma": "lopen",
       "english": "to walk",
-      "morphology": { "type": "strong" },
+      "morphology": {
+        "type": "strong"
+      },
       "forms": {
         "perfectum": {
           "auxiliary": "both",
           "participle": "gelopen",
-          "examples": [{ "nl": "Ik heb gelopen.", "en": "I have walked", "acceptedVariants": ["Ik ben gelopen."] }]
+          "examples": [
+            {
+              "nl": "Ik heb gelopen.",
+              "en": "I have walked",
+              "acceptedVariants": [
+                "Ik ben gelopen."
+              ]
+            }
+          ]
         },
         "imperfectum": {
           "singular": "liep",
           "plural": "liepen",
           "examples": {
-            "singular": { "nl": "Ik liep.", "en": "I walked" },
-            "plural": { "nl": "Wij liepen.", "en": "We walked" }
+            "singular": {
+              "nl": "Ik liep.",
+              "en": "I walked"
+            },
+            "plural": {
+              "nl": "Wij liepen.",
+              "en": "We walked"
+            }
           }
         }
       },
@@ -41,17 +57,35 @@
         "gePrefix": true,
         "expected": {
           "perfectumParticiple": "gewerkt",
-          "imperfectum": { "singular": "werkte", "plural": "werkten" }
+          "imperfectum": {
+            "singular": "werkte",
+            "plural": "werkten"
+          }
         }
       },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "gewerkt", "examples": [{ "nl": "Ik heb gewerkt.", "en": "I have worked" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gewerkt",
+          "examples": [
+            {
+              "nl": "Ik heb gewerkt.",
+              "en": "I have worked"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "werkte",
           "plural": "werkten",
           "examples": {
-            "singular": { "nl": "Ik werkte.", "en": "I worked" },
-            "plural": { "nl": "Wij werkten.", "en": "We worked" }
+            "singular": {
+              "nl": "Ik werkte.",
+              "en": "I worked"
+            },
+            "plural": {
+              "nl": "Wij werkten.",
+              "en": "We worked"
+            }
           }
         }
       },
@@ -73,17 +107,38 @@
         "gePrefix": true,
         "expected": {
           "perfectumParticiple": "gewoond",
-          "imperfectum": { "singular": "woonde", "plural": "woonden" }
+          "imperfectum": {
+            "singular": "woonde",
+            "plural": "woonden"
+          }
         }
       },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "gewoond", "examples": [{ "nl": "Ik heb in Brussel gewoond.", "en": "I have lived in Brussels" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gewoond",
+          "examples": [
+            {
+              "nl": "Ik heb in Brussel gewoond.",
+              "en": "I have lived in Brussels"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "woonde",
           "plural": "woonden",
           "examples": {
-            "singular": { "nl": "Ik woonde in Brussel.", "en": "I lived in Brussels" },
-            "plural": { "nl": "Wij woonden in Brussel.", "en": "We lived in Brussels", "acceptedVariants": ["We woonden in Brussel."] }
+            "singular": {
+              "nl": "Ik woonde in Brussel.",
+              "en": "I lived in Brussels"
+            },
+            "plural": {
+              "nl": "Wij woonden in Brussel.",
+              "en": "We lived in Brussels",
+              "acceptedVariants": [
+                "We woonden in Brussel."
+              ]
+            }
           }
         }
       },
@@ -105,17 +160,38 @@
         "gePrefix": true,
         "expected": {
           "perfectumParticiple": "gefietst",
-          "imperfectum": { "singular": "fietste", "plural": "fietsten" }
+          "imperfectum": {
+            "singular": "fietste",
+            "plural": "fietsten"
+          }
         }
       },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "gefietst", "examples": [{ "nl": "Ik heb naar het werk gefietst.", "en": "I have cycled to work" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gefietst",
+          "examples": [
+            {
+              "nl": "Ik heb naar het werk gefietst.",
+              "en": "I have cycled to work"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "fietste",
           "plural": "fietsten",
           "examples": {
-            "singular": { "nl": "Ik fietste naar het werk.", "en": "I cycled to work" },
-            "plural": { "nl": "Wij fietsten naar het werk.", "en": "We cycled to work", "acceptedVariants": ["We fietsten naar het werk."] }
+            "singular": {
+              "nl": "Ik fietste naar het werk.",
+              "en": "I cycled to work"
+            },
+            "plural": {
+              "nl": "Wij fietsten naar het werk.",
+              "en": "We cycled to work",
+              "acceptedVariants": [
+                "We fietsten naar het werk."
+              ]
+            }
           }
         }
       },
@@ -138,17 +214,35 @@
         "separablePrefix": "op",
         "expected": {
           "perfectumParticiple": "opgebeld",
-          "imperfectum": { "singular": "belde op", "plural": "belden op" }
+          "imperfectum": {
+            "singular": "belde op",
+            "plural": "belden op"
+          }
         }
       },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "opgebeld", "examples": [{ "nl": "Ik heb hem opgebeld.", "en": "I have called him" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "opgebeld",
+          "examples": [
+            {
+              "nl": "Ik heb hem opgebeld.",
+              "en": "I have called him"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "belde op",
           "plural": "belden op",
           "examples": {
-            "singular": { "nl": "Ik belde hem op.", "en": "I called him" },
-            "plural": { "nl": "Wij belden hem op.", "en": "We called him" }
+            "singular": {
+              "nl": "Ik belde hem op.",
+              "en": "I called him"
+            },
+            "plural": {
+              "nl": "Wij belden hem op.",
+              "en": "We called him"
+            }
           }
         }
       },
@@ -170,17 +264,35 @@
         "gePrefix": false,
         "expected": {
           "perfectumParticiple": "beantwoord",
-          "imperfectum": { "singular": "beantwoordde", "plural": "beantwoordden" }
+          "imperfectum": {
+            "singular": "beantwoordde",
+            "plural": "beantwoordden"
+          }
         }
       },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "beantwoord", "examples": [{ "nl": "Ik heb de vraag beantwoord.", "en": "I have answered the question" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "beantwoord",
+          "examples": [
+            {
+              "nl": "Ik heb de vraag beantwoord.",
+              "en": "I have answered the question"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "beantwoordde",
           "plural": "beantwoordden",
           "examples": {
-            "singular": { "nl": "Ik beantwoordde de vraag.", "en": "I answered the question" },
-            "plural": { "nl": "Wij beantwoordden de vraag.", "en": "We answered the question" }
+            "singular": {
+              "nl": "Ik beantwoordde de vraag.",
+              "en": "I answered the question"
+            },
+            "plural": {
+              "nl": "Wij beantwoordden de vraag.",
+              "en": "We answered the question"
+            }
           }
         }
       },
@@ -196,15 +308,32 @@
       "level": "A2",
       "lemma": "bezoeken",
       "english": "to visit",
-      "morphology": { "type": "strong" },
+      "morphology": {
+        "type": "strong"
+      },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "bezocht", "examples": [{ "nl": "Ik heb mijn vriend bezocht.", "en": "I have visited my friend" }] },
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "bezocht",
+          "examples": [
+            {
+              "nl": "Ik heb mijn vriend bezocht.",
+              "en": "I have visited my friend"
+            }
+          ]
+        },
         "imperfectum": {
           "singular": "bezocht",
           "plural": "bezochten",
           "examples": {
-            "singular": { "nl": "Ik bezocht mijn vriend.", "en": "I visited my friend" },
-            "plural": { "nl": "Wij bezochten mijn vriend.", "en": "We visited my friend" }
+            "singular": {
+              "nl": "Ik bezocht mijn vriend.",
+              "en": "I visited my friend"
+            },
+            "plural": {
+              "nl": "Wij bezochten mijn vriend.",
+              "en": "We visited my friend"
+            }
           }
         }
       },
@@ -212,6 +341,5359 @@
         "en": "Bezoeken is strong and keeps its irregular forms explicitly: bezocht and bezochten.",
         "nl": "Bezoeken is sterk en heeft de onregelmatige vormen bezocht en bezochten.",
         "fa": "فعل bezoeken قوی است و شکل‌های بی‌قاعده bezocht و bezochten را دارد."
+      }
+    },
+    {
+      "id": "verb:leren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "leren",
+      "english": "to learn",
+      "morphology": {
+        "type": "weak",
+        "stem": "leer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geleerd",
+          "imperfectum": {
+            "singular": "leerde",
+            "plural": "leerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geleerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geleerd.",
+              "en": "I have learned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "leerde",
+          "plural": "leerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik leerde gisteren.",
+              "en": "I learned yesterday."
+            },
+            "plural": {
+              "nl": "Wij leerden gisteren.",
+              "en": "We learned yesterday.",
+              "acceptedVariants": [
+                "We leerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "leren is a regular weak verb. Its past forms are leerde and leerden; its past participle is geleerd.",
+        "nl": "leren is een zwak werkwoord. De verleden tijd is leerde en leerden; het voltooid deelwoord is geleerd.",
+        "fa": "فعل leren باقاعده است؛ گذشتهٔ آن leerde و leerden است و اسم مفعول آن geleerd است."
+      }
+    },
+    {
+      "id": "verb:praten",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "praten",
+      "english": "to talk",
+      "morphology": {
+        "type": "weak",
+        "stem": "praat",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gepraat",
+          "imperfectum": {
+            "singular": "praatte",
+            "plural": "praatten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gepraat",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gepraat.",
+              "en": "I have talked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "praatte",
+          "plural": "praatten",
+          "examples": {
+            "singular": {
+              "nl": "Ik praatte gisteren.",
+              "en": "I talked yesterday."
+            },
+            "plural": {
+              "nl": "Wij praatten gisteren.",
+              "en": "We talked yesterday.",
+              "acceptedVariants": [
+                "We praatten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "praten is a regular weak verb. Its past forms are praatte and praatten; its past participle is gepraat.",
+        "nl": "praten is een zwak werkwoord. De verleden tijd is praatte en praatten; het voltooid deelwoord is gepraat.",
+        "fa": "فعل praten باقاعده است؛ گذشتهٔ آن praatte و praatten است و اسم مفعول آن gepraat است."
+      }
+    },
+    {
+      "id": "verb:wandelen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "wandelen",
+      "english": "to walk",
+      "morphology": {
+        "type": "weak",
+        "stem": "wandel",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gewandeld",
+          "imperfectum": {
+            "singular": "wandelde",
+            "plural": "wandelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gewandeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gewandeld.",
+              "en": "I have walked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "wandelde",
+          "plural": "wandelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik wandelde gisteren.",
+              "en": "I walked yesterday."
+            },
+            "plural": {
+              "nl": "Wij wandelden gisteren.",
+              "en": "We walked yesterday.",
+              "acceptedVariants": [
+                "We wandelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "wandelen is a regular weak verb. Its past forms are wandelde and wandelden; its past participle is gewandeld.",
+        "nl": "wandelen is een zwak werkwoord. De verleden tijd is wandelde en wandelden; het voltooid deelwoord is gewandeld.",
+        "fa": "فعل wandelen باقاعده است؛ گذشتهٔ آن wandelde و wandelden است و اسم مفعول آن gewandeld است."
+      }
+    },
+    {
+      "id": "verb:koken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "koken",
+      "english": "to cook",
+      "morphology": {
+        "type": "weak",
+        "stem": "kook",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gekookt",
+          "imperfectum": {
+            "singular": "kookte",
+            "plural": "kookten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gekookt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gekookt.",
+              "en": "I have cooked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "kookte",
+          "plural": "kookten",
+          "examples": {
+            "singular": {
+              "nl": "Ik kookte gisteren.",
+              "en": "I cooked yesterday."
+            },
+            "plural": {
+              "nl": "Wij kookten gisteren.",
+              "en": "We cooked yesterday.",
+              "acceptedVariants": [
+                "We kookten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "koken is a regular weak verb. Its past forms are kookte and kookten; its past participle is gekookt.",
+        "nl": "koken is een zwak werkwoord. De verleden tijd is kookte en kookten; het voltooid deelwoord is gekookt.",
+        "fa": "فعل koken باقاعده است؛ گذشتهٔ آن kookte و kookten است و اسم مفعول آن gekookt است."
+      }
+    },
+    {
+      "id": "verb:spelen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "spelen",
+      "english": "to play",
+      "morphology": {
+        "type": "weak",
+        "stem": "speel",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gespeeld",
+          "imperfectum": {
+            "singular": "speelde",
+            "plural": "speelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gespeeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gespeeld.",
+              "en": "I have played today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "speelde",
+          "plural": "speelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik speelde gisteren.",
+              "en": "I played yesterday."
+            },
+            "plural": {
+              "nl": "Wij speelden gisteren.",
+              "en": "We played yesterday.",
+              "acceptedVariants": [
+                "We speelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "spelen is a regular weak verb. Its past forms are speelde and speelden; its past participle is gespeeld.",
+        "nl": "spelen is een zwak werkwoord. De verleden tijd is speelde en speelden; het voltooid deelwoord is gespeeld.",
+        "fa": "فعل spelen باقاعده است؛ گذشتهٔ آن speelde و speelden است و اسم مفعول آن gespeeld است."
+      }
+    },
+    {
+      "id": "verb:maken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "maken",
+      "english": "to make",
+      "morphology": {
+        "type": "weak",
+        "stem": "maak",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gemaakt",
+          "imperfectum": {
+            "singular": "maakte",
+            "plural": "maakten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gemaakt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gemaakt.",
+              "en": "I have made today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "maakte",
+          "plural": "maakten",
+          "examples": {
+            "singular": {
+              "nl": "Ik maakte gisteren.",
+              "en": "I made yesterday."
+            },
+            "plural": {
+              "nl": "Wij maakten gisteren.",
+              "en": "We made yesterday.",
+              "acceptedVariants": [
+                "We maakten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "maken is a regular weak verb. Its past forms are maakte and maakten; its past participle is gemaakt.",
+        "nl": "maken is een zwak werkwoord. De verleden tijd is maakte en maakten; het voltooid deelwoord is gemaakt.",
+        "fa": "فعل maken باقاعده است؛ گذشتهٔ آن maakte و maakten است و اسم مفعول آن gemaakt است."
+      }
+    },
+    {
+      "id": "verb:luisteren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "luisteren",
+      "english": "to listen",
+      "morphology": {
+        "type": "weak",
+        "stem": "luister",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geluisterd",
+          "imperfectum": {
+            "singular": "luisterde",
+            "plural": "luisterden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geluisterd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geluisterd.",
+              "en": "I have listened today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "luisterde",
+          "plural": "luisterden",
+          "examples": {
+            "singular": {
+              "nl": "Ik luisterde gisteren.",
+              "en": "I listened yesterday."
+            },
+            "plural": {
+              "nl": "Wij luisterden gisteren.",
+              "en": "We listened yesterday.",
+              "acceptedVariants": [
+                "We luisterden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "luisteren is a regular weak verb. Its past forms are luisterde and luisterden; its past participle is geluisterd.",
+        "nl": "luisteren is een zwak werkwoord. De verleden tijd is luisterde en luisterden; het voltooid deelwoord is geluisterd.",
+        "fa": "فعل luisteren باقاعده است؛ گذشتهٔ آن luisterde و luisterden است و اسم مفعول آن geluisterd است."
+      }
+    },
+    {
+      "id": "verb:wachten",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "wachten",
+      "english": "to wait",
+      "morphology": {
+        "type": "weak",
+        "stem": "wacht",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gewacht",
+          "imperfectum": {
+            "singular": "wachtte",
+            "plural": "wachtten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gewacht",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gewacht.",
+              "en": "I have waited today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "wachtte",
+          "plural": "wachtten",
+          "examples": {
+            "singular": {
+              "nl": "Ik wachtte gisteren.",
+              "en": "I waited yesterday."
+            },
+            "plural": {
+              "nl": "Wij wachtten gisteren.",
+              "en": "We waited yesterday.",
+              "acceptedVariants": [
+                "We wachtten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "wachten is a regular weak verb. Its past forms are wachtte and wachtten; its past participle is gewacht.",
+        "nl": "wachten is een zwak werkwoord. De verleden tijd is wachtte en wachtten; het voltooid deelwoord is gewacht.",
+        "fa": "فعل wachten باقاعده است؛ گذشتهٔ آن wachtte و wachtten است و اسم مفعول آن gewacht است."
+      }
+    },
+    {
+      "id": "verb:studeren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "studeren",
+      "english": "to study",
+      "morphology": {
+        "type": "weak",
+        "stem": "studeer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gestudeerd",
+          "imperfectum": {
+            "singular": "studeerde",
+            "plural": "studeerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gestudeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gestudeerd.",
+              "en": "I have studied today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "studeerde",
+          "plural": "studeerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik studeerde gisteren.",
+              "en": "I studied yesterday."
+            },
+            "plural": {
+              "nl": "Wij studeerden gisteren.",
+              "en": "We studied yesterday.",
+              "acceptedVariants": [
+                "We studeerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "studeren is a regular weak verb. Its past forms are studeerde and studeerden; its past participle is gestudeerd.",
+        "nl": "studeren is een zwak werkwoord. De verleden tijd is studeerde en studeerden; het voltooid deelwoord is gestudeerd.",
+        "fa": "فعل studeren باقاعده است؛ گذشتهٔ آن studeerde و studeerden است و اسم مفعول آن gestudeerd است."
+      }
+    },
+    {
+      "id": "verb:gebruiken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "gebruiken",
+      "english": "to use",
+      "morphology": {
+        "type": "weak",
+        "stem": "gebruik",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "gebruikt",
+          "imperfectum": {
+            "singular": "gebruikte",
+            "plural": "gebruikten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gebruikt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gebruikt.",
+              "en": "I have used today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "gebruikte",
+          "plural": "gebruikten",
+          "examples": {
+            "singular": {
+              "nl": "Ik gebruikte gisteren.",
+              "en": "I used yesterday."
+            },
+            "plural": {
+              "nl": "Wij gebruikten gisteren.",
+              "en": "We used yesterday.",
+              "acceptedVariants": [
+                "We gebruikten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "gebruiken is a regular weak verb. Its past forms are gebruikte and gebruikten; its past participle is gebruikt.",
+        "nl": "gebruiken is een zwak werkwoord. De verleden tijd is gebruikte en gebruikten; het voltooid deelwoord is gebruikt.",
+        "fa": "فعل gebruiken باقاعده است؛ گذشتهٔ آن gebruikte و gebruikten است و اسم مفعول آن gebruikt است."
+      }
+    },
+    {
+      "id": "verb:betalen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "betalen",
+      "english": "to pay",
+      "morphology": {
+        "type": "weak",
+        "stem": "betaal",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "betaald",
+          "imperfectum": {
+            "singular": "betaalde",
+            "plural": "betaalden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "betaald",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag betaald.",
+              "en": "I have paid today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "betaalde",
+          "plural": "betaalden",
+          "examples": {
+            "singular": {
+              "nl": "Ik betaalde gisteren.",
+              "en": "I paid yesterday."
+            },
+            "plural": {
+              "nl": "Wij betaalden gisteren.",
+              "en": "We paid yesterday.",
+              "acceptedVariants": [
+                "We betaalden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "betalen is a regular weak verb. Its past forms are betaalde and betaalden; its past participle is betaald.",
+        "nl": "betalen is een zwak werkwoord. De verleden tijd is betaalde en betaalden; het voltooid deelwoord is betaald.",
+        "fa": "فعل betalen باقاعده است؛ گذشتهٔ آن betaalde و betaalden است و اسم مفعول آن betaald است."
+      }
+    },
+    {
+      "id": "verb:vertellen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "vertellen",
+      "english": "to tell",
+      "morphology": {
+        "type": "weak",
+        "stem": "vertel",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verteld",
+          "imperfectum": {
+            "singular": "vertelde",
+            "plural": "vertelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verteld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verteld.",
+              "en": "I have told today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "vertelde",
+          "plural": "vertelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik vertelde gisteren.",
+              "en": "I told yesterday."
+            },
+            "plural": {
+              "nl": "Wij vertelden gisteren.",
+              "en": "We told yesterday.",
+              "acceptedVariants": [
+                "We vertelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "vertellen is a regular weak verb. Its past forms are vertelde and vertelden; its past participle is verteld.",
+        "nl": "vertellen is een zwak werkwoord. De verleden tijd is vertelde en vertelden; het voltooid deelwoord is verteld.",
+        "fa": "فعل vertellen باقاعده است؛ گذشتهٔ آن vertelde و vertelden است و اسم مفعول آن verteld است."
+      }
+    },
+    {
+      "id": "verb:proberen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "proberen",
+      "english": "to try",
+      "morphology": {
+        "type": "weak",
+        "stem": "probeer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geprobeerd",
+          "imperfectum": {
+            "singular": "probeerde",
+            "plural": "probeerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geprobeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geprobeerd.",
+              "en": "I have tried today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "probeerde",
+          "plural": "probeerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik probeerde gisteren.",
+              "en": "I tried yesterday."
+            },
+            "plural": {
+              "nl": "Wij probeerden gisteren.",
+              "en": "We tried yesterday.",
+              "acceptedVariants": [
+                "We probeerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "proberen is a regular weak verb. Its past forms are probeerde and probeerden; its past participle is geprobeerd.",
+        "nl": "proberen is een zwak werkwoord. De verleden tijd is probeerde en probeerden; het voltooid deelwoord is geprobeerd.",
+        "fa": "فعل proberen باقاعده است؛ گذشتهٔ آن probeerde و probeerden است و اسم مفعول آن geprobeerd است."
+      }
+    },
+    {
+      "id": "verb:veranderen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "veranderen",
+      "english": "to change",
+      "morphology": {
+        "type": "weak",
+        "stem": "verander",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "veranderd",
+          "imperfectum": {
+            "singular": "veranderde",
+            "plural": "veranderden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "veranderd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag veranderd.",
+              "en": "I have changed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "veranderde",
+          "plural": "veranderden",
+          "examples": {
+            "singular": {
+              "nl": "Ik veranderde gisteren.",
+              "en": "I changed yesterday."
+            },
+            "plural": {
+              "nl": "Wij veranderden gisteren.",
+              "en": "We changed yesterday.",
+              "acceptedVariants": [
+                "We veranderden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "veranderen is a regular weak verb. Its past forms are veranderde and veranderden; its past participle is veranderd.",
+        "nl": "veranderen is een zwak werkwoord. De verleden tijd is veranderde en veranderden; het voltooid deelwoord is veranderd.",
+        "fa": "فعل veranderen باقاعده است؛ گذشتهٔ آن veranderde و veranderden است و اسم مفعول آن veranderd است."
+      }
+    },
+    {
+      "id": "verb:parkeren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "parkeren",
+      "english": "to park",
+      "morphology": {
+        "type": "weak",
+        "stem": "parkeer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geparkeerd",
+          "imperfectum": {
+            "singular": "parkeerde",
+            "plural": "parkeerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geparkeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geparkeerd.",
+              "en": "I have parked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "parkeerde",
+          "plural": "parkeerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik parkeerde gisteren.",
+              "en": "I parked yesterday."
+            },
+            "plural": {
+              "nl": "Wij parkeerden gisteren.",
+              "en": "We parked yesterday.",
+              "acceptedVariants": [
+                "We parkeerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "parkeren is a regular weak verb. Its past forms are parkeerde and parkeerden; its past participle is geparkeerd.",
+        "nl": "parkeren is een zwak werkwoord. De verleden tijd is parkeerde en parkeerden; het voltooid deelwoord is geparkeerd.",
+        "fa": "فعل parkeren باقاعده است؛ گذشتهٔ آن parkeerde و parkeerden است و اسم مفعول آن geparkeerd است."
+      }
+    },
+    {
+      "id": "verb:reserveren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "reserveren",
+      "english": "to reserve",
+      "morphology": {
+        "type": "weak",
+        "stem": "reserveer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gereserveerd",
+          "imperfectum": {
+            "singular": "reserveerde",
+            "plural": "reserveerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gereserveerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gereserveerd.",
+              "en": "I have reserved today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "reserveerde",
+          "plural": "reserveerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik reserveerde gisteren.",
+              "en": "I reserved yesterday."
+            },
+            "plural": {
+              "nl": "Wij reserveerden gisteren.",
+              "en": "We reserved yesterday.",
+              "acceptedVariants": [
+                "We reserveerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "reserveren is a regular weak verb. Its past forms are reserveerde and reserveerden; its past participle is gereserveerd.",
+        "nl": "reserveren is een zwak werkwoord. De verleden tijd is reserveerde en reserveerden; het voltooid deelwoord is gereserveerd.",
+        "fa": "فعل reserveren باقاعده است؛ گذشتهٔ آن reserveerde و reserveerden است و اسم مفعول آن gereserveerd است."
+      }
+    },
+    {
+      "id": "verb:antwoorden",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "antwoorden",
+      "english": "to answer",
+      "morphology": {
+        "type": "weak",
+        "stem": "antwoord",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geantwoord",
+          "imperfectum": {
+            "singular": "antwoordde",
+            "plural": "antwoordden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geantwoord",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geantwoord.",
+              "en": "I have answered today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "antwoordde",
+          "plural": "antwoordden",
+          "examples": {
+            "singular": {
+              "nl": "Ik antwoordde gisteren.",
+              "en": "I answered yesterday."
+            },
+            "plural": {
+              "nl": "Wij antwoordden gisteren.",
+              "en": "We answered yesterday.",
+              "acceptedVariants": [
+                "We antwoordden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "antwoorden is a regular weak verb. Its past forms are antwoordde and antwoordden; its past participle is geantwoord.",
+        "nl": "antwoorden is een zwak werkwoord. De verleden tijd is antwoordde en antwoordden; het voltooid deelwoord is geantwoord.",
+        "fa": "فعل antwoorden باقاعده است؛ گذشتهٔ آن antwoordde و antwoordden است و اسم مفعول آن geantwoord است."
+      }
+    },
+    {
+      "id": "verb:openen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "openen",
+      "english": "to open",
+      "morphology": {
+        "type": "weak",
+        "stem": "open",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geopend",
+          "imperfectum": {
+            "singular": "opende",
+            "plural": "openden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geopend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geopend.",
+              "en": "I have opened today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "opende",
+          "plural": "openden",
+          "examples": {
+            "singular": {
+              "nl": "Ik opende gisteren.",
+              "en": "I opened yesterday."
+            },
+            "plural": {
+              "nl": "Wij openden gisteren.",
+              "en": "We opened yesterday.",
+              "acceptedVariants": [
+                "We openden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "openen is a regular weak verb. Its past forms are opende and openden; its past participle is geopend.",
+        "nl": "openen is een zwak werkwoord. De verleden tijd is opende en openden; het voltooid deelwoord is geopend.",
+        "fa": "فعل openen باقاعده است؛ گذشتهٔ آن opende و openden است و اسم مفعول آن geopend است."
+      }
+    },
+    {
+      "id": "verb:dansen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "dansen",
+      "english": "to dance",
+      "morphology": {
+        "type": "weak",
+        "stem": "dans",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedanst",
+          "imperfectum": {
+            "singular": "danste",
+            "plural": "dansten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedanst",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedanst.",
+              "en": "I have danced today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "danste",
+          "plural": "dansten",
+          "examples": {
+            "singular": {
+              "nl": "Ik danste gisteren.",
+              "en": "I danced yesterday."
+            },
+            "plural": {
+              "nl": "Wij dansten gisteren.",
+              "en": "We danced yesterday.",
+              "acceptedVariants": [
+                "We dansten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "dansen is a regular weak verb. Its past forms are danste and dansten; its past participle is gedanst.",
+        "nl": "dansen is een zwak werkwoord. De verleden tijd is danste en dansten; het voltooid deelwoord is gedanst.",
+        "fa": "فعل dansen باقاعده است؛ گذشتهٔ آن danste و dansten است و اسم مفعول آن gedanst است."
+      }
+    },
+    {
+      "id": "verb:lachen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "lachen",
+      "english": "to laugh",
+      "morphology": {
+        "type": "weak",
+        "stem": "lach",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gelacht",
+          "imperfectum": {
+            "singular": "lachte",
+            "plural": "lachten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gelacht",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gelacht.",
+              "en": "I have laughed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "lachte",
+          "plural": "lachten",
+          "examples": {
+            "singular": {
+              "nl": "Ik lachte gisteren.",
+              "en": "I laughed yesterday."
+            },
+            "plural": {
+              "nl": "Wij lachten gisteren.",
+              "en": "We laughed yesterday.",
+              "acceptedVariants": [
+                "We lachten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "lachen is a regular weak verb. Its past forms are lachte and lachten; its past participle is gelacht.",
+        "nl": "lachen is een zwak werkwoord. De verleden tijd is lachte en lachten; het voltooid deelwoord is gelacht.",
+        "fa": "فعل lachen باقاعده است؛ گذشتهٔ آن lachte و lachten است و اسم مفعول آن gelacht است."
+      }
+    },
+    {
+      "id": "verb:poetsen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "poetsen",
+      "english": "to brush",
+      "morphology": {
+        "type": "weak",
+        "stem": "poets",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gepoetst",
+          "imperfectum": {
+            "singular": "poetste",
+            "plural": "poetsten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gepoetst",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gepoetst.",
+              "en": "I have brushed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "poetste",
+          "plural": "poetsten",
+          "examples": {
+            "singular": {
+              "nl": "Ik poetste gisteren.",
+              "en": "I brushed yesterday."
+            },
+            "plural": {
+              "nl": "Wij poetsten gisteren.",
+              "en": "We brushed yesterday.",
+              "acceptedVariants": [
+                "We poetsten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "poetsen is a regular weak verb. Its past forms are poetste and poetsten; its past participle is gepoetst.",
+        "nl": "poetsen is een zwak werkwoord. De verleden tijd is poetste en poetsten; het voltooid deelwoord is gepoetst.",
+        "fa": "فعل poetsen باقاعده است؛ گذشتهٔ آن poetste و poetsten است و اسم مفعول آن gepoetst است."
+      }
+    },
+    {
+      "id": "verb:dromen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "dromen",
+      "english": "to dream",
+      "morphology": {
+        "type": "weak",
+        "stem": "droom",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedroomd",
+          "imperfectum": {
+            "singular": "droomde",
+            "plural": "droomden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedroomd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedroomd.",
+              "en": "I have dreamed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "droomde",
+          "plural": "droomden",
+          "examples": {
+            "singular": {
+              "nl": "Ik droomde gisteren.",
+              "en": "I dreamed yesterday."
+            },
+            "plural": {
+              "nl": "Wij droomden gisteren.",
+              "en": "We dreamed yesterday.",
+              "acceptedVariants": [
+                "We droomden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "dromen is a regular weak verb. Its past forms are droomde and droomden; its past participle is gedroomd.",
+        "nl": "dromen is een zwak werkwoord. De verleden tijd is droomde en droomden; het voltooid deelwoord is gedroomd.",
+        "fa": "فعل dromen باقاعده است؛ گذشتهٔ آن droomde و droomden است و اسم مفعول آن gedroomd است."
+      }
+    },
+    {
+      "id": "verb:tekenen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "tekenen",
+      "english": "to sketch",
+      "morphology": {
+        "type": "weak",
+        "stem": "teken",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "getekend",
+          "imperfectum": {
+            "singular": "tekende",
+            "plural": "tekenden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "getekend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag getekend.",
+              "en": "I have sketched today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "tekende",
+          "plural": "tekenden",
+          "examples": {
+            "singular": {
+              "nl": "Ik tekende gisteren.",
+              "en": "I sketched yesterday."
+            },
+            "plural": {
+              "nl": "Wij tekenden gisteren.",
+              "en": "We sketched yesterday.",
+              "acceptedVariants": [
+                "We tekenden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "tekenen is a regular weak verb. Its past forms are tekende and tekenden; its past participle is getekend.",
+        "nl": "tekenen is een zwak werkwoord. De verleden tijd is tekende en tekenden; het voltooid deelwoord is getekend.",
+        "fa": "فعل tekenen باقاعده است؛ گذشتهٔ آن tekende و tekenden است و اسم مفعول آن getekend است."
+      }
+    },
+    {
+      "id": "verb:rekenen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "rekenen",
+      "english": "to calculate",
+      "morphology": {
+        "type": "weak",
+        "stem": "reken",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gerekend",
+          "imperfectum": {
+            "singular": "rekende",
+            "plural": "rekenden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gerekend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gerekend.",
+              "en": "I have calculated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "rekende",
+          "plural": "rekenden",
+          "examples": {
+            "singular": {
+              "nl": "Ik rekende gisteren.",
+              "en": "I calculated yesterday."
+            },
+            "plural": {
+              "nl": "Wij rekenden gisteren.",
+              "en": "We calculated yesterday.",
+              "acceptedVariants": [
+                "We rekenden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "rekenen is a regular weak verb. Its past forms are rekende and rekenden; its past participle is gerekend.",
+        "nl": "rekenen is een zwak werkwoord. De verleden tijd is rekende en rekenden; het voltooid deelwoord is gerekend.",
+        "fa": "فعل rekenen باقاعده است؛ گذشتهٔ آن rekende و rekenden است و اسم مفعول آن gerekend است."
+      }
+    },
+    {
+      "id": "verb:oefenen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "oefenen",
+      "english": "to practice",
+      "morphology": {
+        "type": "weak",
+        "stem": "oefen",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geoefend",
+          "imperfectum": {
+            "singular": "oefende",
+            "plural": "oefenden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geoefend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geoefend.",
+              "en": "I have practiced today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "oefende",
+          "plural": "oefenden",
+          "examples": {
+            "singular": {
+              "nl": "Ik oefende gisteren.",
+              "en": "I practiced yesterday."
+            },
+            "plural": {
+              "nl": "Wij oefenden gisteren.",
+              "en": "We practiced yesterday.",
+              "acceptedVariants": [
+                "We oefenden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "oefenen is a regular weak verb. Its past forms are oefende and oefenden; its past participle is geoefend.",
+        "nl": "oefenen is een zwak werkwoord. De verleden tijd is oefende en oefenden; het voltooid deelwoord is geoefend.",
+        "fa": "فعل oefenen باقاعده است؛ گذشتهٔ آن oefende و oefenden است و اسم مفعول آن geoefend است."
+      }
+    },
+    {
+      "id": "verb:lenen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "lenen",
+      "english": "to borrow",
+      "morphology": {
+        "type": "weak",
+        "stem": "leen",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geleend",
+          "imperfectum": {
+            "singular": "leende",
+            "plural": "leenden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geleend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geleend.",
+              "en": "I have borrowed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "leende",
+          "plural": "leenden",
+          "examples": {
+            "singular": {
+              "nl": "Ik leende gisteren.",
+              "en": "I borrowed yesterday."
+            },
+            "plural": {
+              "nl": "Wij leenden gisteren.",
+              "en": "We borrowed yesterday.",
+              "acceptedVariants": [
+                "We leenden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "lenen is a regular weak verb. Its past forms are leende and leenden; its past participle is geleend.",
+        "nl": "lenen is een zwak werkwoord. De verleden tijd is leende en leenden; het voltooid deelwoord is geleend.",
+        "fa": "فعل lenen باقاعده است؛ گذشتهٔ آن leende و leenden است و اسم مفعول آن geleend است."
+      }
+    },
+    {
+      "id": "verb:sturen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "sturen",
+      "english": "to send",
+      "morphology": {
+        "type": "weak",
+        "stem": "stuur",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gestuurd",
+          "imperfectum": {
+            "singular": "stuurde",
+            "plural": "stuurden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gestuurd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gestuurd.",
+              "en": "I have sent today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "stuurde",
+          "plural": "stuurden",
+          "examples": {
+            "singular": {
+              "nl": "Ik stuurde gisteren.",
+              "en": "I sent yesterday."
+            },
+            "plural": {
+              "nl": "Wij stuurden gisteren.",
+              "en": "We sent yesterday.",
+              "acceptedVariants": [
+                "We stuurden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "sturen is a regular weak verb. Its past forms are stuurde and stuurden; its past participle is gestuurd.",
+        "nl": "sturen is een zwak werkwoord. De verleden tijd is stuurde en stuurden; het voltooid deelwoord is gestuurd.",
+        "fa": "فعل sturen باقاعده است؛ گذشتهٔ آن stuurde و stuurden است و اسم مفعول آن gestuurd است."
+      }
+    },
+    {
+      "id": "verb:delen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "delen",
+      "english": "to share",
+      "morphology": {
+        "type": "weak",
+        "stem": "deel",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedeeld",
+          "imperfectum": {
+            "singular": "deelde",
+            "plural": "deelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedeeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedeeld.",
+              "en": "I have shared today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "deelde",
+          "plural": "deelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik deelde gisteren.",
+              "en": "I shared yesterday."
+            },
+            "plural": {
+              "nl": "Wij deelden gisteren.",
+              "en": "We shared yesterday.",
+              "acceptedVariants": [
+                "We deelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "delen is a regular weak verb. Its past forms are deelde and deelden; its past participle is gedeeld.",
+        "nl": "delen is een zwak werkwoord. De verleden tijd is deelde en deelden; het voltooid deelwoord is gedeeld.",
+        "fa": "فعل delen باقاعده است؛ گذشتهٔ آن deelde و deelden است و اسم مفعول آن gedeeld است."
+      }
+    },
+    {
+      "id": "verb:vullen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "vullen",
+      "english": "to fill",
+      "morphology": {
+        "type": "weak",
+        "stem": "vul",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gevuld",
+          "imperfectum": {
+            "singular": "vulde",
+            "plural": "vulden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gevuld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gevuld.",
+              "en": "I have filled today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "vulde",
+          "plural": "vulden",
+          "examples": {
+            "singular": {
+              "nl": "Ik vulde gisteren.",
+              "en": "I filled yesterday."
+            },
+            "plural": {
+              "nl": "Wij vulden gisteren.",
+              "en": "We filled yesterday.",
+              "acceptedVariants": [
+                "We vulden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "vullen is a regular weak verb. Its past forms are vulde and vulden; its past participle is gevuld.",
+        "nl": "vullen is een zwak werkwoord. De verleden tijd is vulde en vulden; het voltooid deelwoord is gevuld.",
+        "fa": "فعل vullen باقاعده است؛ گذشتهٔ آن vulde و vulden است و اسم مفعول آن gevuld است."
+      }
+    },
+    {
+      "id": "verb:halen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "halen",
+      "english": "to fetch",
+      "morphology": {
+        "type": "weak",
+        "stem": "haal",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gehaald",
+          "imperfectum": {
+            "singular": "haalde",
+            "plural": "haalden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gehaald",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gehaald.",
+              "en": "I have fetched today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "haalde",
+          "plural": "haalden",
+          "examples": {
+            "singular": {
+              "nl": "Ik haalde gisteren.",
+              "en": "I fetched yesterday."
+            },
+            "plural": {
+              "nl": "Wij haalden gisteren.",
+              "en": "We fetched yesterday.",
+              "acceptedVariants": [
+                "We haalden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "halen is a regular weak verb. Its past forms are haalde and haalden; its past participle is gehaald.",
+        "nl": "halen is een zwak werkwoord. De verleden tijd is haalde en haalden; het voltooid deelwoord is gehaald.",
+        "fa": "فعل halen باقاعده است؛ گذشتهٔ آن haalde و haalden است و اسم مفعول آن gehaald است."
+      }
+    },
+    {
+      "id": "verb:bellen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "bellen",
+      "english": "to call",
+      "morphology": {
+        "type": "weak",
+        "stem": "bel",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gebeld",
+          "imperfectum": {
+            "singular": "belde",
+            "plural": "belden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gebeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gebeld.",
+              "en": "I have called today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "belde",
+          "plural": "belden",
+          "examples": {
+            "singular": {
+              "nl": "Ik belde gisteren.",
+              "en": "I called yesterday."
+            },
+            "plural": {
+              "nl": "Wij belden gisteren.",
+              "en": "We called yesterday.",
+              "acceptedVariants": [
+                "We belden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "bellen is a regular weak verb. Its past forms are belde and belden; its past participle is gebeld.",
+        "nl": "bellen is een zwak werkwoord. De verleden tijd is belde en belden; het voltooid deelwoord is gebeld.",
+        "fa": "فعل bellen باقاعده است؛ گذشتهٔ آن belde و belden است و اسم مفعول آن gebeld است."
+      }
+    },
+    {
+      "id": "verb:leggen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "leggen",
+      "english": "to place",
+      "morphology": {
+        "type": "weak",
+        "stem": "leg",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gelegd",
+          "imperfectum": {
+            "singular": "legde",
+            "plural": "legden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gelegd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gelegd.",
+              "en": "I have placed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "legde",
+          "plural": "legden",
+          "examples": {
+            "singular": {
+              "nl": "Ik legde gisteren.",
+              "en": "I placed yesterday."
+            },
+            "plural": {
+              "nl": "Wij legden gisteren.",
+              "en": "We placed yesterday.",
+              "acceptedVariants": [
+                "We legden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "leggen is a regular weak verb. Its past forms are legde and legden; its past participle is gelegd.",
+        "nl": "leggen is een zwak werkwoord. De verleden tijd is legde en legden; het voltooid deelwoord is gelegd.",
+        "fa": "فعل leggen باقاعده است؛ گذشتهٔ آن legde و legden است و اسم مفعول آن gelegd است."
+      }
+    },
+    {
+      "id": "verb:mailen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "mailen",
+      "english": "to email",
+      "morphology": {
+        "type": "weak",
+        "stem": "mail",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gemaild",
+          "imperfectum": {
+            "singular": "mailde",
+            "plural": "mailden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gemaild",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gemaild.",
+              "en": "I have emailed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "mailde",
+          "plural": "mailden",
+          "examples": {
+            "singular": {
+              "nl": "Ik mailde gisteren.",
+              "en": "I emailed yesterday."
+            },
+            "plural": {
+              "nl": "Wij mailden gisteren.",
+              "en": "We emailed yesterday.",
+              "acceptedVariants": [
+                "We mailden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "mailen is a regular weak verb. Its past forms are mailde and mailden; its past participle is gemaild.",
+        "nl": "mailen is een zwak werkwoord. De verleden tijd is mailde en mailden; het voltooid deelwoord is gemaild.",
+        "fa": "فعل mailen باقاعده است؛ گذشتهٔ آن mailde و mailden است و اسم مفعول آن gemaild است."
+      }
+    },
+    {
+      "id": "verb:appen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "appen",
+      "english": "to text",
+      "morphology": {
+        "type": "weak",
+        "stem": "app",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geappt",
+          "imperfectum": {
+            "singular": "appte",
+            "plural": "appten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geappt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geappt.",
+              "en": "I have texted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "appte",
+          "plural": "appten",
+          "examples": {
+            "singular": {
+              "nl": "Ik appte gisteren.",
+              "en": "I texted yesterday."
+            },
+            "plural": {
+              "nl": "Wij appten gisteren.",
+              "en": "We texted yesterday.",
+              "acceptedVariants": [
+                "We appten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "appen is a regular weak verb. Its past forms are appte and appten; its past participle is geappt.",
+        "nl": "appen is een zwak werkwoord. De verleden tijd is appte en appten; het voltooid deelwoord is geappt.",
+        "fa": "فعل appen باقاعده است؛ گذشتهٔ آن appte و appten است و اسم مفعول آن geappt است."
+      }
+    },
+    {
+      "id": "verb:filmen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "filmen",
+      "english": "to film",
+      "morphology": {
+        "type": "weak",
+        "stem": "film",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gefilmd",
+          "imperfectum": {
+            "singular": "filmde",
+            "plural": "filmden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gefilmd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gefilmd.",
+              "en": "I have filmed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "filmde",
+          "plural": "filmden",
+          "examples": {
+            "singular": {
+              "nl": "Ik filmde gisteren.",
+              "en": "I filmed yesterday."
+            },
+            "plural": {
+              "nl": "Wij filmden gisteren.",
+              "en": "We filmed yesterday.",
+              "acceptedVariants": [
+                "We filmden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "filmen is a regular weak verb. Its past forms are filmde and filmden; its past participle is gefilmd.",
+        "nl": "filmen is een zwak werkwoord. De verleden tijd is filmde en filmden; het voltooid deelwoord is gefilmd.",
+        "fa": "فعل filmen باقاعده است؛ گذشتهٔ آن filmde و filmden است و اسم مفعول آن gefilmd است."
+      }
+    },
+    {
+      "id": "verb:sporten",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "sporten",
+      "english": "to exercise",
+      "morphology": {
+        "type": "weak",
+        "stem": "sport",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gesport",
+          "imperfectum": {
+            "singular": "sportte",
+            "plural": "sportten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gesport",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gesport.",
+              "en": "I have exercised today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "sportte",
+          "plural": "sportten",
+          "examples": {
+            "singular": {
+              "nl": "Ik sportte gisteren.",
+              "en": "I exercised yesterday."
+            },
+            "plural": {
+              "nl": "Wij sportten gisteren.",
+              "en": "We exercised yesterday.",
+              "acceptedVariants": [
+                "We sportten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "sporten is a regular weak verb. Its past forms are sportte and sportten; its past participle is gesport.",
+        "nl": "sporten is een zwak werkwoord. De verleden tijd is sportte en sportten; het voltooid deelwoord is gesport.",
+        "fa": "فعل sporten باقاعده است؛ گذشتهٔ آن sportte و sportten است و اسم مفعول آن gesport است."
+      }
+    },
+    {
+      "id": "verb:plannen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "plannen",
+      "english": "to plan",
+      "morphology": {
+        "type": "weak",
+        "stem": "plan",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gepland",
+          "imperfectum": {
+            "singular": "plande",
+            "plural": "planden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gepland",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gepland.",
+              "en": "I have planned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "plande",
+          "plural": "planden",
+          "examples": {
+            "singular": {
+              "nl": "Ik plande gisteren.",
+              "en": "I planned yesterday."
+            },
+            "plural": {
+              "nl": "Wij planden gisteren.",
+              "en": "We planned yesterday.",
+              "acceptedVariants": [
+                "We planden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "plannen is a regular weak verb. Its past forms are plande and planden; its past participle is gepland.",
+        "nl": "plannen is een zwak werkwoord. De verleden tijd is plande en planden; het voltooid deelwoord is gepland.",
+        "fa": "فعل plannen باقاعده است؛ گذشتهٔ آن plande و planden است و اسم مفعول آن gepland است."
+      }
+    },
+    {
+      "id": "verb:printen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "printen",
+      "english": "to print",
+      "morphology": {
+        "type": "weak",
+        "stem": "print",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geprint",
+          "imperfectum": {
+            "singular": "printte",
+            "plural": "printten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geprint",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geprint.",
+              "en": "I have printed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "printte",
+          "plural": "printten",
+          "examples": {
+            "singular": {
+              "nl": "Ik printte gisteren.",
+              "en": "I printed yesterday."
+            },
+            "plural": {
+              "nl": "Wij printten gisteren.",
+              "en": "We printed yesterday.",
+              "acceptedVariants": [
+                "We printten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "printen is a regular weak verb. Its past forms are printte and printten; its past participle is geprint.",
+        "nl": "printen is een zwak werkwoord. De verleden tijd is printte en printten; het voltooid deelwoord is geprint.",
+        "fa": "فعل printen باقاعده است؛ گذشتهٔ آن printte و printten است و اسم مفعول آن geprint است."
+      }
+    },
+    {
+      "id": "verb:testen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "testen",
+      "english": "to test",
+      "morphology": {
+        "type": "weak",
+        "stem": "test",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "getest",
+          "imperfectum": {
+            "singular": "testte",
+            "plural": "testten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "getest",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag getest.",
+              "en": "I have tested today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "testte",
+          "plural": "testten",
+          "examples": {
+            "singular": {
+              "nl": "Ik testte gisteren.",
+              "en": "I tested yesterday."
+            },
+            "plural": {
+              "nl": "Wij testten gisteren.",
+              "en": "We tested yesterday.",
+              "acceptedVariants": [
+                "We testten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "testen is a regular weak verb. Its past forms are testte and testten; its past participle is getest.",
+        "nl": "testen is een zwak werkwoord. De verleden tijd is testte en testten; het voltooid deelwoord is getest.",
+        "fa": "فعل testen باقاعده است؛ گذشتهٔ آن testte و testten است و اسم مفعول آن getest است."
+      }
+    },
+    {
+      "id": "verb:huren",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "huren",
+      "english": "to rent",
+      "morphology": {
+        "type": "weak",
+        "stem": "huur",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gehuurd",
+          "imperfectum": {
+            "singular": "huurde",
+            "plural": "huurden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gehuurd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gehuurd.",
+              "en": "I have rented today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "huurde",
+          "plural": "huurden",
+          "examples": {
+            "singular": {
+              "nl": "Ik huurde gisteren.",
+              "en": "I rented yesterday."
+            },
+            "plural": {
+              "nl": "Wij huurden gisteren.",
+              "en": "We rented yesterday.",
+              "acceptedVariants": [
+                "We huurden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "huren is a regular weak verb. Its past forms are huurde and huurden; its past participle is gehuurd.",
+        "nl": "huren is een zwak werkwoord. De verleden tijd is huurde en huurden; het voltooid deelwoord is gehuurd.",
+        "fa": "فعل huren باقاعده است؛ گذشتهٔ آن huurde و huurden است و اسم مفعول آن gehuurd است."
+      }
+    },
+    {
+      "id": "verb:roken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "roken",
+      "english": "to smoke",
+      "morphology": {
+        "type": "weak",
+        "stem": "rook",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gerookt",
+          "imperfectum": {
+            "singular": "rookte",
+            "plural": "rookten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gerookt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gerookt.",
+              "en": "I have smoked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "rookte",
+          "plural": "rookten",
+          "examples": {
+            "singular": {
+              "nl": "Ik rookte gisteren.",
+              "en": "I smoked yesterday."
+            },
+            "plural": {
+              "nl": "Wij rookten gisteren.",
+              "en": "We smoked yesterday.",
+              "acceptedVariants": [
+                "We rookten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "roken is a regular weak verb. Its past forms are rookte and rookten; its past participle is gerookt.",
+        "nl": "roken is een zwak werkwoord. De verleden tijd is rookte en rookten; het voltooid deelwoord is gerookt.",
+        "fa": "فعل roken باقاعده است؛ گذشتهٔ آن rookte و rookten است و اسم مفعول آن gerookt است."
+      }
+    },
+    {
+      "id": "verb:hopen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "hopen",
+      "english": "to hope",
+      "morphology": {
+        "type": "weak",
+        "stem": "hoop",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gehoopt",
+          "imperfectum": {
+            "singular": "hoopte",
+            "plural": "hoopten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gehoopt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gehoopt.",
+              "en": "I have hoped today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "hoopte",
+          "plural": "hoopten",
+          "examples": {
+            "singular": {
+              "nl": "Ik hoopte gisteren.",
+              "en": "I hoped yesterday."
+            },
+            "plural": {
+              "nl": "Wij hoopten gisteren.",
+              "en": "We hoped yesterday.",
+              "acceptedVariants": [
+                "We hoopten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "hopen is a regular weak verb. Its past forms are hoopte and hoopten; its past participle is gehoopt.",
+        "nl": "hopen is een zwak werkwoord. De verleden tijd is hoopte en hoopten; het voltooid deelwoord is gehoopt.",
+        "fa": "فعل hopen باقاعده است؛ گذشتهٔ آن hoopte و hoopten است و اسم مفعول آن gehoopt است."
+      }
+    },
+    {
+      "id": "verb:volgen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "volgen",
+      "english": "to follow",
+      "morphology": {
+        "type": "weak",
+        "stem": "volg",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gevolgd",
+          "imperfectum": {
+            "singular": "volgde",
+            "plural": "volgden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gevolgd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gevolgd.",
+              "en": "I have followed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "volgde",
+          "plural": "volgden",
+          "examples": {
+            "singular": {
+              "nl": "Ik volgde gisteren.",
+              "en": "I followed yesterday."
+            },
+            "plural": {
+              "nl": "Wij volgden gisteren.",
+              "en": "We followed yesterday.",
+              "acceptedVariants": [
+                "We volgden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "volgen is a regular weak verb. Its past forms are volgde and volgden; its past participle is gevolgd.",
+        "nl": "volgen is een zwak werkwoord. De verleden tijd is volgde en volgden; het voltooid deelwoord is gevolgd.",
+        "fa": "فعل volgen باقاعده است؛ گذشتهٔ آن volgde و volgden است و اسم مفعول آن gevolgd است."
+      }
+    },
+    {
+      "id": "verb:wensen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "wensen",
+      "english": "to wish",
+      "morphology": {
+        "type": "weak",
+        "stem": "wens",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gewenst",
+          "imperfectum": {
+            "singular": "wenste",
+            "plural": "wensten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gewenst",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gewenst.",
+              "en": "I have wished today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "wenste",
+          "plural": "wensten",
+          "examples": {
+            "singular": {
+              "nl": "Ik wenste gisteren.",
+              "en": "I wished yesterday."
+            },
+            "plural": {
+              "nl": "Wij wensten gisteren.",
+              "en": "We wished yesterday.",
+              "acceptedVariants": [
+                "We wensten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "wensen is a regular weak verb. Its past forms are wenste and wensten; its past participle is gewenst.",
+        "nl": "wensen is een zwak werkwoord. De verleden tijd is wenste en wensten; het voltooid deelwoord is gewenst.",
+        "fa": "فعل wensen باقاعده است؛ گذشتهٔ آن wenste و wensten است و اسم مفعول آن gewenst است."
+      }
+    },
+    {
+      "id": "verb:danken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "danken",
+      "english": "to thank",
+      "morphology": {
+        "type": "weak",
+        "stem": "dank",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedankt",
+          "imperfectum": {
+            "singular": "dankte",
+            "plural": "dankten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedankt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedankt.",
+              "en": "I have thanked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "dankte",
+          "plural": "dankten",
+          "examples": {
+            "singular": {
+              "nl": "Ik dankte gisteren.",
+              "en": "I thanked yesterday."
+            },
+            "plural": {
+              "nl": "Wij dankten gisteren.",
+              "en": "We thanked yesterday.",
+              "acceptedVariants": [
+                "We dankten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "danken is a regular weak verb. Its past forms are dankte and dankten; its past participle is gedankt.",
+        "nl": "danken is een zwak werkwoord. De verleden tijd is dankte en dankten; het voltooid deelwoord is gedankt.",
+        "fa": "فعل danken باقاعده است؛ گذشتهٔ آن dankte و dankten است و اسم مفعول آن gedankt است."
+      }
+    },
+    {
+      "id": "verb:groeten",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "groeten",
+      "english": "to greet",
+      "morphology": {
+        "type": "weak",
+        "stem": "groet",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gegroet",
+          "imperfectum": {
+            "singular": "groette",
+            "plural": "groetten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gegroet",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gegroet.",
+              "en": "I have greeted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "groette",
+          "plural": "groetten",
+          "examples": {
+            "singular": {
+              "nl": "Ik groette gisteren.",
+              "en": "I greeted yesterday."
+            },
+            "plural": {
+              "nl": "Wij groetten gisteren.",
+              "en": "We greeted yesterday.",
+              "acceptedVariants": [
+                "We groetten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "groeten is a regular weak verb. Its past forms are groette and groetten; its past participle is gegroet.",
+        "nl": "groeten is een zwak werkwoord. De verleden tijd is groette en groetten; het voltooid deelwoord is gegroet.",
+        "fa": "فعل groeten باقاعده است؛ گذشتهٔ آن groette و groetten است و اسم مفعول آن gegroet است."
+      }
+    },
+    {
+      "id": "verb:bestellen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "bestellen",
+      "english": "to order",
+      "morphology": {
+        "type": "weak",
+        "stem": "bestel",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "besteld",
+          "imperfectum": {
+            "singular": "bestelde",
+            "plural": "bestelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "besteld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag besteld.",
+              "en": "I have ordered today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "bestelde",
+          "plural": "bestelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik bestelde gisteren.",
+              "en": "I ordered yesterday."
+            },
+            "plural": {
+              "nl": "Wij bestelden gisteren.",
+              "en": "We ordered yesterday.",
+              "acceptedVariants": [
+                "We bestelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "bestellen is a regular weak verb. Its past forms are bestelde and bestelden; its past participle is besteld.",
+        "nl": "bestellen is een zwak werkwoord. De verleden tijd is bestelde en bestelden; het voltooid deelwoord is besteld.",
+        "fa": "فعل bestellen باقاعده است؛ گذشتهٔ آن bestelde و bestelden است و اسم مفعول آن besteld است."
+      }
+    },
+    {
+      "id": "verb:verdienen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "verdienen",
+      "english": "to earn",
+      "morphology": {
+        "type": "weak",
+        "stem": "verdien",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verdiend",
+          "imperfectum": {
+            "singular": "verdiende",
+            "plural": "verdienden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verdiend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verdiend.",
+              "en": "I have earned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verdiende",
+          "plural": "verdienden",
+          "examples": {
+            "singular": {
+              "nl": "Ik verdiende gisteren.",
+              "en": "I earned yesterday."
+            },
+            "plural": {
+              "nl": "Wij verdienden gisteren.",
+              "en": "We earned yesterday.",
+              "acceptedVariants": [
+                "We verdienden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verdienen is a regular weak verb. Its past forms are verdiende and verdienden; its past participle is verdiend.",
+        "nl": "verdienen is een zwak werkwoord. De verleden tijd is verdiende en verdienden; het voltooid deelwoord is verdiend.",
+        "fa": "فعل verdienen باقاعده است؛ گذشتهٔ آن verdiende و verdienden است و اسم مفعول آن verdiend است."
+      }
+    },
+    {
+      "id": "verb:verklaren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "verklaren",
+      "english": "to explain",
+      "morphology": {
+        "type": "weak",
+        "stem": "verklaar",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verklaard",
+          "imperfectum": {
+            "singular": "verklaarde",
+            "plural": "verklaarden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verklaard",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verklaard.",
+              "en": "I have explained today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verklaarde",
+          "plural": "verklaarden",
+          "examples": {
+            "singular": {
+              "nl": "Ik verklaarde gisteren.",
+              "en": "I explained yesterday."
+            },
+            "plural": {
+              "nl": "Wij verklaarden gisteren.",
+              "en": "We explained yesterday.",
+              "acceptedVariants": [
+                "We verklaarden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verklaren is a regular weak verb. Its past forms are verklaarde and verklaarden; its past participle is verklaard.",
+        "nl": "verklaren is een zwak werkwoord. De verleden tijd is verklaarde en verklaarden; het voltooid deelwoord is verklaard.",
+        "fa": "فعل verklaren باقاعده است؛ گذشتهٔ آن verklaarde و verklaarden است و اسم مفعول آن verklaard است."
+      }
+    },
+    {
+      "id": "verb:vertalen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "vertalen",
+      "english": "to translate",
+      "morphology": {
+        "type": "weak",
+        "stem": "vertaal",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "vertaald",
+          "imperfectum": {
+            "singular": "vertaalde",
+            "plural": "vertaalden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "vertaald",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag vertaald.",
+              "en": "I have translated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "vertaalde",
+          "plural": "vertaalden",
+          "examples": {
+            "singular": {
+              "nl": "Ik vertaalde gisteren.",
+              "en": "I translated yesterday."
+            },
+            "plural": {
+              "nl": "Wij vertaalden gisteren.",
+              "en": "We translated yesterday.",
+              "acceptedVariants": [
+                "We vertaalden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "vertalen is a regular weak verb. Its past forms are vertaalde and vertaalden; its past participle is vertaald.",
+        "nl": "vertalen is een zwak werkwoord. De verleden tijd is vertaalde en vertaalden; het voltooid deelwoord is vertaald.",
+        "fa": "فعل vertalen باقاعده است؛ گذشتهٔ آن vertaalde و vertaalden است و اسم مفعول آن vertaald است."
+      }
+    },
+    {
+      "id": "verb:ontmoeten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "ontmoeten",
+      "english": "to meet",
+      "morphology": {
+        "type": "weak",
+        "stem": "ontmoet",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "ontmoet",
+          "imperfectum": {
+            "singular": "ontmoette",
+            "plural": "ontmoetten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "ontmoet",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag ontmoet.",
+              "en": "I have met today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "ontmoette",
+          "plural": "ontmoetten",
+          "examples": {
+            "singular": {
+              "nl": "Ik ontmoette gisteren.",
+              "en": "I met yesterday."
+            },
+            "plural": {
+              "nl": "Wij ontmoetten gisteren.",
+              "en": "We met yesterday.",
+              "acceptedVariants": [
+                "We ontmoetten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "ontmoeten is a regular weak verb. Its past forms are ontmoette and ontmoetten; its past participle is ontmoet.",
+        "nl": "ontmoeten is een zwak werkwoord. De verleden tijd is ontmoette en ontmoetten; het voltooid deelwoord is ontmoet.",
+        "fa": "فعل ontmoeten باقاعده است؛ گذشتهٔ آن ontmoette و ontmoetten است و اسم مفعول آن ontmoet است."
+      }
+    },
+    {
+      "id": "verb:herhalen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "herhalen",
+      "english": "to repeat",
+      "morphology": {
+        "type": "weak",
+        "stem": "herhaal",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "herhaald",
+          "imperfectum": {
+            "singular": "herhaalde",
+            "plural": "herhaalden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "herhaald",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag herhaald.",
+              "en": "I have repeated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "herhaalde",
+          "plural": "herhaalden",
+          "examples": {
+            "singular": {
+              "nl": "Ik herhaalde gisteren.",
+              "en": "I repeated yesterday."
+            },
+            "plural": {
+              "nl": "Wij herhaalden gisteren.",
+              "en": "We repeated yesterday.",
+              "acceptedVariants": [
+                "We herhaalden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "herhalen is a regular weak verb. Its past forms are herhaalde and herhaalden; its past participle is herhaald.",
+        "nl": "herhalen is een zwak werkwoord. De verleden tijd is herhaalde en herhaalden; het voltooid deelwoord is herhaald.",
+        "fa": "فعل herhalen باقاعده است؛ گذشتهٔ آن herhaalde و herhaalden است و اسم مفعول آن herhaald است."
+      }
+    },
+    {
+      "id": "verb:herkennen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "herkennen",
+      "english": "to recognize",
+      "morphology": {
+        "type": "weak",
+        "stem": "herken",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "herkend",
+          "imperfectum": {
+            "singular": "herkende",
+            "plural": "herkenden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "herkend",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag herkend.",
+              "en": "I have recognized today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "herkende",
+          "plural": "herkenden",
+          "examples": {
+            "singular": {
+              "nl": "Ik herkende gisteren.",
+              "en": "I recognized yesterday."
+            },
+            "plural": {
+              "nl": "Wij herkenden gisteren.",
+              "en": "We recognized yesterday.",
+              "acceptedVariants": [
+                "We herkenden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "herkennen is a regular weak verb. Its past forms are herkende and herkenden; its past participle is herkend.",
+        "nl": "herkennen is een zwak werkwoord. De verleden tijd is herkende en herkenden; het voltooid deelwoord is herkend.",
+        "fa": "فعل herkennen باقاعده است؛ گذشتهٔ آن herkende و herkenden است و اسم مفعول آن herkend است."
+      }
+    },
+    {
+      "id": "verb:verwachten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "verwachten",
+      "english": "to expect",
+      "morphology": {
+        "type": "weak",
+        "stem": "verwacht",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verwacht",
+          "imperfectum": {
+            "singular": "verwachtte",
+            "plural": "verwachtten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verwacht",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verwacht.",
+              "en": "I have expected today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verwachtte",
+          "plural": "verwachtten",
+          "examples": {
+            "singular": {
+              "nl": "Ik verwachtte gisteren.",
+              "en": "I expected yesterday."
+            },
+            "plural": {
+              "nl": "Wij verwachtten gisteren.",
+              "en": "We expected yesterday.",
+              "acceptedVariants": [
+                "We verwachtten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verwachten is a regular weak verb. Its past forms are verwachtte and verwachtten; its past participle is verwacht.",
+        "nl": "verwachten is een zwak werkwoord. De verleden tijd is verwachtte en verwachtten; het voltooid deelwoord is verwacht.",
+        "fa": "فعل verwachten باقاعده است؛ گذشتهٔ آن verwachtte و verwachtten است و اسم مفعول آن verwacht است."
+      }
+    },
+    {
+      "id": "verb:ontwikkelen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "ontwikkelen",
+      "english": "to develop",
+      "morphology": {
+        "type": "weak",
+        "stem": "ontwikkel",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "ontwikkeld",
+          "imperfectum": {
+            "singular": "ontwikkelde",
+            "plural": "ontwikkelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "ontwikkeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag ontwikkeld.",
+              "en": "I have developed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "ontwikkelde",
+          "plural": "ontwikkelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik ontwikkelde gisteren.",
+              "en": "I developed yesterday."
+            },
+            "plural": {
+              "nl": "Wij ontwikkelden gisteren.",
+              "en": "We developed yesterday.",
+              "acceptedVariants": [
+                "We ontwikkelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "ontwikkelen is a regular weak verb. Its past forms are ontwikkelde and ontwikkelden; its past participle is ontwikkeld.",
+        "nl": "ontwikkelen is een zwak werkwoord. De verleden tijd is ontwikkelde en ontwikkelden; het voltooid deelwoord is ontwikkeld.",
+        "fa": "فعل ontwikkelen باقاعده است؛ گذشتهٔ آن ontwikkelde و ontwikkelden است و اسم مفعول آن ontwikkeld است."
+      }
+    },
+    {
+      "id": "verb:verzamelen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "verzamelen",
+      "english": "to collect",
+      "morphology": {
+        "type": "weak",
+        "stem": "verzamel",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verzameld",
+          "imperfectum": {
+            "singular": "verzamelde",
+            "plural": "verzamelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verzameld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verzameld.",
+              "en": "I have collected today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verzamelde",
+          "plural": "verzamelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik verzamelde gisteren.",
+              "en": "I collected yesterday."
+            },
+            "plural": {
+              "nl": "Wij verzamelden gisteren.",
+              "en": "We collected yesterday.",
+              "acceptedVariants": [
+                "We verzamelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verzamelen is a regular weak verb. Its past forms are verzamelde and verzamelden; its past participle is verzameld.",
+        "nl": "verzamelen is een zwak werkwoord. De verleden tijd is verzamelde en verzamelden; het voltooid deelwoord is verzameld.",
+        "fa": "فعل verzamelen باقاعده است؛ گذشتهٔ آن verzamelde و verzamelden است و اسم مفعول آن verzameld است."
+      }
+    },
+    {
+      "id": "verb:repareren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "repareren",
+      "english": "to repair",
+      "morphology": {
+        "type": "weak",
+        "stem": "repareer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gerepareerd",
+          "imperfectum": {
+            "singular": "repareerde",
+            "plural": "repareerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gerepareerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gerepareerd.",
+              "en": "I have repaired today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "repareerde",
+          "plural": "repareerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik repareerde gisteren.",
+              "en": "I repaired yesterday."
+            },
+            "plural": {
+              "nl": "Wij repareerden gisteren.",
+              "en": "We repaired yesterday.",
+              "acceptedVariants": [
+                "We repareerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "repareren is a regular weak verb. Its past forms are repareerde and repareerden; its past participle is gerepareerd.",
+        "nl": "repareren is een zwak werkwoord. De verleden tijd is repareerde en repareerden; het voltooid deelwoord is gerepareerd.",
+        "fa": "فعل repareren باقاعده است؛ گذشتهٔ آن repareerde و repareerden است و اسم مفعول آن gerepareerd است."
+      }
+    },
+    {
+      "id": "verb:organiseren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "organiseren",
+      "english": "to organize",
+      "morphology": {
+        "type": "weak",
+        "stem": "organiseer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "georganiseerd",
+          "imperfectum": {
+            "singular": "organiseerde",
+            "plural": "organiseerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "georganiseerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag georganiseerd.",
+              "en": "I have organized today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "organiseerde",
+          "plural": "organiseerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik organiseerde gisteren.",
+              "en": "I organized yesterday."
+            },
+            "plural": {
+              "nl": "Wij organiseerden gisteren.",
+              "en": "We organized yesterday.",
+              "acceptedVariants": [
+                "We organiseerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "organiseren is a regular weak verb. Its past forms are organiseerde and organiseerden; its past participle is georganiseerd.",
+        "nl": "organiseren is een zwak werkwoord. De verleden tijd is organiseerde en organiseerden; het voltooid deelwoord is georganiseerd.",
+        "fa": "فعل organiseren باقاعده است؛ گذشتهٔ آن organiseerde و organiseerden است و اسم مفعول آن georganiseerd است."
+      }
+    },
+    {
+      "id": "verb:controleren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "controleren",
+      "english": "to check",
+      "morphology": {
+        "type": "weak",
+        "stem": "controleer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gecontroleerd",
+          "imperfectum": {
+            "singular": "controleerde",
+            "plural": "controleerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gecontroleerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gecontroleerd.",
+              "en": "I have checked today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "controleerde",
+          "plural": "controleerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik controleerde gisteren.",
+              "en": "I checked yesterday."
+            },
+            "plural": {
+              "nl": "Wij controleerden gisteren.",
+              "en": "We checked yesterday.",
+              "acceptedVariants": [
+                "We controleerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "controleren is a regular weak verb. Its past forms are controleerde and controleerden; its past participle is gecontroleerd.",
+        "nl": "controleren is een zwak werkwoord. De verleden tijd is controleerde en controleerden; het voltooid deelwoord is gecontroleerd.",
+        "fa": "فعل controleren باقاعده است؛ گذشتهٔ آن controleerde و controleerden است و اسم مفعول آن gecontroleerd است."
+      }
+    },
+    {
+      "id": "verb:fotograferen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "fotograferen",
+      "english": "to photograph",
+      "morphology": {
+        "type": "weak",
+        "stem": "fotografeer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gefotografeerd",
+          "imperfectum": {
+            "singular": "fotografeerde",
+            "plural": "fotografeerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gefotografeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gefotografeerd.",
+              "en": "I have photographed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "fotografeerde",
+          "plural": "fotografeerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik fotografeerde gisteren.",
+              "en": "I photographed yesterday."
+            },
+            "plural": {
+              "nl": "Wij fotografeerden gisteren.",
+              "en": "We photographed yesterday.",
+              "acceptedVariants": [
+                "We fotografeerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "fotograferen is a regular weak verb. Its past forms are fotografeerde and fotografeerden; its past participle is gefotografeerd.",
+        "nl": "fotograferen is een zwak werkwoord. De verleden tijd is fotografeerde en fotografeerden; het voltooid deelwoord is gefotografeerd.",
+        "fa": "فعل fotograferen باقاعده است؛ گذشتهٔ آن fotografeerde و fotografeerden است و اسم مفعول آن gefotografeerd است."
+      }
+    },
+    {
+      "id": "verb:telefoneren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "telefoneren",
+      "english": "to telephone",
+      "morphology": {
+        "type": "weak",
+        "stem": "telefoneer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "getelefoneerd",
+          "imperfectum": {
+            "singular": "telefoneerde",
+            "plural": "telefoneerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "getelefoneerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag getelefoneerd.",
+              "en": "I have telephoned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "telefoneerde",
+          "plural": "telefoneerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik telefoneerde gisteren.",
+              "en": "I telephoned yesterday."
+            },
+            "plural": {
+              "nl": "Wij telefoneerden gisteren.",
+              "en": "We telephoned yesterday.",
+              "acceptedVariants": [
+                "We telefoneerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "telefoneren is a regular weak verb. Its past forms are telefoneerde and telefoneerden; its past participle is getelefoneerd.",
+        "nl": "telefoneren is een zwak werkwoord. De verleden tijd is telefoneerde en telefoneerden; het voltooid deelwoord is getelefoneerd.",
+        "fa": "فعل telefoneren باقاعده است؛ گذشتهٔ آن telefoneerde و telefoneerden است و اسم مفعول آن getelefoneerd است."
+      }
+    },
+    {
+      "id": "verb:kamperen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "kamperen",
+      "english": "to camp",
+      "morphology": {
+        "type": "weak",
+        "stem": "kampeer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gekampeerd",
+          "imperfectum": {
+            "singular": "kampeerde",
+            "plural": "kampeerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gekampeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gekampeerd.",
+              "en": "I have camped today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "kampeerde",
+          "plural": "kampeerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik kampeerde gisteren.",
+              "en": "I camped yesterday."
+            },
+            "plural": {
+              "nl": "Wij kampeerden gisteren.",
+              "en": "We camped yesterday.",
+              "acceptedVariants": [
+                "We kampeerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "kamperen is a regular weak verb. Its past forms are kampeerde and kampeerden; its past participle is gekampeerd.",
+        "nl": "kamperen is een zwak werkwoord. De verleden tijd is kampeerde en kampeerden; het voltooid deelwoord is gekampeerd.",
+        "fa": "فعل kamperen باقاعده است؛ گذشتهٔ آن kampeerde و kampeerden است و اسم مفعول آن gekampeerd است."
+      }
+    },
+    {
+      "id": "verb:trainen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "trainen",
+      "english": "to train",
+      "morphology": {
+        "type": "weak",
+        "stem": "train",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "getraind",
+          "imperfectum": {
+            "singular": "trainde",
+            "plural": "trainden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "getraind",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag getraind.",
+              "en": "I have trained today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "trainde",
+          "plural": "trainden",
+          "examples": {
+            "singular": {
+              "nl": "Ik trainde gisteren.",
+              "en": "I trained yesterday."
+            },
+            "plural": {
+              "nl": "Wij trainden gisteren.",
+              "en": "We trained yesterday.",
+              "acceptedVariants": [
+                "We trainden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "trainen is a regular weak verb. Its past forms are trainde and trainden; its past participle is getraind.",
+        "nl": "trainen is een zwak werkwoord. De verleden tijd is trainde en trainden; het voltooid deelwoord is getraind.",
+        "fa": "فعل trainen باقاعده است؛ گذشتهٔ آن trainde و trainden است و اسم مفعول آن getraind است."
+      }
+    },
+    {
+      "id": "verb:joggen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "joggen",
+      "english": "to jog",
+      "morphology": {
+        "type": "weak",
+        "stem": "jog",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gejogd",
+          "imperfectum": {
+            "singular": "jogde",
+            "plural": "jogden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gejogd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gejogd.",
+              "en": "I have jogged today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "jogde",
+          "plural": "jogden",
+          "examples": {
+            "singular": {
+              "nl": "Ik jogde gisteren.",
+              "en": "I jogged yesterday."
+            },
+            "plural": {
+              "nl": "Wij jogden gisteren.",
+              "en": "We jogged yesterday.",
+              "acceptedVariants": [
+                "We jogden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "joggen is a regular weak verb. Its past forms are jogde and jogden; its past participle is gejogd.",
+        "nl": "joggen is een zwak werkwoord. De verleden tijd is jogde en jogden; het voltooid deelwoord is gejogd.",
+        "fa": "فعل joggen باقاعده است؛ گذشتهٔ آن jogde و jogden است و اسم مفعول آن gejogd است."
+      }
+    },
+    {
+      "id": "verb:rusten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "rusten",
+      "english": "to rest",
+      "morphology": {
+        "type": "weak",
+        "stem": "rust",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gerust",
+          "imperfectum": {
+            "singular": "rustte",
+            "plural": "rustten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gerust",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gerust.",
+              "en": "I have rested today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "rustte",
+          "plural": "rustten",
+          "examples": {
+            "singular": {
+              "nl": "Ik rustte gisteren.",
+              "en": "I rested yesterday."
+            },
+            "plural": {
+              "nl": "Wij rustten gisteren.",
+              "en": "We rested yesterday.",
+              "acceptedVariants": [
+                "We rustten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "rusten is a regular weak verb. Its past forms are rustte and rustten; its past participle is gerust.",
+        "nl": "rusten is een zwak werkwoord. De verleden tijd is rustte en rustten; het voltooid deelwoord is gerust.",
+        "fa": "فعل rusten باقاعده است؛ گذشتهٔ آن rustte و rustten است و اسم مفعول آن gerust است."
+      }
+    },
+    {
+      "id": "verb:stoppen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "stoppen",
+      "english": "to stop",
+      "morphology": {
+        "type": "weak",
+        "stem": "stop",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gestopt",
+          "imperfectum": {
+            "singular": "stopte",
+            "plural": "stopten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gestopt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gestopt.",
+              "en": "I have stopped today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "stopte",
+          "plural": "stopten",
+          "examples": {
+            "singular": {
+              "nl": "Ik stopte gisteren.",
+              "en": "I stopped yesterday."
+            },
+            "plural": {
+              "nl": "Wij stopten gisteren.",
+              "en": "We stopped yesterday.",
+              "acceptedVariants": [
+                "We stopten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "stoppen is a regular weak verb. Its past forms are stopte and stopten; its past participle is gestopt.",
+        "nl": "stoppen is een zwak werkwoord. De verleden tijd is stopte en stopten; het voltooid deelwoord is gestopt.",
+        "fa": "فعل stoppen باقاعده است؛ گذشتهٔ آن stopte و stopten است و اسم مفعول آن gestopt است."
+      }
+    },
+    {
+      "id": "verb:starten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "starten",
+      "english": "to start",
+      "morphology": {
+        "type": "weak",
+        "stem": "start",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gestart",
+          "imperfectum": {
+            "singular": "startte",
+            "plural": "startten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gestart",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gestart.",
+              "en": "I have started today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "startte",
+          "plural": "startten",
+          "examples": {
+            "singular": {
+              "nl": "Ik startte gisteren.",
+              "en": "I started yesterday."
+            },
+            "plural": {
+              "nl": "Wij startten gisteren.",
+              "en": "We started yesterday.",
+              "acceptedVariants": [
+                "We startten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "starten is a regular weak verb. Its past forms are startte and startten; its past participle is gestart.",
+        "nl": "starten is een zwak werkwoord. De verleden tijd is startte en startten; het voltooid deelwoord is gestart.",
+        "fa": "فعل starten باقاعده است؛ گذشتهٔ آن startte و startten است و اسم مفعول آن gestart است."
+      }
+    },
+    {
+      "id": "verb:vegen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "vegen",
+      "english": "to sweep",
+      "morphology": {
+        "type": "weak",
+        "stem": "veeg",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geveegd",
+          "imperfectum": {
+            "singular": "veegde",
+            "plural": "veegden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geveegd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geveegd.",
+              "en": "I have swept today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "veegde",
+          "plural": "veegden",
+          "examples": {
+            "singular": {
+              "nl": "Ik veegde gisteren.",
+              "en": "I swept yesterday."
+            },
+            "plural": {
+              "nl": "Wij veegden gisteren.",
+              "en": "We swept yesterday.",
+              "acceptedVariants": [
+                "We veegden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "vegen is a regular weak verb. Its past forms are veegde and veegden; its past participle is geveegd.",
+        "nl": "vegen is een zwak werkwoord. De verleden tijd is veegde en veegden; het voltooid deelwoord is geveegd.",
+        "fa": "فعل vegen باقاعده است؛ گذشتهٔ آن veegde و veegden است و اسم مفعول آن geveegd است."
+      }
+    },
+    {
+      "id": "verb:knippen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "knippen",
+      "english": "to cut",
+      "morphology": {
+        "type": "weak",
+        "stem": "knip",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geknipt",
+          "imperfectum": {
+            "singular": "knipte",
+            "plural": "knipten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geknipt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geknipt.",
+              "en": "I have cut today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "knipte",
+          "plural": "knipten",
+          "examples": {
+            "singular": {
+              "nl": "Ik knipte gisteren.",
+              "en": "I cut yesterday."
+            },
+            "plural": {
+              "nl": "Wij knipten gisteren.",
+              "en": "We cut yesterday.",
+              "acceptedVariants": [
+                "We knipten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "knippen is a regular weak verb. Its past forms are knipte and knipten; its past participle is geknipt.",
+        "nl": "knippen is een zwak werkwoord. De verleden tijd is knipte en knipten; het voltooid deelwoord is geknipt.",
+        "fa": "فعل knippen باقاعده است؛ گذشتهٔ آن knipte و knipten است و اسم مفعول آن geknipt است."
+      }
+    },
+    {
+      "id": "verb:plakken",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "plakken",
+      "english": "to stick",
+      "morphology": {
+        "type": "weak",
+        "stem": "plak",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geplakt",
+          "imperfectum": {
+            "singular": "plakte",
+            "plural": "plakten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geplakt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geplakt.",
+              "en": "I have stuck today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "plakte",
+          "plural": "plakten",
+          "examples": {
+            "singular": {
+              "nl": "Ik plakte gisteren.",
+              "en": "I stuck yesterday."
+            },
+            "plural": {
+              "nl": "Wij plakten gisteren.",
+              "en": "We stuck yesterday.",
+              "acceptedVariants": [
+                "We plakten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "plakken is a regular weak verb. Its past forms are plakte and plakten; its past participle is geplakt.",
+        "nl": "plakken is een zwak werkwoord. De verleden tijd is plakte en plakten; het voltooid deelwoord is geplakt.",
+        "fa": "فعل plakken باقاعده است؛ گذشتهٔ آن plakte و plakten است و اسم مفعول آن geplakt است."
+      }
+    },
+    {
+      "id": "verb:knuffelen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "knuffelen",
+      "english": "to hug",
+      "morphology": {
+        "type": "weak",
+        "stem": "knuffel",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geknuffeld",
+          "imperfectum": {
+            "singular": "knuffelde",
+            "plural": "knuffelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geknuffeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geknuffeld.",
+              "en": "I have hugged today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "knuffelde",
+          "plural": "knuffelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik knuffelde gisteren.",
+              "en": "I hugged yesterday."
+            },
+            "plural": {
+              "nl": "Wij knuffelden gisteren.",
+              "en": "We hugged yesterday.",
+              "acceptedVariants": [
+                "We knuffelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "knuffelen is a regular weak verb. Its past forms are knuffelde and knuffelden; its past participle is geknuffeld.",
+        "nl": "knuffelen is een zwak werkwoord. De verleden tijd is knuffelde en knuffelden; het voltooid deelwoord is geknuffeld.",
+        "fa": "فعل knuffelen باقاعده است؛ گذشتهٔ آن knuffelde و knuffelden است و اسم مفعول آن geknuffeld است."
+      }
+    },
+    {
+      "id": "verb:aaien",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "aaien",
+      "english": "to pet",
+      "morphology": {
+        "type": "weak",
+        "stem": "aai",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geaaid",
+          "imperfectum": {
+            "singular": "aaide",
+            "plural": "aaiden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geaaid",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geaaid.",
+              "en": "I have petted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "aaide",
+          "plural": "aaiden",
+          "examples": {
+            "singular": {
+              "nl": "Ik aaide gisteren.",
+              "en": "I petted yesterday."
+            },
+            "plural": {
+              "nl": "Wij aaiden gisteren.",
+              "en": "We petted yesterday.",
+              "acceptedVariants": [
+                "We aaiden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "aaien is a regular weak verb. Its past forms are aaide and aaiden; its past participle is geaaid.",
+        "nl": "aaien is een zwak werkwoord. De verleden tijd is aaide en aaiden; het voltooid deelwoord is geaaid.",
+        "fa": "فعل aaien باقاعده است؛ گذشتهٔ آن aaide و aaiden است و اسم مفعول آن geaaid است."
+      }
+    },
+    {
+      "id": "verb:schilderen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "schilderen",
+      "english": "to paint",
+      "morphology": {
+        "type": "weak",
+        "stem": "schilder",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geschilderd",
+          "imperfectum": {
+            "singular": "schilderde",
+            "plural": "schilderden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geschilderd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geschilderd.",
+              "en": "I have painted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "schilderde",
+          "plural": "schilderden",
+          "examples": {
+            "singular": {
+              "nl": "Ik schilderde gisteren.",
+              "en": "I painted yesterday."
+            },
+            "plural": {
+              "nl": "Wij schilderden gisteren.",
+              "en": "We painted yesterday.",
+              "acceptedVariants": [
+                "We schilderden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "schilderen is a regular weak verb. Its past forms are schilderde and schilderden; its past participle is geschilderd.",
+        "nl": "schilderen is een zwak werkwoord. De verleden tijd is schilderde en schilderden; het voltooid deelwoord is geschilderd.",
+        "fa": "فعل schilderen باقاعده است؛ گذشتهٔ آن schilderde و schilderden است و اسم مفعول آن geschilderd است."
+      }
+    },
+    {
+      "id": "verb:redden",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "redden",
+      "english": "to rescue",
+      "morphology": {
+        "type": "weak",
+        "stem": "red",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gered",
+          "imperfectum": {
+            "singular": "redde",
+            "plural": "redden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gered",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gered.",
+              "en": "I have rescued today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "redde",
+          "plural": "redden",
+          "examples": {
+            "singular": {
+              "nl": "Ik redde gisteren.",
+              "en": "I rescued yesterday."
+            },
+            "plural": {
+              "nl": "Wij redden gisteren.",
+              "en": "We rescued yesterday.",
+              "acceptedVariants": [
+                "We redden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "redden is a regular weak verb. Its past forms are redde and redden; its past participle is gered.",
+        "nl": "redden is een zwak werkwoord. De verleden tijd is redde en redden; het voltooid deelwoord is gered.",
+        "fa": "فعل redden باقاعده است؛ گذشتهٔ آن redde و redden است و اسم مفعول آن gered است."
+      }
+    },
+    {
+      "id": "verb:melden",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "melden",
+      "english": "to report",
+      "morphology": {
+        "type": "weak",
+        "stem": "meld",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gemeld",
+          "imperfectum": {
+            "singular": "meldde",
+            "plural": "meldden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gemeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gemeld.",
+              "en": "I have reported today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "meldde",
+          "plural": "meldden",
+          "examples": {
+            "singular": {
+              "nl": "Ik meldde gisteren.",
+              "en": "I reported yesterday."
+            },
+            "plural": {
+              "nl": "Wij meldden gisteren.",
+              "en": "We reported yesterday.",
+              "acceptedVariants": [
+                "We meldden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "melden is a regular weak verb. Its past forms are meldde and meldden; its past participle is gemeld.",
+        "nl": "melden is een zwak werkwoord. De verleden tijd is meldde en meldden; het voltooid deelwoord is gemeld.",
+        "fa": "فعل melden باقاعده است؛ گذشتهٔ آن meldde و meldden است و اسم مفعول آن gemeld است."
+      }
+    },
+    {
+      "id": "verb:duren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "duren",
+      "english": "to last",
+      "morphology": {
+        "type": "weak",
+        "stem": "duur",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geduurd",
+          "imperfectum": {
+            "singular": "duurde",
+            "plural": "duurden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geduurd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geduurd.",
+              "en": "I have lasted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "duurde",
+          "plural": "duurden",
+          "examples": {
+            "singular": {
+              "nl": "Ik duurde gisteren.",
+              "en": "I lasted yesterday."
+            },
+            "plural": {
+              "nl": "Wij duurden gisteren.",
+              "en": "We lasted yesterday.",
+              "acceptedVariants": [
+                "We duurden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "duren is a regular weak verb. Its past forms are duurde and duurden; its past participle is geduurd.",
+        "nl": "duren is een zwak werkwoord. De verleden tijd is duurde en duurden; het voltooid deelwoord is geduurd.",
+        "fa": "فعل duren باقاعده است؛ گذشتهٔ آن duurde و duurden است و اسم مفعول آن geduurd است."
+      }
+    },
+    {
+      "id": "verb:vieren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "vieren",
+      "english": "to celebrate",
+      "morphology": {
+        "type": "weak",
+        "stem": "vier",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gevierd",
+          "imperfectum": {
+            "singular": "vierde",
+            "plural": "vierden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gevierd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gevierd.",
+              "en": "I have celebrated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "vierde",
+          "plural": "vierden",
+          "examples": {
+            "singular": {
+              "nl": "Ik vierde gisteren.",
+              "en": "I celebrated yesterday."
+            },
+            "plural": {
+              "nl": "Wij vierden gisteren.",
+              "en": "We celebrated yesterday.",
+              "acceptedVariants": [
+                "We vierden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "vieren is a regular weak verb. Its past forms are vierde and vierden; its past participle is gevierd.",
+        "nl": "vieren is een zwak werkwoord. De verleden tijd is vierde en vierden; het voltooid deelwoord is gevierd.",
+        "fa": "فعل vieren باقاعده است؛ گذشتهٔ آن vierde و vierden است و اسم مفعول آن gevierd است."
+      }
+    },
+    {
+      "id": "verb:schatten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "schatten",
+      "english": "to estimate",
+      "morphology": {
+        "type": "weak",
+        "stem": "schat",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geschat",
+          "imperfectum": {
+            "singular": "schatte",
+            "plural": "schatten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geschat",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geschat.",
+              "en": "I have estimated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "schatte",
+          "plural": "schatten",
+          "examples": {
+            "singular": {
+              "nl": "Ik schatte gisteren.",
+              "en": "I estimated yesterday."
+            },
+            "plural": {
+              "nl": "Wij schatten gisteren.",
+              "en": "We estimated yesterday.",
+              "acceptedVariants": [
+                "We schatten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "schatten is a regular weak verb. Its past forms are schatte and schatten; its past participle is geschat.",
+        "nl": "schatten is een zwak werkwoord. De verleden tijd is schatte en schatten; het voltooid deelwoord is geschat.",
+        "fa": "فعل schatten باقاعده است؛ گذشتهٔ آن schatte و schatten است و اسم مفعول آن geschat است."
+      }
+    },
+    {
+      "id": "verb:draaien",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "draaien",
+      "english": "to turn",
+      "morphology": {
+        "type": "weak",
+        "stem": "draai",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedraaid",
+          "imperfectum": {
+            "singular": "draaide",
+            "plural": "draaiden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedraaid",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedraaid.",
+              "en": "I have turned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "draaide",
+          "plural": "draaiden",
+          "examples": {
+            "singular": {
+              "nl": "Ik draaide gisteren.",
+              "en": "I turned yesterday."
+            },
+            "plural": {
+              "nl": "Wij draaiden gisteren.",
+              "en": "We turned yesterday.",
+              "acceptedVariants": [
+                "We draaiden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "draaien is a regular weak verb. Its past forms are draaide and draaiden; its past participle is gedraaid.",
+        "nl": "draaien is een zwak werkwoord. De verleden tijd is draaide en draaiden; het voltooid deelwoord is gedraaid.",
+        "fa": "فعل draaien باقاعده است؛ گذشتهٔ آن draaide و draaiden است و اسم مفعول آن gedraaid است."
+      }
+    },
+    {
+      "id": "verb:zorgen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "zorgen",
+      "english": "to care",
+      "morphology": {
+        "type": "weak",
+        "stem": "zorg",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gezorgd",
+          "imperfectum": {
+            "singular": "zorgde",
+            "plural": "zorgden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gezorgd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gezorgd.",
+              "en": "I have cared today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "zorgde",
+          "plural": "zorgden",
+          "examples": {
+            "singular": {
+              "nl": "Ik zorgde gisteren.",
+              "en": "I cared yesterday."
+            },
+            "plural": {
+              "nl": "Wij zorgden gisteren.",
+              "en": "We cared yesterday.",
+              "acceptedVariants": [
+                "We zorgden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "zorgen is a regular weak verb. Its past forms are zorgde and zorgden; its past participle is gezorgd.",
+        "nl": "zorgen is een zwak werkwoord. De verleden tijd is zorgde en zorgden; het voltooid deelwoord is gezorgd.",
+        "fa": "فعل zorgen باقاعده است؛ گذشتهٔ آن zorgde و zorgden است و اسم مفعول آن gezorgd است."
+      }
+    },
+    {
+      "id": "verb:planten",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "planten",
+      "english": "to plant",
+      "morphology": {
+        "type": "weak",
+        "stem": "plant",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geplant",
+          "imperfectum": {
+            "singular": "plantte",
+            "plural": "plantten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geplant",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geplant.",
+              "en": "I have planted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "plantte",
+          "plural": "plantten",
+          "examples": {
+            "singular": {
+              "nl": "Ik plantte gisteren.",
+              "en": "I planted yesterday."
+            },
+            "plural": {
+              "nl": "Wij plantten gisteren.",
+              "en": "We planted yesterday.",
+              "acceptedVariants": [
+                "We plantten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "planten is a regular weak verb. Its past forms are plantte and plantten; its past participle is geplant.",
+        "nl": "planten is een zwak werkwoord. De verleden tijd is plantte en plantten; het voltooid deelwoord is geplant.",
+        "fa": "فعل planten باقاعده است؛ گذشتهٔ آن plantte و plantten است و اسم مفعول آن geplant است."
+      }
+    },
+    {
+      "id": "verb:bloeien",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "bloeien",
+      "english": "to bloom",
+      "morphology": {
+        "type": "weak",
+        "stem": "bloei",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gebloeid",
+          "imperfectum": {
+            "singular": "bloeide",
+            "plural": "bloeiden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gebloeid",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gebloeid.",
+              "en": "I have bloomed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "bloeide",
+          "plural": "bloeiden",
+          "examples": {
+            "singular": {
+              "nl": "Ik bloeide gisteren.",
+              "en": "I bloomed yesterday."
+            },
+            "plural": {
+              "nl": "Wij bloeiden gisteren.",
+              "en": "We bloomed yesterday.",
+              "acceptedVariants": [
+                "We bloeiden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "bloeien is a regular weak verb. Its past forms are bloeide and bloeiden; its past participle is gebloeid.",
+        "nl": "bloeien is een zwak werkwoord. De verleden tijd is bloeide en bloeiden; het voltooid deelwoord is gebloeid.",
+        "fa": "فعل bloeien باقاعده است؛ گذشتهٔ آن bloeide و bloeiden است و اسم مفعول آن gebloeid است."
+      }
+    },
+    {
+      "id": "verb:keren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "keren",
+      "english": "to turn",
+      "morphology": {
+        "type": "weak",
+        "stem": "keer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gekeerd",
+          "imperfectum": {
+            "singular": "keerde",
+            "plural": "keerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gekeerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gekeerd.",
+              "en": "I have turned today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "keerde",
+          "plural": "keerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik keerde gisteren.",
+              "en": "I turned yesterday."
+            },
+            "plural": {
+              "nl": "Wij keerden gisteren.",
+              "en": "We turned yesterday.",
+              "acceptedVariants": [
+                "We keerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "keren is a regular weak verb. Its past forms are keerde and keerden; its past participle is gekeerd.",
+        "nl": "keren is een zwak werkwoord. De verleden tijd is keerde en keerden; het voltooid deelwoord is gekeerd.",
+        "fa": "فعل keren باقاعده است؛ گذشتهٔ آن keerde و keerden است و اسم مفعول آن gekeerd است."
+      }
+    },
+    {
+      "id": "verb:bewaren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "bewaren",
+      "english": "to save",
+      "morphology": {
+        "type": "weak",
+        "stem": "bewaar",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "bewaard",
+          "imperfectum": {
+            "singular": "bewaarde",
+            "plural": "bewaarden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "bewaard",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag bewaard.",
+              "en": "I have saved today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "bewaarde",
+          "plural": "bewaarden",
+          "examples": {
+            "singular": {
+              "nl": "Ik bewaarde gisteren.",
+              "en": "I saved yesterday."
+            },
+            "plural": {
+              "nl": "Wij bewaarden gisteren.",
+              "en": "We saved yesterday.",
+              "acceptedVariants": [
+                "We bewaarden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "bewaren is a regular weak verb. Its past forms are bewaarde and bewaarden; its past participle is bewaard.",
+        "nl": "bewaren is een zwak werkwoord. De verleden tijd is bewaarde en bewaarden; het voltooid deelwoord is bewaard.",
+        "fa": "فعل bewaren باقاعده است؛ گذشتهٔ آن bewaarde و bewaarden است و اسم مفعول آن bewaard است."
+      }
+    },
+    {
+      "id": "verb:behandelen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "behandelen",
+      "english": "to treat",
+      "morphology": {
+        "type": "weak",
+        "stem": "behandel",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "behandeld",
+          "imperfectum": {
+            "singular": "behandelde",
+            "plural": "behandelden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "behandeld",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag behandeld.",
+              "en": "I have treated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "behandelde",
+          "plural": "behandelden",
+          "examples": {
+            "singular": {
+              "nl": "Ik behandelde gisteren.",
+              "en": "I treated yesterday."
+            },
+            "plural": {
+              "nl": "Wij behandelden gisteren.",
+              "en": "We treated yesterday.",
+              "acceptedVariants": [
+                "We behandelden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "behandelen is a regular weak verb. Its past forms are behandelde and behandelden; its past participle is behandeld.",
+        "nl": "behandelen is een zwak werkwoord. De verleden tijd is behandelde en behandelden; het voltooid deelwoord is behandeld.",
+        "fa": "فعل behandelen باقاعده است؛ گذشتهٔ آن behandelde و behandelden است و اسم مفعول آن behandeld است."
+      }
+    },
+    {
+      "id": "verb:bepalen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "bepalen",
+      "english": "to determine",
+      "morphology": {
+        "type": "weak",
+        "stem": "bepaal",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "bepaald",
+          "imperfectum": {
+            "singular": "bepaalde",
+            "plural": "bepaalden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "bepaald",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag bepaald.",
+              "en": "I have determined today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "bepaalde",
+          "plural": "bepaalden",
+          "examples": {
+            "singular": {
+              "nl": "Ik bepaalde gisteren.",
+              "en": "I determined yesterday."
+            },
+            "plural": {
+              "nl": "Wij bepaalden gisteren.",
+              "en": "We determined yesterday.",
+              "acceptedVariants": [
+                "We bepaalden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "bepalen is a regular weak verb. Its past forms are bepaalde and bepaalden; its past participle is bepaald.",
+        "nl": "bepalen is een zwak werkwoord. De verleden tijd is bepaalde en bepaalden; het voltooid deelwoord is bepaald.",
+        "fa": "فعل bepalen باقاعده است؛ گذشتهٔ آن bepaalde و bepaalden است و اسم مفعول آن bepaald است."
+      }
+    },
+    {
+      "id": "verb:verbeteren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "verbeteren",
+      "english": "to improve",
+      "morphology": {
+        "type": "weak",
+        "stem": "verbeter",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verbeterd",
+          "imperfectum": {
+            "singular": "verbeterde",
+            "plural": "verbeterden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verbeterd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verbeterd.",
+              "en": "I have improved today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verbeterde",
+          "plural": "verbeterden",
+          "examples": {
+            "singular": {
+              "nl": "Ik verbeterde gisteren.",
+              "en": "I improved yesterday."
+            },
+            "plural": {
+              "nl": "Wij verbeterden gisteren.",
+              "en": "We improved yesterday.",
+              "acceptedVariants": [
+                "We verbeterden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verbeteren is a regular weak verb. Its past forms are verbeterde and verbeterden; its past participle is verbeterd.",
+        "nl": "verbeteren is een zwak werkwoord. De verleden tijd is verbeterde en verbeterden; het voltooid deelwoord is verbeterd.",
+        "fa": "فعل verbeteren باقاعده است؛ گذشتهٔ آن verbeterde و verbeterden است و اسم مفعول آن verbeterd است."
+      }
+    },
+    {
+      "id": "verb:besturen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "besturen",
+      "english": "to steer",
+      "morphology": {
+        "type": "weak",
+        "stem": "bestuur",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "bestuurd",
+          "imperfectum": {
+            "singular": "bestuurde",
+            "plural": "bestuurden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "bestuurd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag bestuurd.",
+              "en": "I have steered today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "bestuurde",
+          "plural": "bestuurden",
+          "examples": {
+            "singular": {
+              "nl": "Ik bestuurde gisteren.",
+              "en": "I steered yesterday."
+            },
+            "plural": {
+              "nl": "Wij bestuurden gisteren.",
+              "en": "We steered yesterday.",
+              "acceptedVariants": [
+                "We bestuurden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "besturen is a regular weak verb. Its past forms are bestuurde and bestuurden; its past participle is bestuurd.",
+        "nl": "besturen is een zwak werkwoord. De verleden tijd is bestuurde en bestuurden; het voltooid deelwoord is bestuurd.",
+        "fa": "فعل besturen باقاعده است؛ گذشتهٔ آن bestuurde و bestuurden است و اسم مفعول آن bestuurd است."
+      }
+    },
+    {
+      "id": "verb:verhuren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "verhuren",
+      "english": "to rent",
+      "morphology": {
+        "type": "weak",
+        "stem": "verhuur",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "verhuurd",
+          "imperfectum": {
+            "singular": "verhuurde",
+            "plural": "verhuurden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "verhuurd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag verhuurd.",
+              "en": "I have rented today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "verhuurde",
+          "plural": "verhuurden",
+          "examples": {
+            "singular": {
+              "nl": "Ik verhuurde gisteren.",
+              "en": "I rented yesterday."
+            },
+            "plural": {
+              "nl": "Wij verhuurden gisteren.",
+              "en": "We rented yesterday.",
+              "acceptedVariants": [
+                "We verhuurden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "verhuren is a regular weak verb. Its past forms are verhuurde and verhuurden; its past participle is verhuurd.",
+        "nl": "verhuren is een zwak werkwoord. De verleden tijd is verhuurde en verhuurden; het voltooid deelwoord is verhuurd.",
+        "fa": "فعل verhuren باقاعده است؛ گذشتهٔ آن verhuurde و verhuurden است و اسم مفعول آن verhuurd است."
+      }
+    },
+    {
+      "id": "verb:presenteren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "presenteren",
+      "english": "to present",
+      "morphology": {
+        "type": "weak",
+        "stem": "presenteer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gepresenteerd",
+          "imperfectum": {
+            "singular": "presenteerde",
+            "plural": "presenteerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gepresenteerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gepresenteerd.",
+              "en": "I have presented today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "presenteerde",
+          "plural": "presenteerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik presenteerde gisteren.",
+              "en": "I presented yesterday."
+            },
+            "plural": {
+              "nl": "Wij presenteerden gisteren.",
+              "en": "We presented yesterday.",
+              "acceptedVariants": [
+                "We presenteerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "presenteren is a regular weak verb. Its past forms are presenteerde and presenteerden; its past participle is gepresenteerd.",
+        "nl": "presenteren is een zwak werkwoord. De verleden tijd is presenteerde en presenteerden; het voltooid deelwoord is gepresenteerd.",
+        "fa": "فعل presenteren باقاعده است؛ گذشتهٔ آن presenteerde و presenteerden است و اسم مفعول آن gepresenteerd است."
+      }
+    },
+    {
+      "id": "verb:demonstreren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "demonstreren",
+      "english": "to demonstrate",
+      "morphology": {
+        "type": "weak",
+        "stem": "demonstreer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gedemonstreerd",
+          "imperfectum": {
+            "singular": "demonstreerde",
+            "plural": "demonstreerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gedemonstreerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gedemonstreerd.",
+              "en": "I have demonstrated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "demonstreerde",
+          "plural": "demonstreerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik demonstreerde gisteren.",
+              "en": "I demonstrated yesterday."
+            },
+            "plural": {
+              "nl": "Wij demonstreerden gisteren.",
+              "en": "We demonstrated yesterday.",
+              "acceptedVariants": [
+                "We demonstreerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "demonstreren is a regular weak verb. Its past forms are demonstreerde and demonstreerden; its past participle is gedemonstreerd.",
+        "nl": "demonstreren is een zwak werkwoord. De verleden tijd is demonstreerde en demonstreerden; het voltooid deelwoord is gedemonstreerd.",
+        "fa": "فعل demonstreren باقاعده است؛ گذشتهٔ آن demonstreerde و demonstreerden است و اسم مفعول آن gedemonstreerd است."
+      }
+    },
+    {
+      "id": "verb:publiceren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "publiceren",
+      "english": "to publish",
+      "morphology": {
+        "type": "weak",
+        "stem": "publiceer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gepubliceerd",
+          "imperfectum": {
+            "singular": "publiceerde",
+            "plural": "publiceerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gepubliceerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gepubliceerd.",
+              "en": "I have published today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "publiceerde",
+          "plural": "publiceerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik publiceerde gisteren.",
+              "en": "I published yesterday."
+            },
+            "plural": {
+              "nl": "Wij publiceerden gisteren.",
+              "en": "We published yesterday.",
+              "acceptedVariants": [
+                "We publiceerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "publiceren is a regular weak verb. Its past forms are publiceerde and publiceerden; its past participle is gepubliceerd.",
+        "nl": "publiceren is een zwak werkwoord. De verleden tijd is publiceerde en publiceerden; het voltooid deelwoord is gepubliceerd.",
+        "fa": "فعل publiceren باقاعده است؛ گذشتهٔ آن publiceerde و publiceerden است و اسم مفعول آن gepubliceerd است."
+      }
+    },
+    {
+      "id": "verb:registreren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "registreren",
+      "english": "to register",
+      "morphology": {
+        "type": "weak",
+        "stem": "registreer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geregistreerd",
+          "imperfectum": {
+            "singular": "registreerde",
+            "plural": "registreerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geregistreerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geregistreerd.",
+              "en": "I have registered today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "registreerde",
+          "plural": "registreerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik registreerde gisteren.",
+              "en": "I registered yesterday."
+            },
+            "plural": {
+              "nl": "Wij registreerden gisteren.",
+              "en": "We registered yesterday.",
+              "acceptedVariants": [
+                "We registreerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "registreren is a regular weak verb. Its past forms are registreerde and registreerden; its past participle is geregistreerd.",
+        "nl": "registreren is een zwak werkwoord. De verleden tijd is registreerde en registreerden; het voltooid deelwoord is geregistreerd.",
+        "fa": "فعل registreren باقاعده است؛ گذشتهٔ آن registreerde و registreerden است و اسم مفعول آن geregistreerd است."
+      }
+    },
+    {
+      "id": "verb:faxen",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "faxen",
+      "english": "to fax",
+      "morphology": {
+        "type": "weak",
+        "stem": "fax",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gefaxt",
+          "imperfectum": {
+            "singular": "faxte",
+            "plural": "faxten"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gefaxt",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gefaxt.",
+              "en": "I have faxed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "faxte",
+          "plural": "faxten",
+          "examples": {
+            "singular": {
+              "nl": "Ik faxte gisteren.",
+              "en": "I faxed yesterday."
+            },
+            "plural": {
+              "nl": "Wij faxten gisteren.",
+              "en": "We faxed yesterday.",
+              "acceptedVariants": [
+                "We faxten gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "faxen is a regular weak verb. Its past forms are faxte and faxten; its past participle is gefaxt.",
+        "nl": "faxen is een zwak werkwoord. De verleden tijd is faxte en faxten; het voltooid deelwoord is gefaxt.",
+        "fa": "فعل faxen باقاعده است؛ گذشتهٔ آن faxte و faxten است و اسم مفعول آن gefaxt است."
+      }
+    },
+    {
+      "id": "verb:formuleren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "formuleren",
+      "english": "to formulate",
+      "morphology": {
+        "type": "weak",
+        "stem": "formuleer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geformuleerd",
+          "imperfectum": {
+            "singular": "formuleerde",
+            "plural": "formuleerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geformuleerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geformuleerd.",
+              "en": "I have formulated today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "formuleerde",
+          "plural": "formuleerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik formuleerde gisteren.",
+              "en": "I formulated yesterday."
+            },
+            "plural": {
+              "nl": "Wij formuleerden gisteren.",
+              "en": "We formulated yesterday.",
+              "acceptedVariants": [
+                "We formuleerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "formuleren is a regular weak verb. Its past forms are formuleerde and formuleerden; its past participle is geformuleerd.",
+        "nl": "formuleren is een zwak werkwoord. De verleden tijd is formuleerde en formuleerden; het voltooid deelwoord is geformuleerd.",
+        "fa": "فعل formuleren باقاعده است؛ گذشتهٔ آن formuleerde و formuleerden است و اسم مفعول آن geformuleerd است."
+      }
+    },
+    {
+      "id": "verb:reageren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "reageren",
+      "english": "to respond",
+      "morphology": {
+        "type": "weak",
+        "stem": "reageer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gereageerd",
+          "imperfectum": {
+            "singular": "reageerde",
+            "plural": "reageerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gereageerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gereageerd.",
+              "en": "I have responded today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "reageerde",
+          "plural": "reageerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik reageerde gisteren.",
+              "en": "I responded yesterday."
+            },
+            "plural": {
+              "nl": "Wij reageerden gisteren.",
+              "en": "We responded yesterday.",
+              "acceptedVariants": [
+                "We reageerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "reageren is a regular weak verb. Its past forms are reageerde and reageerden; its past participle is gereageerd.",
+        "nl": "reageren is een zwak werkwoord. De verleden tijd is reageerde en reageerden; het voltooid deelwoord is gereageerd.",
+        "fa": "فعل reageren باقاعده است؛ گذشتهٔ آن reageerde و reageerden است و اسم مفعول آن gereageerd است."
+      }
+    },
+    {
+      "id": "verb:inspireren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "inspireren",
+      "english": "to inspire",
+      "morphology": {
+        "type": "weak",
+        "stem": "inspireer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geinspireerd",
+          "imperfectum": {
+            "singular": "inspireerde",
+            "plural": "inspireerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geinspireerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geinspireerd.",
+              "en": "I have inspired today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "inspireerde",
+          "plural": "inspireerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik inspireerde gisteren.",
+              "en": "I inspired yesterday."
+            },
+            "plural": {
+              "nl": "Wij inspireerden gisteren.",
+              "en": "We inspired yesterday.",
+              "acceptedVariants": [
+                "We inspireerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "inspireren is a regular weak verb. Its past forms are inspireerde and inspireerden; its past participle is geinspireerd.",
+        "nl": "inspireren is een zwak werkwoord. De verleden tijd is inspireerde en inspireerden; het voltooid deelwoord is geinspireerd.",
+        "fa": "فعل inspireren باقاعده است؛ گذشتهٔ آن inspireerde و inspireerden است و اسم مفعول آن geinspireerd است."
+      }
+    },
+    {
+      "id": "verb:acteren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "acteren",
+      "english": "to act",
+      "morphology": {
+        "type": "weak",
+        "stem": "acteer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geacteerd",
+          "imperfectum": {
+            "singular": "acteerde",
+            "plural": "acteerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geacteerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geacteerd.",
+              "en": "I have acted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "acteerde",
+          "plural": "acteerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik acteerde gisteren.",
+              "en": "I acted yesterday."
+            },
+            "plural": {
+              "nl": "Wij acteerden gisteren.",
+              "en": "We acted yesterday.",
+              "acceptedVariants": [
+                "We acteerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "acteren is a regular weak verb. Its past forms are acteerde and acteerden; its past participle is geacteerd.",
+        "nl": "acteren is een zwak werkwoord. De verleden tijd is acteerde en acteerden; het voltooid deelwoord is geacteerd.",
+        "fa": "فعل acteren باقاعده است؛ گذشتهٔ آن acteerde و acteerden است و اسم مفعول آن geacteerd است."
+      }
+    },
+    {
+      "id": "verb:noteren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "noteren",
+      "english": "to note",
+      "morphology": {
+        "type": "weak",
+        "stem": "noteer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "genoteerd",
+          "imperfectum": {
+            "singular": "noteerde",
+            "plural": "noteerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "genoteerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag genoteerd.",
+              "en": "I have noted today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "noteerde",
+          "plural": "noteerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik noteerde gisteren.",
+              "en": "I noted yesterday."
+            },
+            "plural": {
+              "nl": "Wij noteerden gisteren.",
+              "en": "We noted yesterday.",
+              "acceptedVariants": [
+                "We noteerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "noteren is a regular weak verb. Its past forms are noteerde and noteerden; its past participle is genoteerd.",
+        "nl": "noteren is een zwak werkwoord. De verleden tijd is noteerde en noteerden; het voltooid deelwoord is genoteerd.",
+        "fa": "فعل noteren باقاعده است؛ گذشتهٔ آن noteerde و noteerden است و اسم مفعول آن genoteerd است."
+      }
+    },
+    {
+      "id": "verb:adresseren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "adresseren",
+      "english": "to address",
+      "morphology": {
+        "type": "weak",
+        "stem": "adresseer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "geadresseerd",
+          "imperfectum": {
+            "singular": "adresseerde",
+            "plural": "adresseerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "geadresseerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag geadresseerd.",
+              "en": "I have addressed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "adresseerde",
+          "plural": "adresseerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik adresseerde gisteren.",
+              "en": "I addressed yesterday."
+            },
+            "plural": {
+              "nl": "Wij adresseerden gisteren.",
+              "en": "We addressed yesterday.",
+              "acceptedVariants": [
+                "We adresseerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "adresseren is a regular weak verb. Its past forms are adresseerde and adresseerden; its past participle is geadresseerd.",
+        "nl": "adresseren is een zwak werkwoord. De verleden tijd is adresseerde en adresseerden; het voltooid deelwoord is geadresseerd.",
+        "fa": "فعل adresseren باقاعده است؛ گذشتهٔ آن adresseerde و adresseerden است و اسم مفعول آن geadresseerd است."
+      }
+    },
+    {
+      "id": "verb:discussieren",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "discussiëren",
+      "english": "to discuss",
+      "morphology": {
+        "type": "weak",
+        "stem": "discussieer",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gediscussieerd",
+          "imperfectum": {
+            "singular": "discussieerde",
+            "plural": "discussieerden"
+          }
+        }
+      },
+      "forms": {
+        "perfectum": {
+          "auxiliary": "hebben",
+          "participle": "gediscussieerd",
+          "examples": [
+            {
+              "nl": "Ik heb vandaag gediscussieerd.",
+              "en": "I have discussed today."
+            }
+          ]
+        },
+        "imperfectum": {
+          "singular": "discussieerde",
+          "plural": "discussieerden",
+          "examples": {
+            "singular": {
+              "nl": "Ik discussieerde gisteren.",
+              "en": "I discussed yesterday."
+            },
+            "plural": {
+              "nl": "Wij discussieerden gisteren.",
+              "en": "We discussed yesterday.",
+              "acceptedVariants": [
+                "We discussieerden gisteren."
+              ]
+            }
+          }
+        }
+      },
+      "explanation": {
+        "en": "discussiëren is a regular weak verb. Its past forms are discussieerde and discussieerden; its past participle is gediscussieerd.",
+        "nl": "discussiëren is een zwak werkwoord. De verleden tijd is discussieerde en discussieerden; het voltooid deelwoord is gediscussieerd.",
+        "fa": "فعل discussiëren باقاعده است؛ گذشتهٔ آن discussieerde و discussieerden است و اسم مفعول آن gediscussieerd است."
       }
     }
   ]

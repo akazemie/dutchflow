@@ -27,3 +27,7 @@ export const DEFAULT_PREFERENCE_VALUES: LearnerPreferenceChanges = {
   exerciseStrategy: "balanced",
   dailyLearningMinutes: 10,
 };
+
+export function isLevelAvailableAt(level: LanguageLevel, selectedLevel: LanguageLevel): boolean {
+  return LANGUAGE_LEVELS.indexOf(level) <= LANGUAGE_LEVELS.indexOf(selectedLevel);
+}

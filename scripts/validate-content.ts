@@ -12,6 +12,10 @@ if (!parsed.success) {
   process.exitCode = 1;
 } else {
   const ids = parsed.data.items.map(({ id }) => id);
+  if (ids.length < 100) {
+    console.error(`Expected at least 100 verb content items; found ${ids.length}.`);
+    process.exitCode = 1;
+  }
   if (new Set(ids).size !== ids.length) {
     console.error("Verb content IDs must be unique.");
     process.exitCode = 1;
@@ -47,6 +51,10 @@ if (!vocabulary.success) {
   process.exitCode = 1;
 } else {
   const ids = vocabulary.data.items.map(({ id }) => id);
+  if (ids.length < 100) {
+    console.error(`Expected at least 100 vocabulary content items; found ${ids.length}.`);
+    process.exitCode = 1;
+  }
   if (new Set(ids).size !== ids.length) {
     console.error("Vocabulary content IDs must be unique.");
     process.exitCode = 1;

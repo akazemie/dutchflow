@@ -2,6 +2,7 @@ import rawVerbContent from "@/content/verbs/verbs.json";
 import { verbCollectionSchema, type VerbContent } from "@/content/verbs/schema";
 import type { EvaluationResult, ExerciseFocus, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import { isLevelAvailableAt } from "@/learning/core/preferences";
 
 const verbCollection = verbCollectionSchema.parse(rawVerbContent);
 const verbsById = new Map(verbCollection.items.map((item) => [item.id, item]));
@@ -54,7 +55,7 @@ export const verbsModule: LearningModule = {
   supportedLevels: [...new Set(verbCollection.items.map((verb) => verb.level))],
 
   async loadItems(query): Promise<LearningItem[]> {
-    return verbCollection.items.filter((verb) => !query?.level || verb.level === query.level).map((verb) => ({
+    return verbCollection.items.filter((verb) => !query?.level || isLevelAvailableAt(verb.level, query.level)).map((verb) => ({
       id: verb.id,
       moduleId: verb.moduleId,
       displayName: verb.lemma,

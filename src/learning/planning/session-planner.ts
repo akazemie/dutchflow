@@ -11,6 +11,7 @@ export interface SessionCandidate {
 export interface SessionPlanInput {
   dueReviews: SessionCandidate[];
   newItems: SessionCandidate[];
+  practiceItems?: SessionCandidate[];
   strategy: ExerciseStrategy;
   timeBudgetMinutes: number;
 }
@@ -31,11 +32,12 @@ export function planSession(input: SessionPlanInput): SessionCandidate[] {
   const seen = new Set<string>();
   const due = input.dueReviews.filter((item) => !seen.has(item.skillId) && Boolean(seen.add(item.skillId)));
   const fresh = input.newItems.filter((item) => !seen.has(item.skillId) && Boolean(seen.add(item.skillId)));
+  const practice = (input.practiceItems ?? []).filter((item) => !seen.has(item.skillId) && Boolean(seen.add(item.skillId)));
   const ordered = input.strategy === "review-first"
-    ? [...due, ...fresh]
+    ? [...due, ...fresh, ...practice]
     : input.strategy === "new-first"
-      ? [...fresh, ...due]
-      : alternate(due, fresh);
+      ? [...fresh, ...due, ...practice]
+      : [...alternate(due, fresh), ...practice];
 
   const plan: SessionCandidate[] = [];
   let spent = 0;

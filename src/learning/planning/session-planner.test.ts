@@ -9,6 +9,9 @@ const fresh: SessionCandidate[] = [
   { skillId: "new-1", moduleId: "verbs", itemId: "verb:lopen", focusId: "imperfectum-singular", estimatedMinutes: 2 },
   { skillId: "new-2", moduleId: "vocabulary", itemId: "word:fiets", focusId: "meaning", estimatedMinutes: 2 },
 ];
+const practice: SessionCandidate[] = [
+  { skillId: "known-1", moduleId: "verbs", itemId: "verb:lopen", focusId: "perfectum", estimatedMinutes: 2 },
+];
 
 describe("planSession", () => {
   it("alternates due reviews and new items within the learner's time budget", () => {
@@ -22,6 +25,14 @@ describe("planSession", () => {
 
     expect(reviewFirst.map(({ skillId }) => skillId)).toEqual(["due-1", "due-2"]);
     expect(newFirst.map(({ skillId }) => skillId)).toEqual(["new-1", "new-2"]);
+  });
+
+  it("adds already learned skills as fallback practice after due and new items", () => {
+    const plan = planSession({
+      dueReviews: [], newItems: [], practiceItems: practice, strategy: "balanced", timeBudgetMinutes: 2,
+    });
+
+    expect(plan).toEqual(practice);
   });
 
   it("avoids duplicates and returns an empty plan for a non-positive budget", () => {

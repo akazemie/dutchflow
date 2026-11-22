@@ -1,45 +1,2113 @@
 {
-  "contentVersion": 1,
+  "contentVersion": 2,
   "items": [
     {
       "id": "vocabulary:boek",
       "moduleId": "vocabulary",
       "level": "A1",
       "lemma": "het boek",
-      "prompt": { "en": "I read a book.", "nl": "Ik lees een boek.", "fa": "من یک کتاب می‌خوانم." },
+      "prompt": {
+        "en": "I read a book.",
+        "nl": "Ik lees een boek.",
+        "fa": "من یک کتاب می‌خوانم."
+      },
       "answer": "Ik lees een boek.",
       "acceptedVariants": [],
-      "explanation": { "en": "Boek means book. It uses the article het.", "nl": "Boek betekent book. Het gebruikt het lidwoord het.", "fa": "Boek یعنی کتاب و با حرف تعریف het می‌آید." }
+      "explanation": {
+        "en": "Boek means book. It uses the article het.",
+        "nl": "Boek betekent book. Het gebruikt het lidwoord het.",
+        "fa": "Boek یعنی کتاب و با حرف تعریف het می‌آید."
+      }
     },
     {
       "id": "vocabulary:fiets",
       "moduleId": "vocabulary",
       "level": "A1",
       "lemma": "de fiets",
-      "prompt": { "en": "I have a bicycle.", "nl": "Ik heb een fiets.", "fa": "من یک دوچرخه دارم." },
+      "prompt": {
+        "en": "I have a bicycle.",
+        "nl": "Ik heb een fiets.",
+        "fa": "من یک دوچرخه دارم."
+      },
       "answer": "Ik heb een fiets.",
       "acceptedVariants": [],
-      "explanation": { "en": "Fiets means bicycle. It uses the article de.", "nl": "Fiets betekent bicycle. Het gebruikt het lidwoord de.", "fa": "Fiets یعنی دوچرخه و با حرف تعریف de می‌آید." }
+      "explanation": {
+        "en": "Fiets means bicycle. It uses the article de.",
+        "nl": "Fiets betekent bicycle. Het gebruikt het lidwoord de.",
+        "fa": "Fiets یعنی دوچرخه و با حرف تعریف de می‌آید."
+      }
     },
     {
       "id": "vocabulary:appel",
       "moduleId": "vocabulary",
       "level": "A1",
       "lemma": "de appel",
-      "prompt": { "en": "She eats an apple.", "nl": "Zij eet een appel.", "fa": "او یک سیب می‌خورد." },
+      "prompt": {
+        "en": "She eats an apple.",
+        "nl": "Zij eet een appel.",
+        "fa": "او یک سیب می‌خورد."
+      },
       "answer": "Zij eet een appel.",
-      "acceptedVariants": ["Ze eet een appel."],
-      "explanation": { "en": "Appel means apple. It uses the article de.", "nl": "Appel betekent apple. Het gebruikt het lidwoord de.", "fa": "Appel یعنی سیب و با حرف تعریف de می‌آید." }
+      "acceptedVariants": [
+        "Ze eet een appel."
+      ],
+      "explanation": {
+        "en": "Appel means apple. It uses the article de.",
+        "nl": "Appel betekent apple. Het gebruikt het lidwoord de.",
+        "fa": "Appel یعنی سیب و با حرف تعریف de می‌آید."
+      }
     },
     {
       "id": "vocabulary:station",
       "moduleId": "vocabulary",
       "level": "A2",
       "lemma": "het station",
-      "prompt": { "en": "The train arrives at the station.", "nl": "De trein komt aan op het station.", "fa": "قطار به ایستگاه می‌رسد." },
+      "prompt": {
+        "en": "The train arrives at the station.",
+        "nl": "De trein komt aan op het station.",
+        "fa": "قطار به ایستگاه می‌رسد."
+      },
       "answer": "De trein komt aan op het station.",
       "acceptedVariants": [],
-      "explanation": { "en": "Station means station. It uses the article het.", "nl": "Station betekent station. Het gebruikt het lidwoord het.", "fa": "Station یعنی ایستگاه و با حرف تعریف het می‌آید." }
+      "explanation": {
+        "en": "Station means station. It uses the article het.",
+        "nl": "Station betekent station. Het gebruikt het lidwoord het.",
+        "fa": "Station یعنی ایستگاه و با حرف تعریف het می‌آید."
+      }
+    },
+    {
+      "id": "vocabulary:man",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de man",
+      "prompt": {
+        "en": "the man",
+        "nl": "de man",
+        "fa": "مرد"
+      },
+      "answer": "de man",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de man means man.",
+        "nl": "Gebruik het lidwoord: de man betekent man.",
+        "fa": "حرف تعریف را هم بنویسید: de man به معنی مرد است."
+      }
+    },
+    {
+      "id": "vocabulary:vrouw",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de vrouw",
+      "prompt": {
+        "en": "the woman",
+        "nl": "de vrouw",
+        "fa": "زن"
+      },
+      "answer": "de vrouw",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de vrouw means woman.",
+        "nl": "Gebruik het lidwoord: de vrouw betekent woman.",
+        "fa": "حرف تعریف را هم بنویسید: de vrouw به معنی زن است."
+      }
+    },
+    {
+      "id": "vocabulary:kind",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het kind",
+      "prompt": {
+        "en": "the child",
+        "nl": "het kind",
+        "fa": "کودک"
+      },
+      "answer": "het kind",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het kind means child.",
+        "nl": "Gebruik het lidwoord: het kind betekent child.",
+        "fa": "حرف تعریف را هم بنویسید: het kind به معنی کودک است."
+      }
+    },
+    {
+      "id": "vocabulary:familie",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de familie",
+      "prompt": {
+        "en": "the family",
+        "nl": "de familie",
+        "fa": "خانواده"
+      },
+      "answer": "de familie",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de familie means family.",
+        "nl": "Gebruik het lidwoord: de familie betekent family.",
+        "fa": "حرف تعریف را هم بنویسید: de familie به معنی خانواده است."
+      }
+    },
+    {
+      "id": "vocabulary:vriend",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de vriend",
+      "prompt": {
+        "en": "the friend",
+        "nl": "de vriend",
+        "fa": "دوست"
+      },
+      "answer": "de vriend",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de vriend means friend.",
+        "nl": "Gebruik het lidwoord: de vriend betekent friend.",
+        "fa": "حرف تعریف را هم بنویسید: de vriend به معنی دوست است."
+      }
+    },
+    {
+      "id": "vocabulary:vriendin",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de vriendin",
+      "prompt": {
+        "en": "the female friend",
+        "nl": "de vriendin",
+        "fa": "دوست"
+      },
+      "answer": "de vriendin",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de vriendin means female friend.",
+        "nl": "Gebruik het lidwoord: de vriendin betekent female friend.",
+        "fa": "حرف تعریف را هم بنویسید: de vriendin به معنی دوست است."
+      }
+    },
+    {
+      "id": "vocabulary:buurman",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de buurman",
+      "prompt": {
+        "en": "the male neighbor",
+        "nl": "de buurman",
+        "fa": "همسایهٔ مرد"
+      },
+      "answer": "de buurman",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de buurman means male neighbor.",
+        "nl": "Gebruik het lidwoord: de buurman betekent male neighbor.",
+        "fa": "حرف تعریف را هم بنویسید: de buurman به معنی همسایهٔ مرد است."
+      }
+    },
+    {
+      "id": "vocabulary:buurvrouw",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de buurvrouw",
+      "prompt": {
+        "en": "the female neighbor",
+        "nl": "de buurvrouw",
+        "fa": "همسایهٔ زن"
+      },
+      "answer": "de buurvrouw",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de buurvrouw means female neighbor.",
+        "nl": "Gebruik het lidwoord: de buurvrouw betekent female neighbor.",
+        "fa": "حرف تعریف را هم بنویسید: de buurvrouw به معنی همسایهٔ زن است."
+      }
+    },
+    {
+      "id": "vocabulary:dokter",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de dokter",
+      "prompt": {
+        "en": "the doctor",
+        "nl": "de dokter",
+        "fa": "پزشک"
+      },
+      "answer": "de dokter",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de dokter means doctor.",
+        "nl": "Gebruik het lidwoord: de dokter betekent doctor.",
+        "fa": "حرف تعریف را هم بنویسید: de dokter به معنی پزشک است."
+      }
+    },
+    {
+      "id": "vocabulary:leraar",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de leraar",
+      "prompt": {
+        "en": "the teacher",
+        "nl": "de leraar",
+        "fa": "معلم"
+      },
+      "answer": "de leraar",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de leraar means teacher.",
+        "nl": "Gebruik het lidwoord: de leraar betekent teacher.",
+        "fa": "حرف تعریف را هم بنویسید: de leraar به معنی معلم است."
+      }
+    },
+    {
+      "id": "vocabulary:leerling",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de leerling",
+      "prompt": {
+        "en": "the pupil",
+        "nl": "de leerling",
+        "fa": "دانش‌آموز"
+      },
+      "answer": "de leerling",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de leerling means pupil.",
+        "nl": "Gebruik het lidwoord: de leerling betekent pupil.",
+        "fa": "حرف تعریف را هم بنویسید: de leerling به معنی دانش‌آموز است."
+      }
+    },
+    {
+      "id": "vocabulary:student",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de student",
+      "prompt": {
+        "en": "the student",
+        "nl": "de student",
+        "fa": "دانشجو"
+      },
+      "answer": "de student",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de student means student.",
+        "nl": "Gebruik het lidwoord: de student betekent student.",
+        "fa": "حرف تعریف را هم بنویسید: de student به معنی دانشجو است."
+      }
+    },
+    {
+      "id": "vocabulary:baan",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de baan",
+      "prompt": {
+        "en": "the job",
+        "nl": "de baan",
+        "fa": "شغل"
+      },
+      "answer": "de baan",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de baan means job.",
+        "nl": "Gebruik het lidwoord: de baan betekent job.",
+        "fa": "حرف تعریف را هم بنویسید: de baan به معنی شغل است."
+      }
+    },
+    {
+      "id": "vocabulary:werk",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het werk",
+      "prompt": {
+        "en": "the work",
+        "nl": "het werk",
+        "fa": "کار"
+      },
+      "answer": "het werk",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het werk means work.",
+        "nl": "Gebruik het lidwoord: het werk betekent work.",
+        "fa": "حرف تعریف را هم بنویسید: het werk به معنی کار است."
+      }
+    },
+    {
+      "id": "vocabulary:school",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de school",
+      "prompt": {
+        "en": "the school",
+        "nl": "de school",
+        "fa": "مدرسه"
+      },
+      "answer": "de school",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de school means school.",
+        "nl": "Gebruik het lidwoord: de school betekent school.",
+        "fa": "حرف تعریف را هم بنویسید: de school به معنی مدرسه است."
+      }
+    },
+    {
+      "id": "vocabulary:klas",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de klas",
+      "prompt": {
+        "en": "the class",
+        "nl": "de klas",
+        "fa": "کلاس"
+      },
+      "answer": "de klas",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de klas means class.",
+        "nl": "Gebruik het lidwoord: de klas betekent class.",
+        "fa": "حرف تعریف را هم بنویسید: de klas به معنی کلاس است."
+      }
+    },
+    {
+      "id": "vocabulary:les",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de les",
+      "prompt": {
+        "en": "the lesson",
+        "nl": "de les",
+        "fa": "درس"
+      },
+      "answer": "de les",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de les means lesson.",
+        "nl": "Gebruik het lidwoord: de les betekent lesson.",
+        "fa": "حرف تعریف را هم بنویسید: de les به معنی درس است."
+      }
+    },
+    {
+      "id": "vocabulary:vraag",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de vraag",
+      "prompt": {
+        "en": "the question",
+        "nl": "de vraag",
+        "fa": "پرسش"
+      },
+      "answer": "de vraag",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de vraag means question.",
+        "nl": "Gebruik het lidwoord: de vraag betekent question.",
+        "fa": "حرف تعریف را هم بنویسید: de vraag به معنی پرسش است."
+      }
+    },
+    {
+      "id": "vocabulary:antwoord",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het antwoord",
+      "prompt": {
+        "en": "the answer",
+        "nl": "het antwoord",
+        "fa": "پاسخ"
+      },
+      "answer": "het antwoord",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het antwoord means answer.",
+        "nl": "Gebruik het lidwoord: het antwoord betekent answer.",
+        "fa": "حرف تعریف را هم بنویسید: het antwoord به معنی پاسخ است."
+      }
+    },
+    {
+      "id": "vocabulary:woord",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het woord",
+      "prompt": {
+        "en": "the word",
+        "nl": "het woord",
+        "fa": "واژه"
+      },
+      "answer": "het woord",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het woord means word.",
+        "nl": "Gebruik het lidwoord: het woord betekent word.",
+        "fa": "حرف تعریف را هم بنویسید: het woord به معنی واژه است."
+      }
+    },
+    {
+      "id": "vocabulary:taal",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de taal",
+      "prompt": {
+        "en": "the language",
+        "nl": "de taal",
+        "fa": "زبان"
+      },
+      "answer": "de taal",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de taal means language.",
+        "nl": "Gebruik het lidwoord: de taal betekent language.",
+        "fa": "حرف تعریف را هم بنویسید: de taal به معنی زبان است."
+      }
+    },
+    {
+      "id": "vocabulary:brief",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de brief",
+      "prompt": {
+        "en": "the letter",
+        "nl": "de brief",
+        "fa": "نامه"
+      },
+      "answer": "de brief",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de brief means letter.",
+        "nl": "Gebruik het lidwoord: de brief betekent letter.",
+        "fa": "حرف تعریف را هم بنویسید: de brief به معنی نامه است."
+      }
+    },
+    {
+      "id": "vocabulary:e-mail",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de e-mail",
+      "prompt": {
+        "en": "the email",
+        "nl": "de e-mail",
+        "fa": "ایمیل"
+      },
+      "answer": "de e-mail",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de e-mail means email.",
+        "nl": "Gebruik het lidwoord: de e-mail betekent email.",
+        "fa": "حرف تعریف را هم بنویسید: de e-mail به معنی ایمیل است."
+      }
+    },
+    {
+      "id": "vocabulary:bericht",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het bericht",
+      "prompt": {
+        "en": "the message",
+        "nl": "het bericht",
+        "fa": "پیام"
+      },
+      "answer": "het bericht",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het bericht means message.",
+        "nl": "Gebruik het lidwoord: het bericht betekent message.",
+        "fa": "حرف تعریف را هم بنویسید: het bericht به معنی پیام است."
+      }
+    },
+    {
+      "id": "vocabulary:afspraak",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de afspraak",
+      "prompt": {
+        "en": "the appointment",
+        "nl": "de afspraak",
+        "fa": "قرار"
+      },
+      "answer": "de afspraak",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de afspraak means appointment.",
+        "nl": "Gebruik het lidwoord: de afspraak betekent appointment.",
+        "fa": "حرف تعریف را هم بنویسید: de afspraak به معنی قرار است."
+      }
+    },
+    {
+      "id": "vocabulary:agenda",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de agenda",
+      "prompt": {
+        "en": "the calendar",
+        "nl": "de agenda",
+        "fa": "تقویم"
+      },
+      "answer": "de agenda",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de agenda means calendar.",
+        "nl": "Gebruik het lidwoord: de agenda betekent calendar.",
+        "fa": "حرف تعریف را هم بنویسید: de agenda به معنی تقویم است."
+      }
+    },
+    {
+      "id": "vocabulary:dag",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de dag",
+      "prompt": {
+        "en": "the day",
+        "nl": "de dag",
+        "fa": "روز"
+      },
+      "answer": "de dag",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de dag means day.",
+        "nl": "Gebruik het lidwoord: de dag betekent day.",
+        "fa": "حرف تعریف را هم بنویسید: de dag به معنی روز است."
+      }
+    },
+    {
+      "id": "vocabulary:week",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de week",
+      "prompt": {
+        "en": "the week",
+        "nl": "de week",
+        "fa": "هفته"
+      },
+      "answer": "de week",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de week means week.",
+        "nl": "Gebruik het lidwoord: de week betekent week.",
+        "fa": "حرف تعریف را هم بنویسید: de week به معنی هفته است."
+      }
+    },
+    {
+      "id": "vocabulary:maand",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de maand",
+      "prompt": {
+        "en": "the month",
+        "nl": "de maand",
+        "fa": "ماه"
+      },
+      "answer": "de maand",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de maand means month.",
+        "nl": "Gebruik het lidwoord: de maand betekent month.",
+        "fa": "حرف تعریف را هم بنویسید: de maand به معنی ماه است."
+      }
+    },
+    {
+      "id": "vocabulary:jaar",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het jaar",
+      "prompt": {
+        "en": "the year",
+        "nl": "het jaar",
+        "fa": "سال"
+      },
+      "answer": "het jaar",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het jaar means year.",
+        "nl": "Gebruik het lidwoord: het jaar betekent year.",
+        "fa": "حرف تعریف را هم بنویسید: het jaar به معنی سال است."
+      }
+    },
+    {
+      "id": "vocabulary:ochtend",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de ochtend",
+      "prompt": {
+        "en": "the morning",
+        "nl": "de ochtend",
+        "fa": "صبح"
+      },
+      "answer": "de ochtend",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de ochtend means morning.",
+        "nl": "Gebruik het lidwoord: de ochtend betekent morning.",
+        "fa": "حرف تعریف را هم بنویسید: de ochtend به معنی صبح است."
+      }
+    },
+    {
+      "id": "vocabulary:middag",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de middag",
+      "prompt": {
+        "en": "the afternoon",
+        "nl": "de middag",
+        "fa": "بعدازظهر"
+      },
+      "answer": "de middag",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de middag means afternoon.",
+        "nl": "Gebruik het lidwoord: de middag betekent afternoon.",
+        "fa": "حرف تعریف را هم بنویسید: de middag به معنی بعدازظهر است."
+      }
+    },
+    {
+      "id": "vocabulary:avond",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de avond",
+      "prompt": {
+        "en": "the evening",
+        "nl": "de avond",
+        "fa": "عصر"
+      },
+      "answer": "de avond",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de avond means evening.",
+        "nl": "Gebruik het lidwoord: de avond betekent evening.",
+        "fa": "حرف تعریف را هم بنویسید: de avond به معنی عصر است."
+      }
+    },
+    {
+      "id": "vocabulary:nacht",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de nacht",
+      "prompt": {
+        "en": "the night",
+        "nl": "de nacht",
+        "fa": "شب"
+      },
+      "answer": "de nacht",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de nacht means night.",
+        "nl": "Gebruik het lidwoord: de nacht betekent night.",
+        "fa": "حرف تعریف را هم بنویسید: de nacht به معنی شب است."
+      }
+    },
+    {
+      "id": "vocabulary:huis",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het huis",
+      "prompt": {
+        "en": "the house",
+        "nl": "het huis",
+        "fa": "خانه"
+      },
+      "answer": "het huis",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het huis means house.",
+        "nl": "Gebruik het lidwoord: het huis betekent house.",
+        "fa": "حرف تعریف را هم بنویسید: het huis به معنی خانه است."
+      }
+    },
+    {
+      "id": "vocabulary:kamer",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de kamer",
+      "prompt": {
+        "en": "the room",
+        "nl": "de kamer",
+        "fa": "اتاق"
+      },
+      "answer": "de kamer",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kamer means room.",
+        "nl": "Gebruik het lidwoord: de kamer betekent room.",
+        "fa": "حرف تعریف را هم بنویسید: de kamer به معنی اتاق است."
+      }
+    },
+    {
+      "id": "vocabulary:keuken",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de keuken",
+      "prompt": {
+        "en": "the kitchen",
+        "nl": "de keuken",
+        "fa": "آشپزخانه"
+      },
+      "answer": "de keuken",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de keuken means kitchen.",
+        "nl": "Gebruik het lidwoord: de keuken betekent kitchen.",
+        "fa": "حرف تعریف را هم بنویسید: de keuken به معنی آشپزخانه است."
+      }
+    },
+    {
+      "id": "vocabulary:badkamer",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de badkamer",
+      "prompt": {
+        "en": "the bathroom",
+        "nl": "de badkamer",
+        "fa": "حمام"
+      },
+      "answer": "de badkamer",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de badkamer means bathroom.",
+        "nl": "Gebruik het lidwoord: de badkamer betekent bathroom.",
+        "fa": "حرف تعریف را هم بنویسید: de badkamer به معنی حمام است."
+      }
+    },
+    {
+      "id": "vocabulary:deur",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de deur",
+      "prompt": {
+        "en": "the door",
+        "nl": "de deur",
+        "fa": "در"
+      },
+      "answer": "de deur",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de deur means door.",
+        "nl": "Gebruik het lidwoord: de deur betekent door.",
+        "fa": "حرف تعریف را هم بنویسید: de deur به معنی در است."
+      }
+    },
+    {
+      "id": "vocabulary:raam",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het raam",
+      "prompt": {
+        "en": "the window",
+        "nl": "het raam",
+        "fa": "پنجره"
+      },
+      "answer": "het raam",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het raam means window.",
+        "nl": "Gebruik het lidwoord: het raam betekent window.",
+        "fa": "حرف تعریف را هم بنویسید: het raam به معنی پنجره است."
+      }
+    },
+    {
+      "id": "vocabulary:tafel",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de tafel",
+      "prompt": {
+        "en": "the table",
+        "nl": "de tafel",
+        "fa": "میز"
+      },
+      "answer": "de tafel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de tafel means table.",
+        "nl": "Gebruik het lidwoord: de tafel betekent table.",
+        "fa": "حرف تعریف را هم بنویسید: de tafel به معنی میز است."
+      }
+    },
+    {
+      "id": "vocabulary:stoel",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de stoel",
+      "prompt": {
+        "en": "the chair",
+        "nl": "de stoel",
+        "fa": "صندلی"
+      },
+      "answer": "de stoel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de stoel means chair.",
+        "nl": "Gebruik het lidwoord: de stoel betekent chair.",
+        "fa": "حرف تعریف را هم بنویسید: de stoel به معنی صندلی است."
+      }
+    },
+    {
+      "id": "vocabulary:bed",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "het bed",
+      "prompt": {
+        "en": "the bed",
+        "nl": "het bed",
+        "fa": "تخت"
+      },
+      "answer": "het bed",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het bed means bed.",
+        "nl": "Gebruik het lidwoord: het bed betekent bed.",
+        "fa": "حرف تعریف را هم بنویسید: het bed به معنی تخت است."
+      }
+    },
+    {
+      "id": "vocabulary:kast",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de kast",
+      "prompt": {
+        "en": "the cupboard",
+        "nl": "de kast",
+        "fa": "کمد"
+      },
+      "answer": "de kast",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kast means cupboard.",
+        "nl": "Gebruik het lidwoord: de kast betekent cupboard.",
+        "fa": "حرف تعریف را هم بنویسید: de kast به معنی کمد است."
+      }
+    },
+    {
+      "id": "vocabulary:sleutel",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de sleutel",
+      "prompt": {
+        "en": "the key",
+        "nl": "de sleutel",
+        "fa": "کلید"
+      },
+      "answer": "de sleutel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de sleutel means key.",
+        "nl": "Gebruik het lidwoord: de sleutel betekent key.",
+        "fa": "حرف تعریف را هم بنویسید: de sleutel به معنی کلید است."
+      }
+    },
+    {
+      "id": "vocabulary:telefoon",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de telefoon",
+      "prompt": {
+        "en": "the phone",
+        "nl": "de telefoon",
+        "fa": "تلفن"
+      },
+      "answer": "de telefoon",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de telefoon means phone.",
+        "nl": "Gebruik het lidwoord: de telefoon betekent phone.",
+        "fa": "حرف تعریف را هم بنویسید: de telefoon به معنی تلفن است."
+      }
+    },
+    {
+      "id": "vocabulary:computer",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de computer",
+      "prompt": {
+        "en": "the computer",
+        "nl": "de computer",
+        "fa": "رایانه"
+      },
+      "answer": "de computer",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de computer means computer.",
+        "nl": "Gebruik het lidwoord: de computer betekent computer.",
+        "fa": "حرف تعریف را هم بنویسید: de computer به معنی رایانه است."
+      }
+    },
+    {
+      "id": "vocabulary:tas",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de tas",
+      "prompt": {
+        "en": "the bag",
+        "nl": "de tas",
+        "fa": "کیف"
+      },
+      "answer": "de tas",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de tas means bag.",
+        "nl": "Gebruik het lidwoord: de tas betekent bag.",
+        "fa": "حرف تعریف را هم بنویسید: de tas به معنی کیف است."
+      }
+    },
+    {
+      "id": "vocabulary:auto",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de auto",
+      "prompt": {
+        "en": "the car",
+        "nl": "de auto",
+        "fa": "ماشین"
+      },
+      "answer": "de auto",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de auto means car.",
+        "nl": "Gebruik het lidwoord: de auto betekent car.",
+        "fa": "حرف تعریف را هم بنویسید: de auto به معنی ماشین است."
+      }
+    },
+    {
+      "id": "vocabulary:bus",
+      "moduleId": "vocabulary",
+      "level": "A1",
+      "lemma": "de bus",
+      "prompt": {
+        "en": "the bus",
+        "nl": "de bus",
+        "fa": "اتوبوس"
+      },
+      "answer": "de bus",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de bus means bus.",
+        "nl": "Gebruik het lidwoord: de bus betekent bus.",
+        "fa": "حرف تعریف را هم بنویسید: de bus به معنی اتوبوس است."
+      }
+    },
+    {
+      "id": "vocabulary:trein",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de trein",
+      "prompt": {
+        "en": "the train",
+        "nl": "de trein",
+        "fa": "قطار"
+      },
+      "answer": "de trein",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de trein means train.",
+        "nl": "Gebruik het lidwoord: de trein betekent train.",
+        "fa": "حرف تعریف را هم بنویسید: de trein به معنی قطار است."
+      }
+    },
+    {
+      "id": "vocabulary:straat",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de straat",
+      "prompt": {
+        "en": "the street",
+        "nl": "de straat",
+        "fa": "خیابان"
+      },
+      "answer": "de straat",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de straat means street.",
+        "nl": "Gebruik het lidwoord: de straat betekent street.",
+        "fa": "حرف تعریف را هم بنویسید: de straat به معنی خیابان است."
+      }
+    },
+    {
+      "id": "vocabulary:stad",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de stad",
+      "prompt": {
+        "en": "the city",
+        "nl": "de stad",
+        "fa": "شهر"
+      },
+      "answer": "de stad",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de stad means city.",
+        "nl": "Gebruik het lidwoord: de stad betekent city.",
+        "fa": "حرف تعریف را هم بنویسید: de stad به معنی شهر است."
+      }
+    },
+    {
+      "id": "vocabulary:dorp",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het dorp",
+      "prompt": {
+        "en": "the village",
+        "nl": "het dorp",
+        "fa": "روستا"
+      },
+      "answer": "het dorp",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het dorp means village.",
+        "nl": "Gebruik het lidwoord: het dorp betekent village.",
+        "fa": "حرف تعریف را هم بنویسید: het dorp به معنی روستا است."
+      }
+    },
+    {
+      "id": "vocabulary:winkel",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de winkel",
+      "prompt": {
+        "en": "the shop",
+        "nl": "de winkel",
+        "fa": "فروشگاه"
+      },
+      "answer": "de winkel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de winkel means shop.",
+        "nl": "Gebruik het lidwoord: de winkel betekent shop.",
+        "fa": "حرف تعریف را هم بنویسید: de winkel به معنی فروشگاه است."
+      }
+    },
+    {
+      "id": "vocabulary:markt",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de markt",
+      "prompt": {
+        "en": "the market",
+        "nl": "de markt",
+        "fa": "بازار"
+      },
+      "answer": "de markt",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de markt means market.",
+        "nl": "Gebruik het lidwoord: de markt betekent market.",
+        "fa": "حرف تعریف را هم بنویسید: de markt به معنی بازار است."
+      }
+    },
+    {
+      "id": "vocabulary:supermarkt",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de supermarkt",
+      "prompt": {
+        "en": "the supermarket",
+        "nl": "de supermarkt",
+        "fa": "سوپرمارکت"
+      },
+      "answer": "de supermarkt",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de supermarkt means supermarket.",
+        "nl": "Gebruik het lidwoord: de supermarkt betekent supermarket.",
+        "fa": "حرف تعریف را هم بنویسید: de supermarkt به معنی سوپرمارکت است."
+      }
+    },
+    {
+      "id": "vocabulary:restaurant",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het restaurant",
+      "prompt": {
+        "en": "the restaurant",
+        "nl": "het restaurant",
+        "fa": "رستوران"
+      },
+      "answer": "het restaurant",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het restaurant means restaurant.",
+        "nl": "Gebruik het lidwoord: het restaurant betekent restaurant.",
+        "fa": "حرف تعریف را هم بنویسید: het restaurant به معنی رستوران است."
+      }
+    },
+    {
+      "id": "vocabulary:cafe",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het café",
+      "prompt": {
+        "en": "the cafe",
+        "nl": "het café",
+        "fa": "کافه"
+      },
+      "answer": "het café",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het café means cafe.",
+        "nl": "Gebruik het lidwoord: het café betekent cafe.",
+        "fa": "حرف تعریف را هم بنویسید: het café به معنی کافه است."
+      }
+    },
+    {
+      "id": "vocabulary:rekening",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de rekening",
+      "prompt": {
+        "en": "the bill",
+        "nl": "de rekening",
+        "fa": "صورت‌حساب"
+      },
+      "answer": "de rekening",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de rekening means bill.",
+        "nl": "Gebruik het lidwoord: de rekening betekent bill.",
+        "fa": "حرف تعریف را هم بنویسید: de rekening به معنی صورت‌حساب است."
+      }
+    },
+    {
+      "id": "vocabulary:geld",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het geld",
+      "prompt": {
+        "en": "the money",
+        "nl": "het geld",
+        "fa": "پول"
+      },
+      "answer": "het geld",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het geld means money.",
+        "nl": "Gebruik het lidwoord: het geld betekent money.",
+        "fa": "حرف تعریف را هم بنویسید: het geld به معنی پول است."
+      }
+    },
+    {
+      "id": "vocabulary:prijs",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de prijs",
+      "prompt": {
+        "en": "the price",
+        "nl": "de prijs",
+        "fa": "قیمت"
+      },
+      "answer": "de prijs",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de prijs means price.",
+        "nl": "Gebruik het lidwoord: de prijs betekent price.",
+        "fa": "حرف تعریف را هم بنویسید: de prijs به معنی قیمت است."
+      }
+    },
+    {
+      "id": "vocabulary:kaart",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de kaart",
+      "prompt": {
+        "en": "the map",
+        "nl": "de kaart",
+        "fa": "نقشه"
+      },
+      "answer": "de kaart",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kaart means map.",
+        "nl": "Gebruik het lidwoord: de kaart betekent map.",
+        "fa": "حرف تعریف را هم بنویسید: de kaart به معنی نقشه است."
+      }
+    },
+    {
+      "id": "vocabulary:ticket",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het ticket",
+      "prompt": {
+        "en": "the ticket",
+        "nl": "het ticket",
+        "fa": "بلیت"
+      },
+      "answer": "het ticket",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het ticket means ticket.",
+        "nl": "Gebruik het lidwoord: het ticket betekent ticket.",
+        "fa": "حرف تعریف را هم بنویسید: het ticket به معنی بلیت است."
+      }
+    },
+    {
+      "id": "vocabulary:reis",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de reis",
+      "prompt": {
+        "en": "the trip",
+        "nl": "de reis",
+        "fa": "سفر"
+      },
+      "answer": "de reis",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de reis means trip.",
+        "nl": "Gebruik het lidwoord: de reis betekent trip.",
+        "fa": "حرف تعریف را هم بنویسید: de reis به معنی سفر است."
+      }
+    },
+    {
+      "id": "vocabulary:vakantie",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de vakantie",
+      "prompt": {
+        "en": "the holiday",
+        "nl": "de vakantie",
+        "fa": "تعطیلات"
+      },
+      "answer": "de vakantie",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de vakantie means holiday.",
+        "nl": "Gebruik het lidwoord: de vakantie betekent holiday.",
+        "fa": "حرف تعریف را هم بنویسید: de vakantie به معنی تعطیلات است."
+      }
+    },
+    {
+      "id": "vocabulary:eten",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het eten",
+      "prompt": {
+        "en": "the food",
+        "nl": "het eten",
+        "fa": "غذا"
+      },
+      "answer": "het eten",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het eten means food.",
+        "nl": "Gebruik het lidwoord: het eten betekent food.",
+        "fa": "حرف تعریف را هم بنویسید: het eten به معنی غذا است."
+      }
+    },
+    {
+      "id": "vocabulary:brood",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het brood",
+      "prompt": {
+        "en": "the bread",
+        "nl": "het brood",
+        "fa": "نان"
+      },
+      "answer": "het brood",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het brood means bread.",
+        "nl": "Gebruik het lidwoord: het brood betekent bread.",
+        "fa": "حرف تعریف را هم بنویسید: het brood به معنی نان است."
+      }
+    },
+    {
+      "id": "vocabulary:kaas",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de kaas",
+      "prompt": {
+        "en": "the cheese",
+        "nl": "de kaas",
+        "fa": "پنیر"
+      },
+      "answer": "de kaas",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kaas means cheese.",
+        "nl": "Gebruik het lidwoord: de kaas betekent cheese.",
+        "fa": "حرف تعریف را هم بنویسید: de kaas به معنی پنیر است."
+      }
+    },
+    {
+      "id": "vocabulary:melk",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de melk",
+      "prompt": {
+        "en": "the milk",
+        "nl": "de melk",
+        "fa": "شیر"
+      },
+      "answer": "de melk",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de melk means milk.",
+        "nl": "Gebruik het lidwoord: de melk betekent milk.",
+        "fa": "حرف تعریف را هم بنویسید: de melk به معنی شیر است."
+      }
+    },
+    {
+      "id": "vocabulary:water",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het water",
+      "prompt": {
+        "en": "the water",
+        "nl": "het water",
+        "fa": "آب"
+      },
+      "answer": "het water",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het water means water.",
+        "nl": "Gebruik het lidwoord: het water betekent water.",
+        "fa": "حرف تعریف را هم بنویسید: het water به معنی آب است."
+      }
+    },
+    {
+      "id": "vocabulary:koffie",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de koffie",
+      "prompt": {
+        "en": "the coffee",
+        "nl": "de koffie",
+        "fa": "قهوه"
+      },
+      "answer": "de koffie",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de koffie means coffee.",
+        "nl": "Gebruik het lidwoord: de koffie betekent coffee.",
+        "fa": "حرف تعریف را هم بنویسید: de koffie به معنی قهوه است."
+      }
+    },
+    {
+      "id": "vocabulary:thee",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de thee",
+      "prompt": {
+        "en": "the tea",
+        "nl": "de thee",
+        "fa": "چای"
+      },
+      "answer": "de thee",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de thee means tea.",
+        "nl": "Gebruik het lidwoord: de thee betekent tea.",
+        "fa": "حرف تعریف را هم بنویسید: de thee به معنی چای است."
+      }
+    },
+    {
+      "id": "vocabulary:suiker",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de suiker",
+      "prompt": {
+        "en": "the sugar",
+        "nl": "de suiker",
+        "fa": "شکر"
+      },
+      "answer": "de suiker",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de suiker means sugar.",
+        "nl": "Gebruik het lidwoord: de suiker betekent sugar.",
+        "fa": "حرف تعریف را هم بنویسید: de suiker به معنی شکر است."
+      }
+    },
+    {
+      "id": "vocabulary:zout",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het zout",
+      "prompt": {
+        "en": "the salt",
+        "nl": "het zout",
+        "fa": "نمک"
+      },
+      "answer": "het zout",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het zout means salt.",
+        "nl": "Gebruik het lidwoord: het zout betekent salt.",
+        "fa": "حرف تعریف را هم بنویسید: het zout به معنی نمک است."
+      }
+    },
+    {
+      "id": "vocabulary:rijst",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de rijst",
+      "prompt": {
+        "en": "the rice",
+        "nl": "de rijst",
+        "fa": "برنج"
+      },
+      "answer": "de rijst",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de rijst means rice.",
+        "nl": "Gebruik het lidwoord: de rijst betekent rice.",
+        "fa": "حرف تعریف را هم بنویسید: de rijst به معنی برنج است."
+      }
+    },
+    {
+      "id": "vocabulary:aardappel",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de aardappel",
+      "prompt": {
+        "en": "the potato",
+        "nl": "de aardappel",
+        "fa": "سیب‌زمینی"
+      },
+      "answer": "de aardappel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de aardappel means potato.",
+        "nl": "Gebruik het lidwoord: de aardappel betekent potato.",
+        "fa": "حرف تعریف را هم بنویسید: de aardappel به معنی سیب‌زمینی است."
+      }
+    },
+    {
+      "id": "vocabulary:groente",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de groente",
+      "prompt": {
+        "en": "the vegetable",
+        "nl": "de groente",
+        "fa": "سبزی"
+      },
+      "answer": "de groente",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de groente means vegetable.",
+        "nl": "Gebruik het lidwoord: de groente betekent vegetable.",
+        "fa": "حرف تعریف را هم بنویسید: de groente به معنی سبزی است."
+      }
+    },
+    {
+      "id": "vocabulary:fruit",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het fruit",
+      "prompt": {
+        "en": "the fruit",
+        "nl": "het fruit",
+        "fa": "میوه"
+      },
+      "answer": "het fruit",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het fruit means fruit.",
+        "nl": "Gebruik het lidwoord: het fruit betekent fruit.",
+        "fa": "حرف تعریف را هم بنویسید: het fruit به معنی میوه است."
+      }
+    },
+    {
+      "id": "vocabulary:banaan",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de banaan",
+      "prompt": {
+        "en": "the banana",
+        "nl": "de banaan",
+        "fa": "موز"
+      },
+      "answer": "de banaan",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de banaan means banana.",
+        "nl": "Gebruik het lidwoord: de banaan betekent banana.",
+        "fa": "حرف تعریف را هم بنویسید: de banaan به معنی موز است."
+      }
+    },
+    {
+      "id": "vocabulary:ei",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het ei",
+      "prompt": {
+        "en": "the egg",
+        "nl": "het ei",
+        "fa": "تخم‌مرغ"
+      },
+      "answer": "het ei",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het ei means egg.",
+        "nl": "Gebruik het lidwoord: het ei betekent egg.",
+        "fa": "حرف تعریف را هم بنویسید: het ei به معنی تخم‌مرغ است."
+      }
+    },
+    {
+      "id": "vocabulary:soep",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de soep",
+      "prompt": {
+        "en": "the soup",
+        "nl": "de soep",
+        "fa": "سوپ"
+      },
+      "answer": "de soep",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de soep means soup.",
+        "nl": "Gebruik het lidwoord: de soep betekent soup.",
+        "fa": "حرف تعریف را هم بنویسید: de soep به معنی سوپ است."
+      }
+    },
+    {
+      "id": "vocabulary:ontbijt",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het ontbijt",
+      "prompt": {
+        "en": "the breakfast",
+        "nl": "het ontbijt",
+        "fa": "صبحانه"
+      },
+      "answer": "het ontbijt",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het ontbijt means breakfast.",
+        "nl": "Gebruik het lidwoord: het ontbijt betekent breakfast.",
+        "fa": "حرف تعریف را هم بنویسید: het ontbijt به معنی صبحانه است."
+      }
+    },
+    {
+      "id": "vocabulary:lunch",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de lunch",
+      "prompt": {
+        "en": "the lunch",
+        "nl": "de lunch",
+        "fa": "ناهار"
+      },
+      "answer": "de lunch",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de lunch means lunch.",
+        "nl": "Gebruik het lidwoord: de lunch betekent lunch.",
+        "fa": "حرف تعریف را هم بنویسید: de lunch به معنی ناهار است."
+      }
+    },
+    {
+      "id": "vocabulary:avondeten",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het avondeten",
+      "prompt": {
+        "en": "the dinner",
+        "nl": "het avondeten",
+        "fa": "شام"
+      },
+      "answer": "het avondeten",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het avondeten means dinner.",
+        "nl": "Gebruik het lidwoord: het avondeten betekent dinner.",
+        "fa": "حرف تعریف را هم بنویسید: het avondeten به معنی شام است."
+      }
+    },
+    {
+      "id": "vocabulary:jas",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de jas",
+      "prompt": {
+        "en": "the coat",
+        "nl": "de jas",
+        "fa": "کت"
+      },
+      "answer": "de jas",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de jas means coat.",
+        "nl": "Gebruik het lidwoord: de jas betekent coat.",
+        "fa": "حرف تعریف را هم بنویسید: de jas به معنی کت است."
+      }
+    },
+    {
+      "id": "vocabulary:broek",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de broek",
+      "prompt": {
+        "en": "the trousers",
+        "nl": "de broek",
+        "fa": "شلوار"
+      },
+      "answer": "de broek",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de broek means trousers.",
+        "nl": "Gebruik het lidwoord: de broek betekent trousers.",
+        "fa": "حرف تعریف را هم بنویسید: de broek به معنی شلوار است."
+      }
+    },
+    {
+      "id": "vocabulary:shirt",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het shirt",
+      "prompt": {
+        "en": "the shirt",
+        "nl": "het shirt",
+        "fa": "پیراهن"
+      },
+      "answer": "het shirt",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het shirt means shirt.",
+        "nl": "Gebruik het lidwoord: het shirt betekent shirt.",
+        "fa": "حرف تعریف را هم بنویسید: het shirt به معنی پیراهن است."
+      }
+    },
+    {
+      "id": "vocabulary:schoen",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de schoen",
+      "prompt": {
+        "en": "the shoe",
+        "nl": "de schoen",
+        "fa": "کفش"
+      },
+      "answer": "de schoen",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de schoen means shoe.",
+        "nl": "Gebruik het lidwoord: de schoen betekent shoe.",
+        "fa": "حرف تعریف را هم بنویسید: de schoen به معنی کفش است."
+      }
+    },
+    {
+      "id": "vocabulary:kleding",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de kleding",
+      "prompt": {
+        "en": "the clothing",
+        "nl": "de kleding",
+        "fa": "لباس"
+      },
+      "answer": "de kleding",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kleding means clothing.",
+        "nl": "Gebruik het lidwoord: de kleding betekent clothing.",
+        "fa": "حرف تعریف را هم بنویسید: de kleding به معنی لباس است."
+      }
+    },
+    {
+      "id": "vocabulary:weer",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het weer",
+      "prompt": {
+        "en": "the weather",
+        "nl": "het weer",
+        "fa": "هوا"
+      },
+      "answer": "het weer",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het weer means weather.",
+        "nl": "Gebruik het lidwoord: het weer betekent weather.",
+        "fa": "حرف تعریف را هم بنویسید: het weer به معنی هوا است."
+      }
+    },
+    {
+      "id": "vocabulary:zon",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de zon",
+      "prompt": {
+        "en": "the sun",
+        "nl": "de zon",
+        "fa": "خورشید"
+      },
+      "answer": "de zon",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de zon means sun.",
+        "nl": "Gebruik het lidwoord: de zon betekent sun.",
+        "fa": "حرف تعریف را هم بنویسید: de zon به معنی خورشید است."
+      }
+    },
+    {
+      "id": "vocabulary:regen",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de regen",
+      "prompt": {
+        "en": "the rain",
+        "nl": "de regen",
+        "fa": "باران"
+      },
+      "answer": "de regen",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de regen means rain.",
+        "nl": "Gebruik het lidwoord: de regen betekent rain.",
+        "fa": "حرف تعریف را هم بنویسید: de regen به معنی باران است."
+      }
+    },
+    {
+      "id": "vocabulary:wind",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de wind",
+      "prompt": {
+        "en": "the wind",
+        "nl": "de wind",
+        "fa": "باد"
+      },
+      "answer": "de wind",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de wind means wind.",
+        "nl": "Gebruik het lidwoord: de wind betekent wind.",
+        "fa": "حرف تعریف را هم بنویسید: de wind به معنی باد است."
+      }
+    },
+    {
+      "id": "vocabulary:lucht",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de lucht",
+      "prompt": {
+        "en": "the air",
+        "nl": "de lucht",
+        "fa": "هوا"
+      },
+      "answer": "de lucht",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de lucht means air.",
+        "nl": "Gebruik het lidwoord: de lucht betekent air.",
+        "fa": "حرف تعریف را هم بنویسید: de lucht به معنی هوا است."
+      }
+    },
+    {
+      "id": "vocabulary:boom",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de boom",
+      "prompt": {
+        "en": "the tree",
+        "nl": "de boom",
+        "fa": "درخت"
+      },
+      "answer": "de boom",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de boom means tree.",
+        "nl": "Gebruik het lidwoord: de boom betekent tree.",
+        "fa": "حرف تعریف را هم بنویسید: de boom به معنی درخت است."
+      }
+    },
+    {
+      "id": "vocabulary:bloem",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de bloem",
+      "prompt": {
+        "en": "the flower",
+        "nl": "de bloem",
+        "fa": "گل"
+      },
+      "answer": "de bloem",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de bloem means flower.",
+        "nl": "Gebruik het lidwoord: de bloem betekent flower.",
+        "fa": "حرف تعریف را هم بنویسید: de bloem به معنی گل است."
+      }
+    },
+    {
+      "id": "vocabulary:dier",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het dier",
+      "prompt": {
+        "en": "the animal",
+        "nl": "het dier",
+        "fa": "حیوان"
+      },
+      "answer": "het dier",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het dier means animal.",
+        "nl": "Gebruik het lidwoord: het dier betekent animal.",
+        "fa": "حرف تعریف را هم بنویسید: het dier به معنی حیوان است."
+      }
+    },
+    {
+      "id": "vocabulary:hond",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de hond",
+      "prompt": {
+        "en": "the dog",
+        "nl": "de hond",
+        "fa": "سگ"
+      },
+      "answer": "de hond",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de hond means dog.",
+        "nl": "Gebruik het lidwoord: de hond betekent dog.",
+        "fa": "حرف تعریف را هم بنویسید: de hond به معنی سگ است."
+      }
+    },
+    {
+      "id": "vocabulary:kat",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de kat",
+      "prompt": {
+        "en": "the cat",
+        "nl": "de kat",
+        "fa": "گربه"
+      },
+      "answer": "de kat",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kat means cat.",
+        "nl": "Gebruik het lidwoord: de kat betekent cat.",
+        "fa": "حرف تعریف را هم بنویسید: de kat به معنی گربه است."
+      }
+    },
+    {
+      "id": "vocabulary:kleur",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de kleur",
+      "prompt": {
+        "en": "the color",
+        "nl": "de kleur",
+        "fa": "رنگ"
+      },
+      "answer": "de kleur",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de kleur means color.",
+        "nl": "Gebruik het lidwoord: de kleur betekent color.",
+        "fa": "حرف تعریف را هم بنویسید: de kleur به معنی رنگ است."
+      }
+    },
+    {
+      "id": "vocabulary:foto",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de foto",
+      "prompt": {
+        "en": "the photo",
+        "nl": "de foto",
+        "fa": "عکس"
+      },
+      "answer": "de foto",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de foto means photo.",
+        "nl": "Gebruik het lidwoord: de foto betekent photo.",
+        "fa": "حرف تعریف را هم بنویسید: de foto به معنی عکس است."
+      }
+    },
+    {
+      "id": "vocabulary:film",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de film",
+      "prompt": {
+        "en": "the film",
+        "nl": "de film",
+        "fa": "فیلم"
+      },
+      "answer": "de film",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de film means film.",
+        "nl": "Gebruik het lidwoord: de film betekent film.",
+        "fa": "حرف تعریف را هم بنویسید: de film به معنی فیلم است."
+      }
+    },
+    {
+      "id": "vocabulary:muziek",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de muziek",
+      "prompt": {
+        "en": "the music",
+        "nl": "de muziek",
+        "fa": "موسیقی"
+      },
+      "answer": "de muziek",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de muziek means music.",
+        "nl": "Gebruik het lidwoord: de muziek betekent music.",
+        "fa": "حرف تعریف را هم بنویسید: de muziek به معنی موسیقی است."
+      }
+    },
+    {
+      "id": "vocabulary:spel",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het spel",
+      "prompt": {
+        "en": "the game",
+        "nl": "het spel",
+        "fa": "بازی"
+      },
+      "answer": "het spel",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het spel means game.",
+        "nl": "Gebruik het lidwoord: het spel betekent game.",
+        "fa": "حرف تعریف را هم بنویسید: het spel به معنی بازی است."
+      }
+    },
+    {
+      "id": "vocabulary:sport",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de sport",
+      "prompt": {
+        "en": "the sport",
+        "nl": "de sport",
+        "fa": "ورزش"
+      },
+      "answer": "de sport",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de sport means sport.",
+        "nl": "Gebruik het lidwoord: de sport betekent sport.",
+        "fa": "حرف تعریف را هم بنویسید: de sport به معنی ورزش است."
+      }
+    },
+    {
+      "id": "vocabulary:feest",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het feest",
+      "prompt": {
+        "en": "the party",
+        "nl": "het feest",
+        "fa": "جشن"
+      },
+      "answer": "het feest",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het feest means party.",
+        "nl": "Gebruik het lidwoord: het feest betekent party.",
+        "fa": "حرف تعریف را هم بنویسید: het feest به معنی جشن است."
+      }
+    },
+    {
+      "id": "vocabulary:cadeau",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het cadeau",
+      "prompt": {
+        "en": "the gift",
+        "nl": "het cadeau",
+        "fa": "هدیه"
+      },
+      "answer": "het cadeau",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het cadeau means gift.",
+        "nl": "Gebruik het lidwoord: het cadeau betekent gift.",
+        "fa": "حرف تعریف را هم بنویسید: het cadeau به معنی هدیه است."
+      }
+    },
+    {
+      "id": "vocabulary:probleem",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het probleem",
+      "prompt": {
+        "en": "the problem",
+        "nl": "het probleem",
+        "fa": "مشکل"
+      },
+      "answer": "het probleem",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het probleem means problem.",
+        "nl": "Gebruik het lidwoord: het probleem betekent problem.",
+        "fa": "حرف تعریف را هم بنویسید: het probleem به معنی مشکل است."
+      }
+    },
+    {
+      "id": "vocabulary:idee",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het idee",
+      "prompt": {
+        "en": "the idea",
+        "nl": "het idee",
+        "fa": "ایده"
+      },
+      "answer": "het idee",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het idee means idea.",
+        "nl": "Gebruik het lidwoord: het idee betekent idea.",
+        "fa": "حرف تعریف را هم بنویسید: het idee به معنی ایده است."
+      }
+    },
+    {
+      "id": "vocabulary:tijd",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de tijd",
+      "prompt": {
+        "en": "the time",
+        "nl": "de tijd",
+        "fa": "زمان"
+      },
+      "answer": "de tijd",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de tijd means time.",
+        "nl": "Gebruik het lidwoord: de tijd betekent time.",
+        "fa": "حرف تعریف را هم بنویسید: de tijd به معنی زمان است."
+      }
+    },
+    {
+      "id": "vocabulary:minuut",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "de minuut",
+      "prompt": {
+        "en": "the minute",
+        "nl": "de minuut",
+        "fa": "دقیقه"
+      },
+      "answer": "de minuut",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: de minuut means minute.",
+        "nl": "Gebruik het lidwoord: de minuut betekent minute.",
+        "fa": "حرف تعریف را هم بنویسید: de minuut به معنی دقیقه است."
+      }
+    },
+    {
+      "id": "vocabulary:uur",
+      "moduleId": "vocabulary",
+      "level": "A2",
+      "lemma": "het uur",
+      "prompt": {
+        "en": "the hour",
+        "nl": "het uur",
+        "fa": "ساعت"
+      },
+      "answer": "het uur",
+      "acceptedVariants": [],
+      "explanation": {
+        "en": "Include the article: het uur means hour.",
+        "nl": "Gebruik het lidwoord: het uur betekent hour.",
+        "fa": "حرف تعریف را هم بنویسید: het uur به معنی ساعت است."
+      }
     }
   ]
 }

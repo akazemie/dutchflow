@@ -2,6 +2,14 @@ import { describe, expect, it } from "vitest";
 import { verbsModule } from "./module";
 
 describe("Dutch verb exercise evaluation", () => {
+  it("includes available lower-level content for a higher selected level", async () => {
+    const items = await verbsModule.loadItems({ level: "B1" });
+
+    expect(items.length).toBeGreaterThanOrEqual(100);
+    expect(items.some((item) => item.id === "verb:lopen" && item.level === "A1")).toBe(true);
+    expect(items.some((item) => item.id === "verb:bezoeken" && item.level === "A2")).toBe(true);
+  });
+
   it("accepts case and punctuation variants and assigns a good rating", async () => {
     const exercise = await verbsModule.createExercise("verb:lopen");
 

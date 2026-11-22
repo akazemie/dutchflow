@@ -38,7 +38,10 @@ export async function startSession(input: {
 
   const dueSkillIds = new Set(input.dueReviews.map((candidate) => candidate.skillId));
   const eligibleNewItems = newItems.filter((candidate) =>
-    !knownSkills.has(candidate.skillId) || dueSkillIds.has(candidate.skillId),
+    !knownSkills.has(candidate.skillId) && !dueSkillIds.has(candidate.skillId),
+  );
+  const extraPracticeItems = newItems.filter((candidate) =>
+    knownSkills.has(candidate.skillId) && !dueSkillIds.has(candidate.skillId),
   );
 
   return {
@@ -47,6 +50,7 @@ export async function startSession(input: {
     plan: planSession({
       dueReviews: input.dueReviews,
       newItems: eligibleNewItems,
+      practiceItems: extraPracticeItems,
       strategy: input.preferences.exerciseStrategy,
       timeBudgetMinutes: input.preferences.dailyLearningMinutes,
     }),
