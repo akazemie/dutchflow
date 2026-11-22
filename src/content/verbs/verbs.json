@@ -1,0 +1,21 @@
+{
+  "contentVersion": 1,
+  "items": [
+    {
+      "id": "verb:lopen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "lopen",
+      "english": "to walk",
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "gelopen", "examples": [{ "nl": "Ik heb gelopen.", "en": "I have walked" }] },
+        "imperfectum": { "singular": "liep", "plural": "liepen" }
+      },
+      "explanation": {
+        "en": "Use hebben + the past participle gelopen to form the perfectum.",
+        "nl": "Vorm het perfectum met hebben + het voltooid deelwoord gelopen.",
+        "fa": "برای ساخت زمان کامل از hebben و اسم مفعول gelopen استفاده کنید."
+      }
+    }
+  ]
+}
