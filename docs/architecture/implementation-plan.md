@@ -1,0 +1,74 @@
+# DutchFlow Implementation Plan
+
+## Delivery principles
+
+- Build a working end-to-end slice before broadening lesson coverage.
+- Keep learner data local in IndexedDB through Dexie; no authentication, backend, AWS, or paid APIs in the MVP.
+- Keep Next.js App Router as the routing authority and learning rules independent of UI and persistence.
+- Add modules through shared contracts and independent content, not module-specific changes to core services.
+- Add tests alongside domain code and validate educational content in CI.
+
+## Milestones
+
+### 1. Walking skeleton
+
+Create the smallest complete learning path: one verb, one exercise, answer evaluation, and a saved attempt in IndexedDB. Establish the Next.js App Router shell, TypeScript conventions, a responsive learning screen, the Dexie database, composition root, and one repository port/adapter. Add tests for the exercise evaluator and repository behavior.
+
+**Done when:** a user can complete the exercise locally, see feedback, reload the app, and find the attempt still persisted.
+
+### 2. Stable learning and content contracts
+
+Define module metadata and the non-generic module contract, discriminated exercise union, exercise-renderer registry, `skillId` mapping, stable content IDs, and content-version rules. Add Zod schemas, translation maps, and the content-validation script. Keep the first module explicitly imported; do not add route registration or automatic discovery.
+
+**Done when:** the verb module and its content pass validation and use only shared application contracts.
+
+### 3. Dutch verb foundations
+
+Add Perfectum and Imperfectum verb data and reusable conjugation rules. Store irregular and strong forms explicitly. Model regular weak endings, separable verbs, *ge-* exceptions, auxiliary selection, and accepted answer variants. Generate routine drills from data and author sentence-context exercises only where curation adds value.
+
+**Done when:** representative rules and verb records have regression tests, generated forms validate, and evaluation handles supported variants.
+
+### 4. Preferences and session planning
+
+Persist language level, explanation language, exercise strategy, and daily learning time independently of UI. Implement the pure `session-planner` using due skills, eligible new skills, selected strategy, and time budget. Application use cases load inputs and save proposed sessions.
+
+**Done when:** deterministic tests cover planning decisions and preferences survive reloads.
+
+### 5. Skill progress and spaced repetition
+
+Persist skill-level progress, attempts, and review schedules independently. Introduce the scheduler interface and select a compatible FSRS implementation/version after checking the project runtime and browser behavior. Use a fixed clock in tests.
+
+**Done when:** attempts update the correct skill records and schedule due reviews reproducibly.
+
+### 6. Review experience and data portability
+
+Build the due-review queue and progress screens. Request persistent browser storage where supported. Add JSON export/import for preferences, attempts, progress, and schedules, with validation and schema versioning.
+
+**Done when:** a learner can export a backup, restore it, and continue with equivalent local progress.
+
+### 7. Validate extensibility with another module
+
+Add a small second module (for example Vocabulary or Grammar) with its own content and evaluation while reusing the contracts, renderer types where applicable, session planner, persistence, and scheduling. Add module content via dynamic imports.
+
+**Done when:** the second module does not require changing verb logic or adding a custom routing layer.
+
+### 8. Optional listening and speaking capabilities
+
+Add audio-prompt exercises and local/static audio assets when content is ready. Explore browser speech capabilities behind asynchronous evaluation, with feature detection and a typed/manual fallback where useful. Keep these optional and free of paid API dependencies.
+
+**Done when:** unsupported browser features do not block other exercise types or saved learning progress.
+
+## Test and quality gates
+
+- Unit tests colocated with domain, conjugation, planner, scheduler, and evaluation code.
+- Content schema and generated conjugation validation run through `scripts/validate-content` in CI.
+- Dexie repository and migration tests cover stored learner records.
+- Integration tests cover exercise completion and persistence; end-to-end tests cover core responsive flows and data backup/restore.
+- Boundary linting checks the intended dependency direction.
+
+## Decisions to confirm during implementation setup
+
+- Pin a `ts-fsrs` release compatible with the actual Node runtime and verify its browser bundle before use.
+- Verify the chosen Next.js features and deployment target work with `output: 'export'`.
+- Select and configure the interface i18n library; `next-intl` is a candidate, while content translation remains schema-based data.
+- Choose the first supported explanation locales and define locale fallback behavior.
