@@ -20,4 +20,22 @@ describe("startSession", () => {
     expect(session.plan.every(({ itemId }) => itemId === "verb:beantwoorden" || itemId === "verb:bezoeken")).toBe(true);
     expect(session.module.id).toBe("verbs");
   });
+
+  it("does not offer known skills as new work unless they are due", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 60,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    const session = await startSession({
+      module: verbsModule,
+      preferences,
+      dueReviews: [],
+      knownSkillIds: ["verb:lopen:perfectum"],
+    });
+
+    expect(session.plan.map(({ skillId }) => skillId)).not.toContain("verb:lopen:perfectum");
+  });
 });

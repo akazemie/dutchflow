@@ -11,11 +11,17 @@ import { LOCAL_LEARNER_ID } from "@/learning/core/local-learner";
 import { DutchFlowDatabase } from "@/infrastructure/dexie/database";
 import { DexieAttemptRepository } from "@/infrastructure/dexie/attempt-repository";
 import { DexiePreferencesRepository } from "@/infrastructure/dexie/preferences-repository";
+import { DexieProgressRepository } from "@/infrastructure/dexie/progress-repository";
+import { DexieReviewScheduleRepository } from "@/infrastructure/dexie/review-schedule-repository";
+import { createFsrsReviewScheduler } from "@/learning/scheduling/review-scheduler";
 
 function createLearningRuntime(): LearningRuntime {
   const db = new DutchFlowDatabase();
   const attempts = new DexieAttemptRepository(db);
   const preferences = new DexiePreferencesRepository(db);
+  const progress = new DexieProgressRepository(db);
+  const reviewSchedules = new DexieReviewScheduleRepository(db);
+  const scheduler = createFsrsReviewScheduler();
   async function loadLearningModule(moduleId: string) {
     if (moduleId !== "verbs") throw new Error(`Unknown learning module: ${moduleId}`);
     const loaded = await import("@/learning/modules/verbs/module");
@@ -26,16 +32,33 @@ function createLearningRuntime(): LearningRuntime {
     loadLearningModule,
     getPreferences: () => getPreferences(LOCAL_LEARNER_ID, { preferences }),
     updatePreferences: (changes) => updatePreferences(LOCAL_LEARNER_ID, changes, { preferences }),
+    getProgress: () => progress.listByLearner(LOCAL_LEARNER_ID),
     async createSession(moduleId) {
       const learningModule = await loadLearningModule(moduleId);
       const learnerPreferences = await getPreferences(LOCAL_LEARNER_ID, { preferences });
-      return startSession({ module: learningModule, preferences: learnerPreferences, dueReviews: [] });
+      const now = new Date().toISOString();
+      const [knownProgress, dueSchedules] = await Promise.all([
+        progress.listByLearner(LOCAL_LEARNER_ID),
+        reviewSchedules.listDue(LOCAL_LEARNER_ID, now),
+      ]);
+      return startSession({
+        module: learningModule,
+        preferences: learnerPreferences,
+        knownSkillIds: knownProgress.map((record) => record.skillId),
+        dueReviews: dueSchedules.map((schedule) => ({
+          skillId: schedule.skillId,
+          moduleId: schedule.moduleId,
+          itemId: schedule.itemId,
+          focusId: schedule.focusId,
+          estimatedMinutes: 2,
+        })),
+      });
     },
     async submitAnswer(input) {
       const learningModule = await loadLearningModule(input.exercise.moduleId);
       return submitAnswer(
         { ...input, learnerId: LOCAL_LEARNER_ID, module: learningModule },
-        { attempts },
+        { attempts, progress, reviewSchedules, scheduler },
       );
     },
   };

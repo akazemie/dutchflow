@@ -42,13 +42,15 @@ Persist language level, explanation language, exercise strategy, and daily learn
 
 **Done when:** deterministic tests cover planning decisions and preferences survive reloads.
 
-**Status: Complete (2026-11-22).** Preferences are stored in a separate Dexie table and survive database closure/reopening. The pure planner applies the selected level, strategy, and daily time budget to new practice, with deterministic planning tests. Due-review inputs will be connected when review schedules are implemented in Milestone 5.
+**Status: Complete (2026-11-22).** Preferences are stored in a separate Dexie table and survive database closure/reopening. The pure planner applies the selected level, strategy, and daily time budget to practice, with deterministic planning tests. Due-review and known-skill inputs are now supplied by Milestone 5 persistence.
 
 ### 5. Skill progress and spaced repetition
 
 Persist skill-level progress, attempts, and review schedules independently. Carry `EvaluationResult`'s `again`/`hard`/`good`/`easy` rating (or a deterministic mapping from its score) into the scheduler. Introduce the scheduler interface and select a compatible FSRS implementation/version after checking the project runtime and browser behavior. Make tests deterministic by injecting a fixed clock and disabling fuzzing.
 
 **Done when:** attempts update the correct skill records and schedule due reviews reproducibly.
+
+**Status: Complete (2026-11-22).** Attempts update per-skill counts and deterministic FSRS review cards in separate Dexie tables. Due cards feed the session planner, practiced skills are excluded from new work, and tests cover rating transitions, due queries, and skill-specific updates. The pinned `ts-fsrs@5.4.2` uses the FSRS-6 model and supports the project's Node 20 baseline; fuzzing and short learning steps are disabled.
 
 ### 6. Review experience and data portability
 
@@ -78,7 +80,7 @@ Add audio-prompt exercises and local/static audio assets when content is ready. 
 
 ## Decisions to confirm during implementation setup
 
-- Pin a `ts-fsrs` release compatible with the actual Node runtime and verify its browser bundle before use.
+- `ts-fsrs@5.4.2` is pinned for Node 20 compatibility and browser-side scheduling; scheduler metadata records both package and model versions.
 - Verify the chosen Next.js features and deployment target work with `output: 'export'`.
 - Select and configure the interface i18n library; `next-intl` is a candidate, while content translation remains schema-based data.
 - Choose the first supported explanation locales and define locale fallback behavior.

@@ -12,11 +12,13 @@ export async function startSession(input: {
   module: LearningModule;
   preferences: LearnerPreferences;
   dueReviews: SessionCandidate[];
+  knownSkillIds?: string[];
   estimatedMinutesPerExercise?: number;
 }): Promise<PreparedLearningSession> {
   const items = await input.module.loadItems({ level: input.preferences.level });
   const newItems: SessionCandidate[] = [];
   const estimatedMinutes = input.estimatedMinutesPerExercise ?? 2;
+  const knownSkills = new Set(input.knownSkillIds ?? []);
 
   for (const item of items) {
     for (const focus of input.module.exerciseFocuses) {
@@ -34,12 +36,17 @@ export async function startSession(input: {
     }
   }
 
+  const dueSkillIds = new Set(input.dueReviews.map((candidate) => candidate.skillId));
+  const eligibleNewItems = newItems.filter((candidate) =>
+    !knownSkills.has(candidate.skillId) || dueSkillIds.has(candidate.skillId),
+  );
+
   return {
     module: input.module,
     preferences: input.preferences,
     plan: planSession({
       dueReviews: input.dueReviews,
-      newItems,
+      newItems: eligibleNewItems,
       strategy: input.preferences.exerciseStrategy,
       timeBudgetMinutes: input.preferences.dailyLearningMinutes,
     }),
