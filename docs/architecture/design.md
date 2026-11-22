@@ -41,6 +41,7 @@ src/
     learn/
     settings/
     progress/
+    composition-root.tsx              # Client-only wiring of application services and adapters
   features/                         # Client UI, hooks, and feature-specific components
     learning-session/
     preferences/
@@ -79,7 +80,6 @@ src/
       database.ts
       repositories/
       migrations/
-    composition-root.ts              # Client-only service/repository wiring
 scripts/
   validate-content.ts                # Root-level content validation command
 
