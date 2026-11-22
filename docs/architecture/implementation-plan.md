@@ -18,11 +18,15 @@ Create the smallest complete learning path: one verb, one exercise, answer evalu
 
 If using static export, dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; the MVP returns its single verb module.
 
+**Status: Complete (2026-11-22).** The local Perfectum exercise and Dexie attempt flow are implemented. ESLint, TypeScript, content validation, all four unit tests, the static export build, and `npm audit` passed; the persisted-attempt repository behavior is covered by a Dexie test.
+
 ### 2. Stable learning and content contracts
 
 Define module metadata and the non-generic module contract, discriminated exercise union, exercise-renderer registry, `skillId` mapping, stable content IDs, and content-version rules. Add Zod schemas, translation maps, and the content-validation script. Keep the first module explicitly imported; do not add route registration or automatic discovery.
 
 **Done when:** the verb module and its content pass validation and use only shared application contracts.
+
+**Status: Complete (2026-11-22).** The non-generic module contract, exercise-focus and renderer contracts, content schema, versioned IDs, dynamic verb-module import, and CI content validation are in place.
 
 ### 3. Dutch verb foundations
 
@@ -30,11 +34,15 @@ Add Perfectum and Imperfectum verb data and reusable conjugation rules. Store ir
 
 **Done when:** representative rules and verb records have regression tests, generated forms validate, and evaluation handles supported variants.
 
+**Status: Complete (2026-11-22).** Perfectum and singular/plural Imperfectum practice covers seven verbs, including explicit strong forms, generated weak forms, separable *opbellen*, the *be-* prefix exception, auxiliary variants, and accepted answers. Content validation compares generated weak forms with stored expected forms.
+
 ### 4. Preferences and session planning
 
 Persist language level, explanation language, exercise strategy, and daily learning time independently of UI. Implement the pure `session-planner` using due skills, eligible new skills, selected strategy, and time budget. Application use cases load inputs and save proposed sessions.
 
 **Done when:** deterministic tests cover planning decisions and preferences survive reloads.
+
+**Status: Complete (2026-11-22).** Preferences are stored in a separate Dexie table and survive database closure/reopening. The pure planner applies the selected level, strategy, and daily time budget to new practice, with deterministic planning tests. Due-review inputs will be connected when review schedules are implemented in Milestone 5.
 
 ### 5. Skill progress and spaced repetition
 

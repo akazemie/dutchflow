@@ -1,10 +1,23 @@
+import type { ExplanationLanguage, LanguageLevel } from "@/learning/core/preferences";
+
 export type ExerciseType = "typed-answer";
 
 export interface LearningItem {
   id: string;
   moduleId: string;
+  displayName: string;
   contentVersion: number;
   level: string;
+}
+
+export interface ExerciseFocus {
+  id: string;
+  label: string;
+}
+
+export interface ExerciseContext {
+  focusId?: string;
+  explanationLanguage?: ExplanationLanguage;
 }
 
 export interface TypedAnswerExercise {
@@ -14,6 +27,7 @@ export interface TypedAnswerExercise {
   contentId: string;
   skillId: string;
   level: string;
+  focusId: string;
   focusLabel: string;
   prompt: string;
   hint?: string;
@@ -36,7 +50,8 @@ export interface LearningModule {
   displayName: string;
   i18nKey: string;
   supportedLevels: string[];
-  loadItems(): Promise<LearningItem[]>;
-  createExercise(itemId: string): Promise<LearningExercise>;
+  exerciseFocuses: ExerciseFocus[];
+  loadItems(query?: { level?: LanguageLevel }): Promise<LearningItem[]>;
+  createExercise(itemId: string, context?: ExerciseContext): Promise<LearningExercise>;
   evaluate(exercise: LearningExercise, answer: string): Promise<EvaluationResult>;
 }

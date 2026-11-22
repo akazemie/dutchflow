@@ -48,6 +48,10 @@ export default defineConfig([
               allow: { to: { element: { types: ["application", "learning", "renderers"] } } },
             },
             {
+              from: { element: { type: "application-ports" } },
+              allow: { to: { element: { type: "learning" } } },
+            },
+            {
               from: { element: { type: "application" } },
               allow: { to: { element: { types: ["application", "application-ports", "learning"] } } },
             },

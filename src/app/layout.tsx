@@ -17,7 +17,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <span className="brand-mark" aria-hidden="true">D</span>
             <span>DutchFlow</span>
           </Link>
-          <span className="header-note">A little Dutch, every day</span>
+          <nav className="header-nav" aria-label="Main navigation">
+            <Link className="header-note" href="/">Practice</Link>
+            <Link className="header-note" href="/settings/">Settings</Link>
+          </nav>
         </header>
         <AppCompositionRoot>
           <main>{children}</main>

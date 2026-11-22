@@ -1,5 +1,5 @@
 {
-  "contentVersion": 1,
+  "contentVersion": 2,
   "items": [
     {
       "id": "verb:lopen",
@@ -7,14 +7,211 @@
       "level": "A1",
       "lemma": "lopen",
       "english": "to walk",
+      "morphology": { "type": "strong" },
       "forms": {
-        "perfectum": { "auxiliary": "hebben", "participle": "gelopen", "examples": [{ "nl": "Ik heb gelopen.", "en": "I have walked" }] },
-        "imperfectum": { "singular": "liep", "plural": "liepen" }
+        "perfectum": {
+          "auxiliary": "both",
+          "participle": "gelopen",
+          "examples": [{ "nl": "Ik heb gelopen.", "en": "I have walked", "acceptedVariants": ["Ik ben gelopen."] }]
+        },
+        "imperfectum": {
+          "singular": "liep",
+          "plural": "liepen",
+          "examples": {
+            "singular": { "nl": "Ik liep.", "en": "I walked" },
+            "plural": { "nl": "Wij liepen.", "en": "We walked" }
+          }
+        }
       },
       "explanation": {
-        "en": "Use hebben + the past participle gelopen to form the perfectum.",
-        "nl": "Vorm het perfectum met hebben + het voltooid deelwoord gelopen.",
-        "fa": "برای ساخت زمان کامل از hebben و اسم مفعول gelopen استفاده کنید."
+        "en": "Use a form of hebben or zijn with the past participle gelopen to form the perfectum.",
+        "nl": "Vorm het perfectum met hebben of zijn en het voltooid deelwoord gelopen.",
+        "fa": "برای ساخت زمان کامل از hebben یا zijn همراه با اسم مفعول gelopen استفاده کنید."
+      }
+    },
+    {
+      "id": "verb:werken",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "werken",
+      "english": "to work",
+      "morphology": {
+        "type": "weak",
+        "stem": "werk",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gewerkt",
+          "imperfectum": { "singular": "werkte", "plural": "werkten" }
+        }
+      },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "gewerkt", "examples": [{ "nl": "Ik heb gewerkt.", "en": "I have worked" }] },
+        "imperfectum": {
+          "singular": "werkte",
+          "plural": "werkten",
+          "examples": {
+            "singular": { "nl": "Ik werkte.", "en": "I worked" },
+            "plural": { "nl": "Wij werkten.", "en": "We worked" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "The verb werken is weak: its past forms add -te and its participle is gewerkt.",
+        "nl": "Het werkwoord werken is zwak: de verleden tijd krijgt -te en het voltooid deelwoord is gewerkt.",
+        "fa": "فعل werken باقاعده است؛ در گذشته te می‌گیرد و اسم مفعول آن gewerkt است."
+      }
+    },
+    {
+      "id": "verb:wonen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "wonen",
+      "english": "to live",
+      "morphology": {
+        "type": "weak",
+        "stem": "woon",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gewoond",
+          "imperfectum": { "singular": "woonde", "plural": "woonden" }
+        }
+      },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "gewoond", "examples": [{ "nl": "Ik heb in Brussel gewoond.", "en": "I have lived in Brussels" }] },
+        "imperfectum": {
+          "singular": "woonde",
+          "plural": "woonden",
+          "examples": {
+            "singular": { "nl": "Ik woonde in Brussel.", "en": "I lived in Brussels" },
+            "plural": { "nl": "Wij woonden in Brussel.", "en": "We lived in Brussels" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "Wonen is weak. Its stem ends in n, so the past uses -de and the participle ends in -d.",
+        "nl": "Wonen is zwak. De stam eindigt op n, dus de verleden tijd krijgt -de en het voltooid deelwoord -d.",
+        "fa": "فعل wonen باقاعده است؛ چون ریشه به n ختم می‌شود، گذشته de و اسم مفعول d می‌گیرد."
+      }
+    },
+    {
+      "id": "verb:fietsen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "fietsen",
+      "english": "to cycle",
+      "morphology": {
+        "type": "weak",
+        "stem": "fiets",
+        "gePrefix": true,
+        "expected": {
+          "perfectumParticiple": "gefietst",
+          "imperfectum": { "singular": "fietste", "plural": "fietsten" }
+        }
+      },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "gefietst", "examples": [{ "nl": "Ik heb naar het werk gefietst.", "en": "I have cycled to work" }] },
+        "imperfectum": {
+          "singular": "fietste",
+          "plural": "fietsten",
+          "examples": {
+            "singular": { "nl": "Ik fietste naar het werk.", "en": "I cycled to work" },
+            "plural": { "nl": "Wij fietsten naar het werk.", "en": "We cycled to work" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "Fietsen is weak. Its stem ends in s, so the past and participle use -t.",
+        "nl": "Fietsen is zwak. De stam eindigt op s, dus de verleden tijd en het voltooid deelwoord krijgen -t.",
+        "fa": "فعل fietsen باقاعده است؛ چون ریشه به s ختم می‌شود، گذشته و اسم مفعول t می‌گیرند."
+      }
+    },
+    {
+      "id": "verb:opbellen",
+      "moduleId": "verbs",
+      "level": "A1",
+      "lemma": "opbellen",
+      "english": "to call",
+      "morphology": {
+        "type": "weak",
+        "stem": "bel",
+        "gePrefix": true,
+        "separablePrefix": "op",
+        "expected": {
+          "perfectumParticiple": "opgebeld",
+          "imperfectum": { "singular": "belde op", "plural": "belden op" }
+        }
+      },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "opgebeld", "examples": [{ "nl": "Ik heb hem opgebeld.", "en": "I have called him" }] },
+        "imperfectum": {
+          "singular": "belde op",
+          "plural": "belden op",
+          "examples": {
+            "singular": { "nl": "Ik belde hem op.", "en": "I called him" },
+            "plural": { "nl": "Wij belden hem op.", "en": "We called him" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "Opbellen is separable. In the imperfectum, op moves to the end; in the participle, ge sits between op and bel.",
+        "nl": "Opbellen is scheidbaar. In de verleden tijd staat op achteraan; in het voltooid deelwoord staat ge tussen op en bel.",
+        "fa": "فعل opbellen جداشدنی است؛ در گذشته op به انتهای جمله می‌رود و در اسم مفعول ge میان op و bel می‌آید."
+      }
+    },
+    {
+      "id": "verb:beantwoorden",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "beantwoorden",
+      "english": "to answer",
+      "morphology": {
+        "type": "weak",
+        "stem": "beantwoord",
+        "gePrefix": false,
+        "expected": {
+          "perfectumParticiple": "beantwoord",
+          "imperfectum": { "singular": "beantwoordde", "plural": "beantwoordden" }
+        }
+      },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "beantwoord", "examples": [{ "nl": "Ik heb de vraag beantwoord.", "en": "I have answered the question" }] },
+        "imperfectum": {
+          "singular": "beantwoordde",
+          "plural": "beantwoordden",
+          "examples": {
+            "singular": { "nl": "Ik beantwoordde de vraag.", "en": "I answered the question" },
+            "plural": { "nl": "Wij beantwoordden de vraag.", "en": "We answered the question" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "Verbs beginning with the inseparable prefix be- do not add ge- to the participle.",
+        "nl": "Werkwoorden met het onscheidbare voorvoegsel be- krijgen geen ge- in het voltooid deelwoord.",
+        "fa": "فعل‌هایی با پیشوند جدانشدنی be- در اسم مفعول ge- نمی‌گیرند."
+      }
+    },
+    {
+      "id": "verb:bezoeken",
+      "moduleId": "verbs",
+      "level": "A2",
+      "lemma": "bezoeken",
+      "english": "to visit",
+      "morphology": { "type": "strong" },
+      "forms": {
+        "perfectum": { "auxiliary": "hebben", "participle": "bezocht", "examples": [{ "nl": "Ik heb mijn vriend bezocht.", "en": "I have visited my friend" }] },
+        "imperfectum": {
+          "singular": "bezocht",
+          "plural": "bezochten",
+          "examples": {
+            "singular": { "nl": "Ik bezocht mijn vriend.", "en": "I visited my friend" },
+            "plural": { "nl": "Wij bezochten mijn vriend.", "en": "We visited my friend" }
+          }
+        }
+      },
+      "explanation": {
+        "en": "Bezoeken is strong and keeps its irregular forms explicitly: bezocht and bezochten.",
+        "nl": "Bezoeken is sterk en heeft de onregelmatige vormen bezocht en bezochten.",
+        "fa": "فعل bezoeken قوی است و شکل‌های بی‌قاعده bezocht و bezochten را دارد."
       }
     }
   ]

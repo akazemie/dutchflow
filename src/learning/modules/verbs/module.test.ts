@@ -20,4 +20,30 @@ describe("Dutch verb exercise evaluation", () => {
       rating: "again",
     });
   });
+
+  it("creates distinct skill IDs for Perfectum and Imperfectum facets", async () => {
+    const perfectum = await verbsModule.createExercise("verb:werken", { focusId: "perfectum" });
+    const imperfectum = await verbsModule.createExercise("verb:werken", { focusId: "imperfectum-plural" });
+
+    expect(perfectum.skillId).toBe("verb:werken:perfectum");
+    expect(imperfectum.skillId).toBe("verb:werken:imperfectum:plural");
+    expect(imperfectum.acceptedAnswers).toContain("Wij werkten.");
+  });
+
+  it("keeps separable and auxiliary variants as accepted answers", async () => {
+    const separable = await verbsModule.createExercise("verb:opbellen", { focusId: "perfectum" });
+    const bothAuxiliaries = await verbsModule.createExercise("verb:lopen", { focusId: "perfectum" });
+
+    expect(separable.acceptedAnswers).toContain("Ik heb hem opgebeld.");
+    expect(bothAuxiliaries.acceptedAnswers).toContain("Ik ben gelopen.");
+  });
+
+  it("uses the learner's explanation language", async () => {
+    const exercise = await verbsModule.createExercise("verb:werken", {
+      focusId: "perfectum",
+      explanationLanguage: "nl",
+    });
+
+    expect(exercise.hint).toContain("Het werkwoord werken");
+  });
 });
