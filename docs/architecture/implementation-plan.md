@@ -12,9 +12,11 @@
 
 ### 1. Walking skeleton
 
-Create the smallest complete learning path: one verb, one exercise, answer evaluation, and a saved attempt in IndexedDB. Establish the Next.js App Router shell, TypeScript conventions, a responsive learning screen, the Dexie database, composition root, and one repository port/adapter. Add tests for the exercise evaluator and repository behavior.
+Create the smallest complete learning path: one verb, one exercise, answer evaluation, and a saved attempt in IndexedDB. Establish the Next.js App Router shell, TypeScript conventions, a responsive learning screen, the Dexie database, composition root, and one repository port/adapter. Define `learnerId` and `skillId` in the initial attempt schema; use a hardcoded local learner and a stable skill such as `verb:lopen:perfectum` from the first saved attempt. Set up Vitest, `fake-indexeddb`, ESLint with `eslint-plugin-boundaries`, and a CI workflow in this milestone. Configure a narrow composition-root exception in the boundaries rule so it can import both application services and infrastructure adapters. Add tests for the exercise evaluator and repository behavior.
 
 **Done when:** a user can complete the exercise locally, see feedback, reload the app, and find the attempt still persisted.
+
+If using static export, dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; the MVP returns its single verb module.
 
 ### 2. Stable learning and content contracts
 
@@ -36,13 +38,13 @@ Persist language level, explanation language, exercise strategy, and daily learn
 
 ### 5. Skill progress and spaced repetition
 
-Persist skill-level progress, attempts, and review schedules independently. Introduce the scheduler interface and select a compatible FSRS implementation/version after checking the project runtime and browser behavior. Use a fixed clock in tests.
+Persist skill-level progress, attempts, and review schedules independently. Carry `EvaluationResult`'s `again`/`hard`/`good`/`easy` rating (or a deterministic mapping from its score) into the scheduler. Introduce the scheduler interface and select a compatible FSRS implementation/version after checking the project runtime and browser behavior. Make tests deterministic by injecting a fixed clock and disabling fuzzing.
 
 **Done when:** attempts update the correct skill records and schedule due reviews reproducibly.
 
 ### 6. Review experience and data portability
 
-Build the due-review queue and progress screens. Request persistent browser storage where supported. Add JSON export/import for preferences, attempts, progress, and schedules, with validation and schema versioning.
+Build the due-review queue and progress screens. Request persistent browser storage where supported. Implement `application/export-import-data.ts` to export and import preferences, attempts, progress, and schedules as validated, versioned JSON.
 
 **Done when:** a learner can export a backup, restore it, and continue with equivalent local progress.
 

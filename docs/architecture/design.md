@@ -30,8 +30,8 @@ This is a modular monolith, not a distributed system. The initial implementation
 - Dependencies flow as `app -> features -> application -> learning`.
 - `application` defines the ports needed by use cases. `infrastructure` implements them. The client-only composition root constructs Dexie repositories and injects them into application services.
 - Keep UI, persistence, browser APIs, and framework imports out of learning-domain rules.
-- Use `eslint-plugin-boundaries` to enforce the dependency direction.
-- Consider Next.js `output: 'export'` for static hosting and a future PWA. Keep browser-dependent initialization behind client boundaries and confirm the selected Next.js features support static export when implementation begins.
+- Use `eslint-plugin-boundaries` to enforce the dependency direction. Give the composition root a narrow exception to import both `application` and `infrastructure`, since its purpose is to wire them together.
+- Consider Next.js `output: 'export'` for static hosting and a future PWA. Keep browser-dependent initialization behind client boundaries and confirm the selected Next.js features support static export when implementation begins. Dynamic routes such as `/learn/[moduleId]` must provide `generateStaticParams`; the MVP returns the single `verbs` module.
 
 ## Project structure
 
@@ -49,6 +49,7 @@ src/
     start-session.ts
     submit-answer.ts
     get-review-queue.ts
+    export-import-data.ts            # Validates and transfers learner-data JSON
     update-preferences.ts
     ports/
   learning/
@@ -79,8 +80,8 @@ src/
       repositories/
       migrations/
     composition-root.ts              # Client-only service/repository wiring
-  scripts/
-    validate-content.ts
+scripts/
+  validate-content.ts                # Root-level content validation command
 
 tests/                               # Integration and end-to-end tests
 ```
@@ -89,7 +90,7 @@ Future module folders are created when needed. They do not need to exist in the 
 
 ## Learning module and exercise contracts
 
-Modules implement a non-generic base contract so modules with different internal data can coexist in one catalog. The contract exposes module identity and metadata (stable ID, display name, i18n key, supported levels), selects eligible items, creates exercises, evaluates answers asynchronously when necessary, and maps outcomes to one or more stable `skillId` values.
+Modules implement a non-generic base contract so modules with different internal data can coexist in one catalog. The contract exposes module identity and metadata (stable ID, display name, i18n key, supported levels), selects eligible items, creates exercises, evaluates answers asynchronously when necessary, and maps outcomes to one or more stable `skillId` values. `EvaluationResult` carries a scheduler rating (`again`, `hard`, `good`, or `easy`), or a score that the application maps deterministically to one of those ratings.
 
 Exercises use a discriminated union on `exercise.type`, with a typed payload per kind. This permits safe type erasure at the module boundary while retaining useful type narrowing in application code.
 
@@ -111,11 +112,11 @@ Routine conjugation exercises are generated from verb data. Authored exercises a
 
 Review is keyed by a reviewable facet, or skill, rather than by a whole learning item. Example skill IDs include `verb:lopen:imperfectum:plural` and `verb:lopen:perfectum`. Progress and review schedule records are keyed by `(learnerId, skillId)`, allowing different aspects of the same verb to be learned independently.
 
-Use a scheduler interface so learning-domain code does not depend on a third-party API. FSRS via `ts-fsrs` is the leading candidate; verify Node compatibility, browser bundling, and the selected release before adoption. Store scheduler state and model/version metadata needed to interpret review history. Keep the scheduler replaceable without changing session or UI code.
+Use a scheduler interface so learning-domain code does not depend on a third-party API. FSRS via `ts-fsrs` is the leading candidate; verify Node compatibility, browser bundling, and the selected release before adoption. Store scheduler state and model/version metadata needed to interpret review history. Keep the scheduler replaceable without changing session or UI code. Make scheduler tests deterministic by injecting a fixed clock and disabling fuzzing.
 
 ## Persistence, durability, and portability
 
-Dexie is the IndexedDB adapter. Preferences, exercise attempts, item/skill progress, review schedules, and sessions are separate records accessed through repository ports. Use UUID record IDs, immutable content IDs, and `updatedAt` timestamps to leave a future path to synchronization without requiring it now.
+Dexie is the IndexedDB adapter. Preferences, exercise attempts, item/skill progress, review schedules, and sessions are separate records accessed through repository ports. Define `learnerId` and `skillId` in the initial Dexie schema, including the walking skeleton: use a hardcoded local learner ID and a stable skill ID such as `verb:lopen:perfectum` for its first saved attempt. This avoids persisting attempts in a schema that immediately needs changing when shared contracts arrive. Use UUID record IDs, immutable content IDs, and `updatedAt` timestamps to leave a future path to synchronization without requiring it now.
 
 Request persistent browser storage using `navigator.storage.persist()` when available. Provide JSON export and import for learner data so users can make backups and move data between browsers/devices. IndexedDB remains local to the browser/device; export/import is the MVP portability mechanism. Version the database schema and test migrations.
 
