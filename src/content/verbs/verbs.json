@@ -83,7 +83,7 @@
           "plural": "woonden",
           "examples": {
             "singular": { "nl": "Ik woonde in Brussel.", "en": "I lived in Brussels" },
-            "plural": { "nl": "Wij woonden in Brussel.", "en": "We lived in Brussels" }
+            "plural": { "nl": "Wij woonden in Brussel.", "en": "We lived in Brussels", "acceptedVariants": ["We woonden in Brussel."] }
           }
         }
       },

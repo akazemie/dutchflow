@@ -30,6 +30,18 @@ describe("Dutch verb exercise evaluation", () => {
     expect(imperfectum.acceptedAnswers).toContain("Wij werkten.");
   });
 
+  it("accepts both we and wij for the plural imperfectum example", async () => {
+    const exercise = await verbsModule.createExercise("verb:wonen", { focusId: "imperfectum-plural" });
+
+    expect(exercise.acceptedAnswers).toContain("Wij woonden in Brussel.");
+    expect(exercise.acceptedAnswers).toContain("We woonden in Brussel.");
+    await expect(verbsModule.evaluate(exercise, "we woonden in brussel")).resolves.toMatchObject({
+      correct: true,
+      rating: "good",
+      skillIds: ["verb:wonen:imperfectum:plural"],
+    });
+  });
+
   it("keeps separable and auxiliary variants as accepted answers", async () => {
     const separable = await verbsModule.createExercise("verb:opbellen", { focusId: "perfectum" });
     const bothAuxiliaries = await verbsModule.createExercise("verb:lopen", { focusId: "perfectum" });
