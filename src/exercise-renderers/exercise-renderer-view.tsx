@@ -1,13 +1,33 @@
 "use client";
 
-import type { Answer, EvaluationResult, LearningExercise } from "@/learning/contracts/module";
+import type { ReactNode } from "react";
+import type { Answer, EvaluationResult, ExerciseByType, ExerciseType, LearningExercise } from "@/learning/contracts/module";
 import { exerciseRendererRegistry } from "./registry";
+import type { ExerciseRenderer } from "./types";
 
 interface ExerciseRendererViewProps {
   exercise: LearningExercise;
   disabled: boolean;
   feedback: EvaluationResult | null;
   onAnswer(answer: Answer): void;
+}
+
+function renderExercise<T extends ExerciseType>(
+  type: T,
+  exercise: ExerciseByType[T],
+  props: Omit<ExerciseRendererViewProps, "exercise">,
+): ReactNode {
+  const Renderer = exerciseRendererRegistry[type] as ExerciseRenderer<T> | undefined;
+  if (!Renderer) return <p role="alert">No renderer is registered for {type} exercises.</p>;
+  return (
+    <Renderer
+      key={exercise.id}
+      exercise={exercise}
+      disabled={props.disabled}
+      feedback={props.feedback}
+      onAnswer={props.onAnswer}
+    />
+  );
 }
 
 export function ExerciseRendererView({
@@ -17,44 +37,10 @@ export function ExerciseRendererView({
   onAnswer,
 }: ExerciseRendererViewProps) {
   switch (exercise.type) {
-    case "typed-answer": {
-      const Renderer = exerciseRendererRegistry["typed-answer"];
-      return Renderer ? (
-        <Renderer
-          key={exercise.id}
-          exercise={exercise}
-          disabled={disabled}
-          feedback={feedback}
-          onAnswer={onAnswer}
-        />
-      ) : <p role="alert">No renderer is registered for typed-answer exercises.</p>;
-    }
-    case "multiple-choice": {
-      const Renderer = exerciseRendererRegistry["multiple-choice"];
-      return Renderer ? (
-        <Renderer
-          key={exercise.id}
-          exercise={exercise}
-          disabled={disabled}
-          feedback={feedback}
-          onAnswer={onAnswer}
-        />
-      ) : <p role="alert">No renderer is registered for multiple-choice exercises.</p>;
-    }
-    case "fill-gap": {
-      const Renderer = exerciseRendererRegistry["fill-gap"];
-      return Renderer ? (
-        <Renderer
-          key={exercise.id}
-          exercise={exercise}
-          disabled={disabled}
-          feedback={feedback}
-          onAnswer={onAnswer}
-        />
-      ) : <p role="alert">No renderer is registered for fill-gap exercises.</p>;
-    }
-    case "word-ordering":
-    case "matching":
-      return <p role="alert">This exercise type is not available yet.</p>;
+    case "typed-answer": return renderExercise("typed-answer", exercise, { disabled, feedback, onAnswer });
+    case "multiple-choice": return renderExercise("multiple-choice", exercise, { disabled, feedback, onAnswer });
+    case "fill-gap": return renderExercise("fill-gap", exercise, { disabled, feedback, onAnswer });
+    case "word-ordering": return renderExercise("word-ordering", exercise, { disabled, feedback, onAnswer });
+    case "matching": return renderExercise("matching", exercise, { disabled, feedback, onAnswer });
   }
 }

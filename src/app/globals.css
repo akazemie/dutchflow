@@ -97,6 +97,18 @@ main { min-height: calc(100vh - 142px); }
 .fill-gap-sentence { margin: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 3px; color: #405b4f; font-family: var(--serif); font-size: 20px; line-height: 1.8; }
 .fill-gap-answer { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 3px; vertical-align: middle; }
 .fill-gap-answer input { width: min(170px, 42vw); min-height: 44px; padding: 0 8px; border: 1px solid #9eb9a6; border-radius: 6px; background: white; color: var(--ink); font: inherit; font-size: 16px; }
+.word-ordering-token-list { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+.word-ordering-answer { min-height: 52px; padding: 5px; border: 1px dashed #b9cbbd; border-radius: 9px; background: #f7faf6; }
+.word-ordering-token, .matching-option { min-height: 44px; padding: 8px 12px; border: 1px solid #cbded0; border-radius: 8px; background: #fff; color: #355e49; cursor: pointer; }
+.word-ordering-token:hover, .matching-option:hover { border-color: #85a995; background: #f0f7f1; }
+.word-ordering-token:focus-visible, .matching-option:focus-visible { outline: 3px solid rgba(74, 130, 100, .35); outline-offset: 2px; }
+.matching-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.matching-column { display: grid; align-content: start; gap: 8px; }
+.matching-option { width: 100%; }
+.matching-option[aria-pressed="true"] { border-color: #7fa18c; background: #edf4ed; }
+.matching-option:disabled { cursor: not-allowed; opacity: .6; }
+.matching-assignment { display: block; margin-top: 3px; color: #71817b; font-size: 11px; }
+.matching-results { margin: 0; padding-left: 19px; display: grid; gap: 6px; }
 .item-result-correct, .item-result-incorrect { font-family: "DM Sans", "Segoe UI", sans-serif; font-size: 10px; line-height: 1.4; }
 .item-result-correct { color: #426b53; }
 .item-result-incorrect { color: #8a6340; }
@@ -169,6 +181,7 @@ main { min-height: calc(100vh - 142px); }
   .word-gelopen { left: 14%; bottom: 28px; }
   .hero-index { right: 18px; bottom: 15px; font-size: 8px; }
   .module-grid { grid-template-columns: 1fr; }
+  .matching-columns { grid-template-columns: 1fr; }
   .module-preview { padding: 19px; }
   .site-footer { width: calc(100% - 32px); font-size: 10px; }
   .settings-shell { width: calc(100% - 28px); padding-top: 32px; }

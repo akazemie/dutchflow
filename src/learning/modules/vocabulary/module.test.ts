@@ -41,4 +41,32 @@ describe("vocabularyModule", () => {
     expect(exercise.options.map((option) => option.text)).toContain("boek");
     expect(exercise.options.every((option) => !option.text.includes("."))).toBe(true);
   });
+
+  it("excludes distractor words that appear in the Dutch answer sentence", async () => {
+    const exercise = await vocabularyModule.createExercise("vocabulary:station", {
+      exerciseType: "multiple-choice",
+      seed: "station-options",
+    });
+
+    expect(exercise.type).toBe("multiple-choice");
+    if (exercise.type !== "multiple-choice") throw new Error("Expected a multiple-choice exercise.");
+    expect(exercise.options.map((option) => option.text)).toContain("station");
+    expect(exercise.options.map((option) => option.text)).not.toContain("trein");
+  });
+
+  it("does not offer matching", () => {
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:appel", "meaning")).not.toContain("matching");
+  });
+
+  it("supports word ordering only when the answer sentence has enough tokens", async () => {
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:boek", "meaning")).toContain("word-ordering");
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:man", "meaning")).not.toContain("word-ordering");
+
+    const exercise = await vocabularyModule.createExercise("vocabulary:boek", {
+      exerciseType: "word-ordering",
+      seed: "book-word-order",
+    });
+
+    expect(exercise.type).toBe("word-ordering");
+  });
 });

@@ -2,6 +2,7 @@ import type {
   ExerciseFocus,
   FillGapExercise,
   LearningSkill,
+  MatchingExercise,
   MultipleChoiceExercise,
   TypedAnswerExercise,
 } from "@/learning/contracts/module";
@@ -10,6 +11,8 @@ import type { VerbContent } from "@/content/verbs/schema";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { createFillGapSegments } from "@/learning/exercises/create-fill-gap-segments";
 import { createMultipleChoiceOptions, selectDistinctDistractors } from "@/learning/exercises/create-multiple-choice-options";
+import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import { seededShuffle } from "@/learning/core/seeded-shuffle";
 import type { AnswerOption } from "@/learning/exercises/create-multiple-choice-options";
 import { generateWeakForms } from "./conjugation/weak-forms";
 
@@ -48,6 +51,73 @@ export function verbSkills(verb: VerbContent, focuses: ExerciseFocus[]): Learnin
   return focuses.map((focus) => ({ skillId: getVerbPrompt(verb, focus.id, focuses).skillId, focusId: focus.id }));
 }
 
+export function getVerbMatchingPairs(verb: VerbContent, focuses: ExerciseFocus[]) {
+  const perfectumAuxiliary = verb.forms.perfectum.auxiliary === "both"
+    ? "hebben or zijn"
+    : verb.forms.perfectum.auxiliary;
+  const facets = [
+    {
+      focusId: "perfectum",
+      left: "Perfectum",
+      right: `${perfectumAuxiliary} + ${verb.forms.perfectum.participle}`,
+    },
+    {
+      focusId: "imperfectum-singular",
+      left: "Imperfectum singular",
+      right: verb.forms.imperfectum.singular,
+    },
+    {
+      focusId: "imperfectum-plural",
+      left: "Imperfectum plural",
+      right: verb.forms.imperfectum.plural,
+    },
+  ];
+
+  return facets.map((facet) => ({
+    id: `${verb.id}-${facet.focusId}`,
+    left: facet.left,
+    right: facet.right,
+    skillId: getVerbPrompt(verb, facet.focusId, focuses).skillId,
+  }));
+}
+
+export function supportsVerbMatching(verb: VerbContent, focuses: ExerciseFocus[]): boolean {
+  const forms = [
+    verb.forms.perfectum.participle,
+    verb.forms.imperfectum.singular,
+    verb.forms.imperfectum.plural,
+  ].map(normalizeAnswer);
+  return new Set(forms).size === forms.length && getVerbMatchingPairs(verb, focuses).length === 3;
+}
+
+export function createVerbMatching(
+  verb: VerbContent,
+  focuses: ExerciseFocus[],
+  seed: string | undefined,
+  explanationLanguage: ExplanationLanguage,
+): MatchingExercise | undefined {
+  if (!supportsVerbMatching(verb, focuses)) return undefined;
+  const id = createExerciseId();
+  const pairs = getVerbMatchingPairs(verb, focuses);
+  return {
+    id,
+    type: "matching",
+    moduleId: "verbs",
+    contentId: verb.id,
+    skillId: pairs[0]!.skillId,
+    level: verb.level,
+    focusId: "matching",
+    focusLabel: "Verb forms",
+    title: "Match each facet to its form",
+    answerLabel: "Tap a facet, then its matching form",
+    typoTolerance: "none",
+    partialCredit: "none",
+    hint: verb.explanation[explanationLanguage],
+    pairs,
+    rightOrder: seededShuffle(pairs.map((pair) => pair.id), seed ?? id),
+  };
+}
+
 function getWeakifiedForms(verb: VerbContent) {
   if (verb.morphology.type !== "strong") return undefined;
   let stem = verb.lemma.replace(/en$/iu, "").replace(/([bcdfghjklmnpqrstvwxz])\1$/iu, "$1");
@@ -80,7 +150,15 @@ function wrongAuxiliary(sentence: string, auxiliary: "hebben" | "zijn" | "both")
   const replacements: Record<string, string> = auxiliary === "hebben"
     ? { heb: "ben", heeft: "is", hebben: "zijn" }
     : { ben: "heb", is: "heeft", zijn: "hebben" };
-  return sentence.replace(/\b(heb|heeft|hebben|ben|is|zijn)\b/iu, (matched) => replacements[matched.toLocaleLowerCase("nl-NL")] ?? matched);
+  return sentence.replace(/\b(heb|heeft|hebben|ben|is|zijn)\b/iu, (matched) => {
+    const replacement = replacements[matched.toLocaleLowerCase("nl-NL")] ?? matched;
+    if (matched === matched.toLocaleUpperCase("nl-NL")) return replacement.toLocaleUpperCase("nl-NL");
+    const firstCharacter = matched[0];
+    if (firstCharacter && firstCharacter !== firstCharacter.toLocaleLowerCase("nl-NL")) {
+      return `${replacement[0]?.toLocaleUpperCase("nl-NL") ?? ""}${replacement.slice(1)}`;
+    }
+    return replacement;
+  });
 }
 
 export function getVerbDistractors(verb: VerbContent, focusId: string, prompt: VerbPrompt): AnswerOption[] {

@@ -141,11 +141,13 @@ describe("learner data backup", () => {
     expect(restored?.progress[0]?.exerciseStage).toBe(2);
   });
 
-  it("round-trips multiple-choice and fill-gap answers in backup v3", async () => {
+  it("round-trips every structured exercise answer in backup v3", async () => {
     const dataSource: LearnerDataSnapshot = {
       attempts: [
         { ...legacyAttempt, answer: { type: "multiple-choice", optionId: "option-1" } },
         { ...legacyAttempt, id: "attempt-gap", answer: { type: "fill-gap", values: { "gap-1": "boek" } } },
+        { ...legacyAttempt, id: "attempt-order", answer: { type: "word-ordering", tokenIds: ["token-1", "token-2"] } },
+        { ...legacyAttempt, id: "attempt-match", answer: { type: "matching", matches: { "left-1": "right-2" } } },
       ],
       progress: [],
       reviewSchedules: [],
@@ -162,6 +164,8 @@ describe("learner data backup", () => {
     expect(restored?.attempts.map((attempt) => attempt.answer)).toEqual([
       { type: "multiple-choice", optionId: "option-1" },
       { type: "fill-gap", values: { "gap-1": "boek" } },
+      { type: "word-ordering", tokenIds: ["token-1", "token-2"] },
+      { type: "matching", matches: { "left-1": "right-2" } },
     ]);
   });
 

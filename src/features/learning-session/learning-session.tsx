@@ -7,6 +7,7 @@ import type { SkillProgress } from "@/learning/core/progress";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
+import { filterEligibleExerciseTypes } from "@/learning/planning/matching-candidates";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
 import { learningModuleRegistry } from "@/learning/modules/registry";
 import { ExerciseRendererView } from "@/exercise-renderers/exercise-renderer-view";
@@ -85,11 +86,17 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       const skill = module.listSkills(itemId).find((candidate) => candidate.focusId === nextFocusId);
       if (!skill) throw new Error(`No skill found for item ${itemId} and focus ${nextFocusId}.`);
       const seed = createExerciseId();
+      const supportedTypes = filterEligibleExerciseTypes({
+        supportedTypes: module.supportedExerciseTypes(itemId, nextFocusId),
+        siblingSkills: module.listSkills(itemId),
+        knownSkillIds: skillProgress.map((progress) => progress.skillId),
+        skillProgress,
+      });
       const nextExercise = await module.createExercise(itemId, {
         focusId: nextFocusId,
         explanationLanguage,
         exerciseType: chooseExerciseType(
-          module.supportedExerciseTypes(itemId, nextFocusId),
+          supportedTypes,
           skillProgress.find((progress) => progress.skillId === skill.skillId),
           seed,
         ),
@@ -98,6 +105,17 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       setSelectedItemId(itemId);
       setFocusId(nextFocusId);
       setExercise(nextExercise);
+      if (nextExercise.type === "matching") {
+        const coveredSkillIds = new Set(nextExercise.pairs.map((pair) => pair.skillId));
+        setPlan((current) => [
+          ...current.slice(0, sessionIndex + 1),
+          ...current.slice(sessionIndex + 1).filter((candidate) =>
+            candidate.moduleId !== module.id
+            || candidate.itemId !== itemId
+            || !coveredSkillIds.has(candidate.skillId),
+          ),
+        ]);
+      }
       setFeedback(null);
       setError(null);
     } catch {

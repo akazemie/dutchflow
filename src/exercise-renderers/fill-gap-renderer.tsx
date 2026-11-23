@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { ExerciseRendererProps } from "./types";
+import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function FillGapRenderer({
   exercise,
@@ -46,7 +47,7 @@ export function FillGapRenderer({
         })}
       </p>
       <button className="primary-button" type="submit" disabled={disabled || exercise.blanks.some((blank) => !values[blank.id]?.trim())}>
-        Check answer
+        {EXERCISE_RENDERER_TEXT.checkAnswer}
       </button>
     </form>
   );

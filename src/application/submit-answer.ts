@@ -45,8 +45,18 @@ export async function submitAnswer(
     updatedAt: now,
   };
 
+  const focusBySkill = new Map(
+    input.module.listSkills(input.exercise.contentId).map(({ skillId, focusId }) => [skillId, focusId]),
+  );
+  const skillResultsWithFocus = result.skillResults.map((skillResult) => {
+    const focusId = focusBySkill.get(skillResult.skillId);
+    if (!focusId) {
+      throw new Error(`Exercise result references unknown skill ${skillResult.skillId}.`);
+    }
+    return { skillResult, focusId };
+  });
   await dependencies.attempts.save(attempt);
-  const updates = await Promise.all(result.skillResults.map(async (skillResult) => {
+  const updates = await Promise.all(skillResultsWithFocus.map(async ({ skillResult, focusId }) => {
     const recordId = skillRecordId(input.learnerId, skillResult.skillId);
     const [previousProgress, previousSchedule] = await Promise.all([
       dependencies.progress.get(input.learnerId, skillResult.skillId),
@@ -64,7 +74,7 @@ export async function submitAnswer(
       skillId: skillResult.skillId,
       moduleId: input.exercise.moduleId,
       itemId: input.exercise.contentId,
-      focusId: input.exercise.focusId,
+      focusId,
       attempts: (previousProgress?.attempts ?? 0) + 1,
       correctAttempts: (previousProgress?.correctAttempts ?? 0) + (skillResult.correct ? 1 : 0),
       consecutiveCorrect: skillResult.correct ? (previousProgress?.consecutiveCorrect ?? 0) + 1 : 0,
@@ -79,7 +89,7 @@ export async function submitAnswer(
       skillId: skillResult.skillId,
       moduleId: input.exercise.moduleId,
       itemId: input.exercise.contentId,
-      focusId: input.exercise.focusId,
+      focusId,
       scheduler: "ts-fsrs@5.4.2/fsrs-6",
       card,
       dueAt: card.due,

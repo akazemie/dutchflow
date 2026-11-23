@@ -110,6 +110,61 @@ describe("Dutch verb exercise evaluation", () => {
     expect(bothAuxiliaries.acceptedAnswers).toContain("Ik ben gelopen.");
   });
 
+  it("supports matching for distinct facets and displays Perfectum auxiliary choices", async () => {
+    const matching = await verbsModule.createExercise("verb:lopen", {
+      exerciseType: "matching",
+      seed: "matching-seed",
+    });
+    const repeat = await verbsModule.createExercise("verb:lopen", {
+      exerciseType: "matching",
+      seed: "matching-seed",
+    });
+
+    expect(matching.type).toBe("matching");
+    if (matching.type !== "matching" || repeat.type !== "matching") {
+      throw new Error("Expected matching exercises.");
+    }
+    expect(matching.pairs.map((pair) => pair.right)).toEqual([
+      "hebben or zijn + gelopen",
+      "liep",
+      "liepen",
+    ]);
+    expect(matching.rightOrder).toEqual(repeat.rightOrder);
+  });
+
+  it("does not offer word-ordering for verbs or matching for vocabulary", () => {
+    expect(verbsModule.supportedExerciseTypes("verb:lopen", "perfectum")).not.toContain("word-ordering");
+    expect(verbsModule.supportedExerciseTypes("verb:bezoeken", "perfectum")).not.toContain("matching");
+  });
+
+  it("rates an incorrect matching facet as again and applies every facet result", async () => {
+    const exercise = await verbsModule.createExercise("verb:werken", {
+      exerciseType: "matching",
+      seed: "matching-grammar",
+    });
+    if (exercise.type !== "matching") throw new Error("Expected a matching exercise.");
+    const perfectum = exercise.pairs.find((pair) => pair.skillId === "verb:werken:perfectum")!;
+    const singular = exercise.pairs.find((pair) => pair.skillId === "verb:werken:imperfectum:singular")!;
+    const plural = exercise.pairs.find((pair) => pair.skillId === "verb:werken:imperfectum:plural")!;
+
+    await expect(verbsModule.evaluate(exercise, {
+      type: "matching",
+      matches: {
+        [perfectum.id]: perfectum.id,
+        [singular.id]: plural.id,
+        [plural.id]: plural.id,
+      },
+    })).resolves.toMatchObject({
+      correct: false,
+      rating: "again",
+      skillResults: [
+        { skillId: "verb:werken:perfectum", correct: true, rating: "hard" },
+        { skillId: "verb:werken:imperfectum:singular", correct: false, rating: "again" },
+        { skillId: "verb:werken:imperfectum:plural", correct: false, rating: "again" },
+      ],
+    });
+  });
+
   it("uses the learner's explanation language", async () => {
     const exercise = await verbsModule.createExercise("verb:werken", {
       focusId: "perfectum",

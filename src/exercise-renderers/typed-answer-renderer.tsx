@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { ExerciseRendererProps } from "./types";
+import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRendererProps<"typed-answer">) {
   const [answer, setAnswer] = useState("");
@@ -25,7 +26,7 @@ export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRe
         required
       />
       <button className="primary-button" type="submit" disabled={disabled || answer.trim().length === 0}>
-        Check answer
+        {EXERCISE_RENDERER_TEXT.checkAnswer}
       </button>
     </form>
   );

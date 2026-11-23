@@ -3,7 +3,7 @@ import type { ExerciseType } from "@/learning/contracts/module";
 import type { SkillProgress } from "@/learning/core/progress";
 import { chooseExerciseType } from "./choose-exercise-type";
 
-const allTypes: ExerciseType[] = ["multiple-choice", "fill-gap", "typed-answer", "word-ordering"];
+const allTypes: ExerciseType[] = ["multiple-choice", "fill-gap", "typed-answer", "word-ordering", "matching"];
 
 function progress(exerciseStage: 0 | 1 | 2, consecutiveCorrect = 0): SkillProgress {
   return {
@@ -40,7 +40,7 @@ describe("chooseExerciseType", () => {
 
     expect(chooseExerciseType(allTypes, progress(2), "advanced-seed-1"))
       .toBe(chooseExerciseType(allTypes, progress(2), "advanced-seed-1"));
-    expect(choices).toEqual(new Set(["typed-answer", "word-ordering"]));
+    expect(choices).toEqual(new Set(["typed-answer", "word-ordering", "matching"]));
   });
 
   it("falls back to typed-answer when the preferred stage is unsupported", () => {
