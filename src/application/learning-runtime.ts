@@ -1,4 +1,4 @@
-import type { LearningExercise, LearningModule } from "@/learning/contracts/module";
+import type { Answer, EvaluationResult, LearningExercise, LearningModule } from "@/learning/contracts/module";
 import type { LearnerPreferenceChanges, LearnerPreferences } from "@/learning/core/preferences";
 import type { PreparedLearningSession } from "./start-session";
 import type { ExerciseAttempt } from "./ports/attempt-repository";
@@ -14,8 +14,8 @@ export interface LearningRuntime {
   exportData(): Promise<string>;
   importData(serialized: string): Promise<void>;
   createSession(moduleId: string): Promise<PreparedLearningSession>;
-  submitAnswer(input: { exercise: LearningExercise; answer: string }): Promise<{
-    result: { correct: boolean; feedback: string; rating: "again" | "hard" | "good" | "easy"; skillIds: string[] };
+  submitAnswer(input: { exercise: LearningExercise; answer: Answer }): Promise<{
+    result: EvaluationResult;
     attempt: ExerciseAttempt;
   }>;
 }

@@ -1,5 +1,5 @@
 import type { AttemptRepository, ExerciseAttempt } from "@/application/ports/attempt-repository";
-import type { LearningExercise, LearningModule } from "@/learning/contracts/module";
+import type { Answer, LearningExercise, LearningModule } from "@/learning/contracts/module";
 import type { ProgressRepository } from "./ports/progress-repository";
 import type { ReviewScheduleRepository } from "./ports/review-schedule-repository";
 import type { ReviewScheduler } from "@/learning/scheduling/review-scheduler";
@@ -10,7 +10,7 @@ export interface SubmitAnswerInput {
   learnerId: string;
   module: LearningModule;
   exercise: LearningExercise;
-  answer: string;
+  answer: Answer;
 }
 
 export async function submitAnswer(

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { LearningExercise } from "@/learning/contracts/module";
+import type { Answer, LearningExercise } from "@/learning/contracts/module";
 
 export interface ExerciseRendererProps {
   exercise: LearningExercise;
   disabled: boolean;
-  onAnswer(answer: string): void;
+  onAnswer(answer: Answer): void;
 }
 
 export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRendererProps) {
@@ -15,12 +15,12 @@ export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRe
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onAnswer(answer);
+    onAnswer({ type: "typed-answer", value: answer });
   }
 
   return (
     <form className="answer-form" onSubmit={handleSubmit}>
-      <label htmlFor="answer">Your answer in Dutch</label>
+      <label htmlFor="answer">{exercise.answerLabel}</label>
       <input
         autoComplete="off"
         id="answer"

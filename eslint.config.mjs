@@ -22,6 +22,8 @@ export default defineConfig([
       ],
       "boundaries/files": [
         { pattern: "src/app/composition-root.tsx", category: "composition-root" },
+        { pattern: "src/app/learn/**/page.tsx", category: "learning-module-route" },
+        { pattern: "src/app/learn/**/page.test.ts", category: "learning-module-route" },
       ],
     },
     rules: {
@@ -42,6 +44,10 @@ export default defineConfig([
             {
               from: { element: { type: "app" } },
               allow: { to: { element: { type: "features" } } },
+            },
+            {
+              from: { file: { categories: "learning-module-route" } },
+              allow: { to: { element: { type: "learning" } } },
             },
             {
               from: { element: { type: "features" } },

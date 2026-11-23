@@ -24,7 +24,7 @@ describe("vocabularyModule", () => {
 
   it("evaluates authored variants through the shared module contract", async () => {
     const exercise = await vocabularyModule.createExercise("vocabulary:appel");
-    const result = await vocabularyModule.evaluate(exercise, " Ze eet een appel. ");
+    const result = await vocabularyModule.evaluate(exercise, { type: "typed-answer", value: " Ze eet een appel. " });
 
     expect(result).toMatchObject({ correct: true, rating: "good", skillIds: ["vocabulary:appel:meaning"] });
   });

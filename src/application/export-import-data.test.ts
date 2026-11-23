@@ -2,6 +2,32 @@ import { describe, expect, it } from "vitest";
 import type { LearnerDataRepository, LearnerDataSnapshot } from "./ports/learner-data-repository";
 import { exportLearnerData, importLearnerData } from "./export-import-data";
 
+const legacyAttempt = {
+  id: "attempt-legacy",
+  learnerId: "learner-a",
+  skillId: "verb:lopen:perfectum",
+  contentId: "verb:lopen",
+  moduleId: "verbs",
+  exerciseType: "typed-answer",
+  answer: "Ik heb gelopen.",
+  correct: true,
+  rating: "good" as const,
+  createdAt: "2026-11-22T10:00:00.000Z",
+  updatedAt: "2026-11-22T10:00:00.000Z",
+};
+
+const legacyV1BackupFixture = JSON.stringify({
+  format: "dutchflow-backup",
+  version: 1,
+  exportedAt: "2026-11-22T12:00:00.000Z",
+  learnerId: "learner-a",
+  snapshot: {
+    attempts: [legacyAttempt],
+    progress: [],
+    reviewSchedules: [],
+  },
+});
+
 describe("learner data backup", () => {
   it("exports and restores a versioned backup with stable learner-scoped IDs", async () => {
     const source: LearnerDataSnapshot = {
@@ -28,7 +54,7 @@ describe("learner data backup", () => {
       now: () => new Date("2026-11-22T12:00:00.000Z"),
     });
 
-    expect(JSON.parse(serialized)).toMatchObject({ format: "dutchflow-backup", version: 1 });
+    expect(JSON.parse(serialized)).toMatchObject({ format: "dutchflow-backup", version: 2 });
     await importLearnerData("learner-b", serialized, { data });
 
     expect(restored?.preferences).toMatchObject({ id: "learner-b", learnerId: "learner-b" });
@@ -36,6 +62,36 @@ describe("learner data backup", () => {
       id: "learner-b:verb:lopen:perfectum",
       learnerId: "learner-b",
       skillId: "verb:lopen:perfectum",
+    });
+  });
+
+  it("exports legacy string-answer attempts in the current serializable answer shape", async () => {
+    const data: LearnerDataRepository = {
+      async read() { return { attempts: [legacyAttempt], progress: [], reviewSchedules: [] }; },
+      async replace() {},
+    };
+
+    const backup = JSON.parse(await exportLearnerData("learner-a", { data })) as {
+      version: number;
+      snapshot: { attempts: Array<{ answer: unknown }> };
+    };
+
+    expect(backup.version).toBe(2);
+    expect(backup.snapshot.attempts[0]?.answer).toEqual({ type: "typed-answer", value: "Ik heb gelopen." });
+  });
+
+  it("imports a v1 backup and upgrades its legacy string answer", async () => {
+    let restored: LearnerDataSnapshot | undefined;
+    const data: LearnerDataRepository = {
+      async read() { return { attempts: [], progress: [], reviewSchedules: [] }; },
+      async replace(_learnerId, snapshot) { restored = snapshot; },
+    };
+
+    await importLearnerData("learner-b", legacyV1BackupFixture, { data });
+
+    expect(restored?.attempts[0]).toMatchObject({
+      learnerId: "learner-b",
+      answer: { type: "typed-answer", value: "Ik heb gelopen." },
     });
   });
 

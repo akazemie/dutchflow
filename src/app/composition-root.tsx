@@ -16,6 +16,7 @@ import { DexieReviewScheduleRepository } from "@/infrastructure/dexie/review-sch
 import { createFsrsReviewScheduler } from "@/learning/scheduling/review-scheduler";
 import { DexieLearnerDataRepository } from "@/infrastructure/dexie/learner-data-repository";
 import { exportLearnerData, importLearnerData } from "@/application/export-import-data";
+import { loadLearningModule } from "@/learning/modules/registry";
 
 function createLearningRuntime(): LearningRuntime {
   const db = new DutchFlowDatabase();
@@ -26,18 +27,6 @@ function createLearningRuntime(): LearningRuntime {
   const scheduler = createFsrsReviewScheduler();
   const learnerData = new DexieLearnerDataRepository(db);
   if (navigator.storage?.persist) void navigator.storage.persist().catch(() => false);
-  async function loadLearningModule(moduleId: string) {
-    if (moduleId === "verbs") {
-      const loaded = await import("@/learning/modules/verbs/module");
-      return loaded.verbsModule;
-    }
-    if (moduleId === "vocabulary") {
-      const loaded = await import("@/learning/modules/vocabulary/module");
-      return loaded.vocabularyModule;
-    }
-    throw new Error(`Unknown learning module: ${moduleId}`);
-  }
-
   return {
     loadLearningModule,
     getPreferences: () => getPreferences(LOCAL_LEARNER_ID, { preferences }),

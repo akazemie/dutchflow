@@ -22,11 +22,11 @@ If using static export, dynamic routes such as `/learn/[moduleId]` must provide 
 
 ### 2. Stable learning and content contracts
 
-Define module metadata and the non-generic module contract, discriminated exercise union, exercise-renderer registry, `skillId` mapping, stable content IDs, and content-version rules. Add Zod schemas, translation maps, and the content-validation script. Keep the first module explicitly imported; do not add route registration or automatic discovery.
+Define module metadata and the non-generic module contract, discriminated exercise and answer unions, exercise-renderer registry, `skillId` mapping, stable content IDs, and content-version rules. Add Zod schemas, translation maps, and the content-validation script. A lazy module registry supplies metadata and loaders to both runtime composition and App Router static routes.
 
 **Done when:** the verb module and its content pass validation and use only shared application contracts.
 
-**Status: Complete (2026-11-22).** The non-generic module contract, exercise-focus and renderer contracts, content schema, versioned IDs, dynamic verb-module import, and CI content validation are in place.
+**Status: Complete (2026-11-22).** The non-generic module contract, exercise-focus and renderer contracts, content schema, versioned IDs, lazy module registry, and CI content validation are in place. Typed answers are serializable tagged values; existing string-answer attempts and v1 backups remain readable, while exports use backup v2.
 
 ### 3. Dutch verb foundations
 

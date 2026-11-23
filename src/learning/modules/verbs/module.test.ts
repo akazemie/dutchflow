@@ -13,7 +13,7 @@ describe("Dutch verb exercise evaluation", () => {
   it("accepts case and punctuation variants and assigns a good rating", async () => {
     const exercise = await verbsModule.createExercise("verb:lopen");
 
-    await expect(verbsModule.evaluate(exercise, "ik heb gelopen")).resolves.toMatchObject({
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: "ik heb gelopen" })).resolves.toMatchObject({
       correct: true,
       rating: "good",
       skillIds: ["verb:lopen:perfectum"],
@@ -23,8 +23,38 @@ describe("Dutch verb exercise evaluation", () => {
   it("returns an again rating for an incorrect answer", async () => {
     const exercise = await verbsModule.createExercise("verb:lopen");
 
-    await expect(verbsModule.evaluate(exercise, "Ik ben looped.")).resolves.toMatchObject({
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: "Ik ben looped." })).resolves.toMatchObject({
       correct: false,
+      rating: "again",
+    });
+  });
+
+  it.each([
+    {
+      name: "singular imperfectum",
+      itemId: "verb:werken",
+      focusId: "imperfectum-singular",
+      answer: "Ik werkten.",
+    },
+    {
+      name: "perfectum participle",
+      itemId: "verb:werken",
+      focusId: "perfectum",
+      answer: "Ik heb gewerkd.",
+    },
+    {
+      name: "perfectum participle for antwoorden",
+      itemId: "verb:antwoorden",
+      focusId: "perfectum",
+      answer: "Ik heb de vraag beantwoort.",
+    },
+  ])("does not tolerate one-edit typos for $name", async ({ itemId, focusId, answer }) => {
+    const exercise = await verbsModule.createExercise(itemId, { focusId });
+
+    expect(exercise.typoTolerance).toBe("none");
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: answer })).resolves.toMatchObject({
+      correct: false,
+      score: 0,
       rating: "again",
     });
   });
@@ -43,7 +73,7 @@ describe("Dutch verb exercise evaluation", () => {
 
     expect(exercise.acceptedAnswers).toContain("Wij woonden in Brussel.");
     expect(exercise.acceptedAnswers).toContain("We woonden in Brussel.");
-    await expect(verbsModule.evaluate(exercise, "we woonden in brussel")).resolves.toMatchObject({
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: "we woonden in brussel" })).resolves.toMatchObject({
       correct: true,
       rating: "good",
       skillIds: ["verb:wonen:imperfectum:plural"],
@@ -55,7 +85,7 @@ describe("Dutch verb exercise evaluation", () => {
 
     expect(exercise.acceptedAnswers).toContain("Wij fietsten naar het werk.");
     expect(exercise.acceptedAnswers).toContain("We fietsten naar het werk.");
-    await expect(verbsModule.evaluate(exercise, "we fietsten naar het werk")).resolves.toMatchObject({
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: "we fietsten naar het werk" })).resolves.toMatchObject({
       correct: true,
       rating: "good",
     });

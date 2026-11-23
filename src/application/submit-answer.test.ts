@@ -18,7 +18,7 @@ describe("submitAnswer", () => {
         learnerId: "00000000-0000-4000-8000-000000000001",
         module: verbsModule,
         exercise,
-        answer: "Ik heb gelopen.",
+        answer: { type: "typed-answer", value: "Ik heb gelopen." },
       },
       {
         attempts,
