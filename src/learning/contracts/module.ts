@@ -43,6 +43,7 @@ export interface TypedAnswerExercise {
   title: string;
   answerLabel: string;
   prompt: string;
+  typoTolerance: "none" | "one-edit";
   hint?: string;
   acceptedAnswers: string[];
 }

@@ -14,6 +14,7 @@ const exercise: TypedAnswerExercise = {
   title: "Translate into Dutch",
   answerLabel: "Your answer in Dutch",
   prompt: "She eats an apple.",
+  typoTolerance: "one-edit",
   acceptedAnswers: ["Zij eet een appel.", "Ze eet een appel."],
 };
 

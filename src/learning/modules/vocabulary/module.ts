@@ -40,6 +40,7 @@ export const vocabularyModule: LearningModule = {
       title: "Translate into Dutch",
       answerLabel: "Your answer in Dutch",
       prompt: item.prompt.en,
+      typoTolerance: "one-edit",
       hint: item.explanation[explanationLanguage],
       acceptedAnswers: [item.answer, ...item.acceptedVariants],
     };

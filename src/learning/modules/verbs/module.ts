@@ -44,6 +44,7 @@ function exerciseForVerb(verb: VerbContent, focusId: string, explanationLanguage
     title: "Translate into Dutch",
     answerLabel: "Your answer in Dutch",
     prompt: example.en,
+    typoTolerance: "none",
     hint: verb.explanation[explanationLanguage],
     acceptedAnswers: [example.nl, ...(example.acceptedVariants ?? [])],
   };

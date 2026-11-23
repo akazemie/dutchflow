@@ -54,7 +54,9 @@ export function evaluateTypedAnswer(
   }
 
   // Only one insertion, deletion, or substitution across whole normalized answers of at least five letters qualifies.
-  const almost = letterCount(normalizedAnswer) >= 5 && normalizedExpected.some(
+  const almost = exercise.typoTolerance === "one-edit"
+    && letterCount(normalizedAnswer) >= 5
+    && normalizedExpected.some(
     (candidate) => letterCount(candidate) >= 5 && isOneEditAway(normalizedAnswer, candidate),
   );
 

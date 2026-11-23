@@ -29,6 +29,36 @@ describe("Dutch verb exercise evaluation", () => {
     });
   });
 
+  it.each([
+    {
+      name: "singular imperfectum",
+      itemId: "verb:werken",
+      focusId: "imperfectum-singular",
+      answer: "Ik werkten.",
+    },
+    {
+      name: "perfectum participle",
+      itemId: "verb:werken",
+      focusId: "perfectum",
+      answer: "Ik heb gewerkd.",
+    },
+    {
+      name: "perfectum participle for antwoorden",
+      itemId: "verb:antwoorden",
+      focusId: "perfectum",
+      answer: "Ik heb de vraag beantwoort.",
+    },
+  ])("does not tolerate one-edit typos for $name", async ({ itemId, focusId, answer }) => {
+    const exercise = await verbsModule.createExercise(itemId, { focusId });
+
+    expect(exercise.typoTolerance).toBe("none");
+    await expect(verbsModule.evaluate(exercise, { type: "typed-answer", value: answer })).resolves.toMatchObject({
+      correct: false,
+      score: 0,
+      rating: "again",
+    });
+  });
+
   it("creates distinct skill IDs for Perfectum and Imperfectum facets", async () => {
     const perfectum = await verbsModule.createExercise("verb:werken", { focusId: "perfectum" });
     const imperfectum = await verbsModule.createExercise("verb:werken", { focusId: "imperfectum-plural" });
