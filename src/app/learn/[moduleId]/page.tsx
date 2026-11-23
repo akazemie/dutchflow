@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 import { LearningSession } from "@/features/learning-session/learning-session";
+import { getLearningModuleMetadata, learningModuleRegistry } from "@/learning/modules/registry";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ moduleId: "verbs" }, { moduleId: "vocabulary" }];
+  return learningModuleRegistry.map(({ id }) => ({ moduleId: id }));
 }
 
 export default async function LearnModulePage({ params }: { params: Promise<{ moduleId: string }> }) {
   const { moduleId } = await params;
-  if (moduleId !== "verbs" && moduleId !== "vocabulary") notFound();
+  if (!getLearningModuleMetadata(moduleId)) notFound();
 
   return (
     <div className="learning-shell">

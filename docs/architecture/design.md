@@ -94,13 +94,13 @@ Future module folders are created when needed. They do not need to exist in the 
 
 ## Learning module and exercise contracts
 
-Modules implement a non-generic base contract so modules with different internal data can coexist in one catalog. The contract exposes module identity and metadata (stable ID, display name, i18n key, supported levels), selects eligible items, creates exercises, evaluates answers asynchronously when necessary, and maps outcomes to one or more stable `skillId` values. `EvaluationResult` carries a scheduler rating (`again`, `hard`, `good`, or `easy`), or a score that the application maps deterministically to one of those ratings.
+Modules implement a non-generic base contract so modules with different internal data can coexist in one catalog. The contract exposes module identity and metadata (stable ID, display name, i18n key, supported levels), selects eligible items, creates exercises, evaluates typed answers asynchronously when necessary, and maps outcomes to one or more stable `skillId` values. `EvaluationResult` carries correctness, a score from 0 to 1, expected answers, feedback, and a scheduler rating (`again`, `hard`, `good`, or `easy`).
 
-Exercises use a discriminated union on `exercise.type`, with a typed payload per kind. This permits safe type erasure at the module boundary while retaining useful type narrowing in application code.
+Exercises and answers use discriminated unions on `type`, with typed payloads per kind. The initial union member is `typed-answer`; answers are serializable objects such as `{ type: "typed-answer", value: "..." }`. Exercise title and answer-label fields keep renderer text localizable. This permits safe type erasure at the module boundary while retaining useful type narrowing in application code.
 
 Exercise rendering is independent of modules. An `ExerciseRenderer` registry maps shared exercise types such as `multiple-choice`, `typed-answer`, and `audio-prompt` to UI components. Several modules may use one renderer; a new exercise type adds a renderer without requiring route registration. Next.js App Router remains the only routing system.
 
-The composition root loads each supported module with an explicit dynamic import. App Router remains responsible for module URLs, with `generateStaticParams` listing the supported modules for static export. Automatic discovery and a separate module registry are unnecessary at this scale.
+The learning module registry owns module metadata and lazy dynamic loaders. The composition root uses it to load modules, and App Router uses the same registry for static params and module validation. Adding a module requires a registry entry and its module folder, not additional hardcoded route or runtime branches.
 
 ## Content and Dutch verb modeling
 
@@ -120,7 +120,7 @@ Use a scheduler interface so learning-domain code does not depend on a third-par
 
 ## Persistence, durability, and portability
 
-Dexie is the IndexedDB adapter. Preferences, exercise attempts, item/skill progress, review schedules, and sessions are separate records accessed through repository ports. Define `learnerId` and `skillId` in the initial Dexie schema, including the walking skeleton: use a hardcoded local learner ID and a stable skill ID such as `verb:lopen:perfectum` for its first saved attempt. This avoids persisting attempts in a schema that immediately needs changing when shared contracts arrive. Use UUID record IDs, immutable content IDs, and `updatedAt` timestamps to leave a future path to synchronization without requiring it now.
+Dexie is the IndexedDB adapter. Preferences, exercise attempts, item/skill progress, review schedules, and sessions are separate records accessed through repository ports. Define `learnerId` and `skillId` in the initial Dexie schema, including the walking skeleton: use a hardcoded local learner ID and a stable skill ID such as `verb:lopen:perfectum` for its first saved attempt. Persist serializable typed answers while tolerating existing string-answer attempts. Versioned backups accept v1 string answers and export the current v2 tagged-answer format. Use UUID record IDs, immutable content IDs, and `updatedAt` timestamps to leave a future path to synchronization without requiring it now.
 
 Request persistent browser storage using `navigator.storage.persist()` when available. Provide JSON export and import for learner data so users can make backups and move data between browsers/devices. IndexedDB remains local to the browser/device; export/import is the MVP portability mechanism. Version the database schema and test migrations.
 
