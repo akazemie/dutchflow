@@ -1,15 +1,24 @@
 import { z } from "zod";
 import type { LearnerDataRepository, LearnerDataSnapshot } from "./ports/learner-data-repository";
 import { EXERCISE_STRATEGIES, EXPLANATION_LANGUAGES, LANGUAGE_LEVELS } from "@/learning/core/preferences";
+import { getExerciseStage } from "@/learning/core/progress";
 
-const answerSchema = z.object({ type: z.literal("typed-answer"), value: z.string() });
+const typedAnswerSchema = z.object({ type: z.literal("typed-answer"), value: z.string() });
+const v3AnswerSchema = z.discriminatedUnion("type", [
+  typedAnswerSchema,
+  z.object({ type: z.literal("multiple-choice"), optionId: z.string() }),
+  z.object({ type: z.literal("fill-gap"), values: z.record(z.string(), z.string()) }),
+  z.object({ type: z.literal("word-ordering"), tokenIds: z.array(z.string()) }),
+  z.object({ type: z.literal("matching"), matches: z.record(z.string(), z.string()) }),
+]);
 const attemptFields = {
   id: z.string().min(1), learnerId: z.string().min(1), skillId: z.string().min(1), contentId: z.string().min(1),
   moduleId: z.string().min(1), exerciseType: z.string().min(1), correct: z.boolean(),
   rating: z.enum(["again", "hard", "good", "easy"]), createdAt: z.string().datetime(), updatedAt: z.string().datetime(),
 };
 const legacyAttemptSchema = z.object({ ...attemptFields, answer: z.string() });
-const currentAttemptSchema = z.object({ ...attemptFields, answer: answerSchema });
+const currentAttemptSchema = z.object({ ...attemptFields, answer: typedAnswerSchema });
+const v3AttemptSchema = z.object({ ...attemptFields, answer: v3AnswerSchema });
 const preferencesSchema = z.object({
   id: z.string().min(1), learnerId: z.string().min(1), level: z.enum(LANGUAGE_LEVELS),
   explanationLanguage: z.enum(EXPLANATION_LANGUAGES), exerciseStrategy: z.enum(EXERCISE_STRATEGIES),
@@ -19,6 +28,7 @@ const progressSchema = z.object({
   id: z.string().min(1), learnerId: z.string().min(1), skillId: z.string().min(1), moduleId: z.string().min(1),
   itemId: z.string().min(1), focusId: z.string().min(1), attempts: z.number().int().nonnegative(),
   correctAttempts: z.number().int().nonnegative(), consecutiveCorrect: z.number().int().nonnegative(),
+  exerciseStage: z.union([z.literal(0), z.literal(1), z.literal(2)]).optional(),
   lastReviewedAt: z.string().datetime(), createdAt: z.string().datetime(), updatedAt: z.string().datetime(),
 });
 const reviewScheduleSchema = z.object({
@@ -46,20 +56,31 @@ const backupV2Schema = z.object({
     progress: z.array(progressSchema), reviewSchedules: z.array(reviewScheduleSchema),
   }),
 });
-const backupSchema = z.discriminatedUnion("version", [backupV1Schema, backupV2Schema]);
+const backupV3Schema = z.object({
+  ...backupHeader, version: z.literal(3),
+  snapshot: z.object({
+    preferences: preferencesSchema.optional(), attempts: z.array(v3AttemptSchema),
+    progress: z.array(progressSchema), reviewSchedules: z.array(reviewScheduleSchema),
+  }),
+});
+const backupSchema = z.discriminatedUnion("version", [backupV1Schema, backupV2Schema, backupV3Schema]);
 
 export async function exportLearnerData(
   learnerId: string,
   dependencies: { data: LearnerDataRepository; now?: () => Date },
 ): Promise<string> {
   const snapshot = await dependencies.data.read(learnerId);
-  const backup = backupV2Schema.parse({
+  const backup = backupV3Schema.parse({
     format: "dutchflow-backup" as const,
-    version: 2 as const,
+    version: 3 as const,
     exportedAt: (dependencies.now ?? (() => new Date()))().toISOString(),
     learnerId,
     snapshot: {
       ...snapshot,
+      progress: snapshot.progress.map((item) => ({
+        ...item,
+        exerciseStage: getExerciseStage(item),
+      })),
       attempts: snapshot.attempts.map((attempt) => ({
         ...attempt,
         answer: typeof attempt.answer === "string"
@@ -89,7 +110,10 @@ export async function importLearnerData(
       learnerId,
     })),
     progress: backup.snapshot.progress.map((item) => ({
-      ...item, id: `${learnerId}:${item.skillId}`, learnerId,
+      ...item,
+      exerciseStage: getExerciseStage(item),
+      id: `${learnerId}:${item.skillId}`,
+      learnerId,
     })),
     reviewSchedules: backup.snapshot.reviewSchedules.map((item) => ({
       ...item, id: `${learnerId}:${item.skillId}`, learnerId,

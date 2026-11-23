@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { DexieProgressRepository } from "./progress-repository";
 import { DexieReviewScheduleRepository } from "./review-schedule-repository";
 import { DutchFlowDatabase } from "./database";
+import { getExerciseStage } from "@/learning/core/progress";
 
 describe("skill progress and review repositories", () => {
   const db = new DutchFlowDatabase(`dutchflow-progress-${crypto.randomUUID()}`);
@@ -33,6 +34,28 @@ describe("skill progress and review repositories", () => {
     await expect(progressRepository.get("learner-1", progress.skillId)).resolves.toEqual(progress);
     await expect(progressRepository.listByLearner("learner-1")).resolves.toEqual([progress]);
     await expect(progressRepository.get("learner-2", progress.skillId)).resolves.toBeUndefined();
+  });
+
+  it("defaults a legacy progress row without exerciseStage from its correct streak", async () => {
+    const legacy = {
+      id: "legacy:verb:lopen:perfectum",
+      learnerId: "legacy",
+      skillId: "verb:lopen:perfectum",
+      moduleId: "verbs",
+      itemId: "verb:lopen",
+      focusId: "perfectum",
+      attempts: 4,
+      correctAttempts: 3,
+      consecutiveCorrect: 3,
+      lastReviewedAt: "2026-11-22T12:00:00.000Z",
+      createdAt: "2026-11-20T12:00:00.000Z",
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    await db.skillProgress.put(legacy);
+
+    const stored = await progressRepository.get("legacy", legacy.skillId);
+    expect(stored?.exerciseStage).toBeUndefined();
+    expect(getExerciseStage(stored)).toBe(2);
   });
 
   it("returns only due skill schedules for a learner", async () => {

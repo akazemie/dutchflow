@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREFERENCE_VALUES, type LearnerPreferences } from "@/learning/core/preferences";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import { startSession } from "./start-session";
@@ -30,13 +30,9 @@ describe("startSession", () => {
       updatedAt: "2026-11-22T12:00:00.000Z",
     };
     const allA1Items = await verbsModule.loadItems({ level: "A1" });
-    const knownSkillIds: string[] = [];
-    for (const item of allA1Items) {
-      for (const focus of verbsModule.exerciseFocuses) {
-        const exercise = await verbsModule.createExercise(item.id, { focusId: focus.id });
-        knownSkillIds.push(exercise.skillId);
-      }
-    }
+    const knownSkillIds = allA1Items.flatMap((item) =>
+      verbsModule.listSkills(item.id).map((skill) => skill.skillId),
+    );
     const session = await startSession({
       module: verbsModule,
       preferences,
@@ -46,5 +42,26 @@ describe("startSession", () => {
 
     expect(session.plan.map(({ skillId }) => skillId)).toContain("verb:lopen:perfectum");
     expect(session.plan).toHaveLength(30);
+  });
+
+  it("uses listSkills instead of creating an exercise for every item and focus", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 5,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    const createExercise = vi.spyOn(verbsModule, "createExercise");
+
+    await startSession({ module: verbsModule, preferences, dueReviews: [] });
+
+    expect(createExercise).not.toHaveBeenCalled();
+    expect(verbsModule.listSkills("verb:werken")).toEqual([
+      { skillId: "verb:werken:perfectum", focusId: "perfectum" },
+      { skillId: "verb:werken:imperfectum:singular", focusId: "imperfectum-singular" },
+      { skillId: "verb:werken:imperfectum:plural", focusId: "imperfectum-plural" },
+    ]);
+    createExercise.mockRestore();
   });
 });

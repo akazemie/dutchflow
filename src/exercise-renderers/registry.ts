@@ -1,7 +1,11 @@
-import type { ComponentType } from "react";
 import type { ExerciseType } from "@/learning/contracts/module";
-import { TypedAnswerRenderer, type ExerciseRendererProps } from "./typed-answer-renderer";
+import type { ExerciseRendererRegistry } from "./types";
+import { FillGapRenderer } from "./fill-gap-renderer";
+import { MultipleChoiceRenderer } from "./multiple-choice-renderer";
+import { TypedAnswerRenderer } from "./typed-answer-renderer";
 
-export const exerciseRendererRegistry: Record<ExerciseType, ComponentType<ExerciseRendererProps>> = {
+export const exerciseRendererRegistry: Partial<ExerciseRendererRegistry<ExerciseType>> = {
   "typed-answer": TypedAnswerRenderer,
+  "multiple-choice": MultipleChoiceRenderer,
+  "fill-gap": FillGapRenderer,
 };

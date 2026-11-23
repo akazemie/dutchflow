@@ -28,6 +28,21 @@ const legacyV1BackupFixture = JSON.stringify({
   },
 });
 
+const legacyV2BackupFixture = JSON.stringify({
+  format: "dutchflow-backup",
+  version: 2,
+  exportedAt: "2026-11-22T12:00:00.000Z",
+  learnerId: "learner-a",
+  snapshot: {
+    attempts: [{
+      ...legacyAttempt,
+      answer: { type: "typed-answer", value: "Ik heb gelopen." },
+    }],
+    progress: [],
+    reviewSchedules: [],
+  },
+});
+
 describe("learner data backup", () => {
   it("exports and restores a versioned backup with stable learner-scoped IDs", async () => {
     const source: LearnerDataSnapshot = {
@@ -54,7 +69,7 @@ describe("learner data backup", () => {
       now: () => new Date("2026-11-22T12:00:00.000Z"),
     });
 
-    expect(JSON.parse(serialized)).toMatchObject({ format: "dutchflow-backup", version: 2 });
+    expect(JSON.parse(serialized)).toMatchObject({ format: "dutchflow-backup", version: 3 });
     await importLearnerData("learner-b", serialized, { data });
 
     expect(restored?.preferences).toMatchObject({ id: "learner-b", learnerId: "learner-b" });
@@ -62,6 +77,7 @@ describe("learner data backup", () => {
       id: "learner-b:verb:lopen:perfectum",
       learnerId: "learner-b",
       skillId: "verb:lopen:perfectum",
+      exerciseStage: 1,
     });
   });
 
@@ -76,7 +92,7 @@ describe("learner data backup", () => {
       snapshot: { attempts: Array<{ answer: unknown }> };
     };
 
-    expect(backup.version).toBe(2);
+    expect(backup.version).toBe(3);
     expect(backup.snapshot.attempts[0]?.answer).toEqual({ type: "typed-answer", value: "Ik heb gelopen." });
   });
 
@@ -93,6 +109,60 @@ describe("learner data backup", () => {
       learnerId: "learner-b",
       answer: { type: "typed-answer", value: "Ik heb gelopen." },
     });
+  });
+
+  it("imports a v2 backup and defaults exercise stage from its correct streak", async () => {
+    let restored: LearnerDataSnapshot | undefined;
+    const data: LearnerDataRepository = {
+      async read() { return { attempts: [], progress: [], reviewSchedules: [] }; },
+      async replace(_learnerId, snapshot) { restored = snapshot; },
+    };
+    const fixture = JSON.parse(legacyV2BackupFixture) as {
+      snapshot: { progress: Array<Record<string, unknown>> };
+    };
+    fixture.snapshot.progress.push({
+      id: "learner-a:verb:lopen:perfectum",
+      learnerId: "learner-a",
+      skillId: "verb:lopen:perfectum",
+      moduleId: "verbs",
+      itemId: "verb:lopen",
+      focusId: "perfectum",
+      attempts: 4,
+      correctAttempts: 3,
+      consecutiveCorrect: 3,
+      lastReviewedAt: "2026-11-22T10:00:00.000Z",
+      createdAt: "2026-11-20T10:00:00.000Z",
+      updatedAt: "2026-11-22T10:00:00.000Z",
+    });
+
+    await importLearnerData("learner-b", JSON.stringify(fixture), { data });
+
+    expect(restored?.attempts[0]?.answer).toEqual({ type: "typed-answer", value: "Ik heb gelopen." });
+    expect(restored?.progress[0]?.exerciseStage).toBe(2);
+  });
+
+  it("round-trips multiple-choice and fill-gap answers in backup v3", async () => {
+    const dataSource: LearnerDataSnapshot = {
+      attempts: [
+        { ...legacyAttempt, answer: { type: "multiple-choice", optionId: "option-1" } },
+        { ...legacyAttempt, id: "attempt-gap", answer: { type: "fill-gap", values: { "gap-1": "boek" } } },
+      ],
+      progress: [],
+      reviewSchedules: [],
+    };
+    let restored: LearnerDataSnapshot | undefined;
+    const data: LearnerDataRepository = {
+      async read() { return dataSource; },
+      async replace(_learnerId, snapshot) { restored = snapshot; },
+    };
+    const serialized = await exportLearnerData("learner-a", { data });
+
+    expect(JSON.parse(serialized)).toMatchObject({ version: 3 });
+    await importLearnerData("learner-b", serialized, { data });
+    expect(restored?.attempts.map((attempt) => attempt.answer)).toEqual([
+      { type: "multiple-choice", optionId: "option-1" },
+      { type: "fill-gap", values: { "gap-1": "boek" } },
+    ]);
   });
 
   it("rejects unsupported or malformed backup files before replacing data", async () => {

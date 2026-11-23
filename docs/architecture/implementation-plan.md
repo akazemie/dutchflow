@@ -74,6 +74,12 @@ Add audio-prompt exercises and local/static audio assets when content is ready. 
 
 **Done when:** unsupported browser features do not block other exercise types or saved learning progress.
 
+### 9. Graded exercise types and adaptive practice
+
+Extend the exercise and answer contracts with multiple-choice, fill-gap, word-ordering, and matching payloads. Add deterministic seeded option ordering, shared pure evaluators, per-skill results, adaptive exercise stages, and version 3 backups while retaining v1/v2 import. Modules list skills directly and declare supported types per skill; unsupported choices fall back to typed-answer. Multiple-choice and fill-gap generation/renderers ship in phase 2A. Vocabulary word-ordering and multi-skill matching generation/renderers ship in phase 2B. Matching applies each pair's correctness and rating to its own `skillId`; writes are independent and not yet atomic.
+
+**Done when:** each available type has pure evaluator and renderer tests, deterministic session selection is verified, old/new backup fixtures round-trip, content validation and all quality gates pass, and the exercise flow remains keyboard accessible.
+
 ## Test and quality gates
 
 - Unit tests colocated with domain, conjugation, planner, scheduler, and evaluation code.

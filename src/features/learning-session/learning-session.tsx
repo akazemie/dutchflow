@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Answer, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import type { Answer, EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import type { SkillProgress } from "@/learning/core/progress";
+import { createExerciseId } from "@/learning/core/create-exercise-id";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
+import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
 import { learningModuleRegistry } from "@/learning/modules/registry";
-import { exerciseRendererRegistry } from "@/exercise-renderers/registry";
+import { ExerciseRendererView } from "@/exercise-renderers/exercise-renderer-view";
 import { useLearningRuntime } from "@/features/runtime/learning-runtime-provider";
 
 interface LearningSessionProps {
@@ -17,6 +20,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const runtime = useLearningRuntime();
   const [module, setModule] = useState<LearningModule | null>(null);
   const [items, setItems] = useState<LearningItem[]>([]);
+  const [skillProgress, setSkillProgress] = useState<SkillProgress[]>([]);
   const [plan, setPlan] = useState<SessionCandidate[]>([]);
   const [sessionIndex, setSessionIndex] = useState(0);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -25,7 +29,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const [exercise, setExercise] = useState<LearningExercise | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [emptySession, setEmptySession] = useState(false);
-  const [feedback, setFeedback] = useState<{ correct: boolean; text: string } | null>(null);
+  const [feedback, setFeedback] = useState<EvaluationResult | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -50,10 +54,13 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         const firstExercise = await session.module.createExercise(firstCandidate.itemId, {
           focusId: firstCandidate.focusId,
           explanationLanguage: session.preferences.explanationLanguage,
+          exerciseType: firstCandidate.exerciseType,
+          seed: firstCandidate.seed,
         });
         if (isCurrent) {
           setModule(session.module);
           setItems(items);
+          setSkillProgress(session.skillProgress);
           setPlan(session.plan);
           setSessionIndex(0);
           setSelectedItemId(firstCandidate.itemId);
@@ -75,9 +82,18 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   async function changeExercise(itemId: string, nextFocusId: string) {
     if (!module || isSaving) return;
     try {
+      const skill = module.listSkills(itemId).find((candidate) => candidate.focusId === nextFocusId);
+      if (!skill) throw new Error(`No skill found for item ${itemId} and focus ${nextFocusId}.`);
+      const seed = createExerciseId();
       const nextExercise = await module.createExercise(itemId, {
         focusId: nextFocusId,
         explanationLanguage,
+        exerciseType: chooseExerciseType(
+          module.supportedExerciseTypes(itemId, nextFocusId),
+          skillProgress.find((progress) => progress.skillId === skill.skillId),
+          seed,
+        ),
+        seed,
       });
       setSelectedItemId(itemId);
       setFocusId(nextFocusId);
@@ -96,7 +112,12 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
 
     try {
       const { result } = await runtime.submitAnswer({ exercise, answer });
-      setFeedback({ correct: result.correct, text: result.feedback });
+      setFeedback(result);
+      try {
+        setSkillProgress(await runtime.getProgress());
+      } catch {
+        setError("Progress was saved, but could not be refreshed for this session.");
+      }
     } catch {
       setError("Your attempt could not be saved locally. Check browser storage and try again.");
     } finally {
@@ -113,6 +134,8 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       const nextExercise = await module.createExercise(nextCandidate.itemId, {
         focusId: nextCandidate.focusId,
         explanationLanguage,
+        exerciseType: nextCandidate.exerciseType,
+        seed: nextCandidate.seed,
       });
       setSessionIndex((current) => current + 1);
       setSelectedItemId(nextCandidate.itemId);
@@ -148,8 +171,6 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
     );
   }
   if (!module || !exercise) return <p className="loading-copy" role="status">Preparing your exercise…</p>;
-
-  const Renderer = exerciseRendererRegistry[exercise.type];
 
   return (
     <section className="lesson-card" aria-labelledby="exercise-title">
@@ -187,15 +208,22 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         </div>
       </div>
       <h1 id="exercise-title">{exercise.title}</h1>
-      <p className="prompt-translation">“{exercise.prompt}.”</p>
+      {"prompt" in exercise && <p className="prompt-translation">“{exercise.prompt}.”</p>}
       {exercise.hint && <p className="exercise-hint">{exercise.hint}</p>}
-      <Renderer key={exercise.id} exercise={exercise} disabled={isSaving || feedback !== null} onAnswer={handleAnswer} />
+      <ExerciseRendererView
+        key={exercise.id}
+        exercise={exercise}
+        disabled={isSaving || feedback !== null}
+        feedback={feedback}
+        onAnswer={(answer) => void handleAnswer(answer)}
+      />
       {isSaving && <p className="save-status" role="status">Saving your attempt…</p>}
       {error && <p className="notice notice-error" role="alert">{error}</p>}
       {feedback && (
         <div className={`feedback ${feedback.correct ? "feedback-correct" : "feedback-incorrect"}`} role="status">
           <strong>{feedback.correct ? "Goed gedaan!" : "Keep practicing"}</strong>
-          <p>{feedback.text}</p>
+          <p>{feedback.feedback}</p>
+          {!feedback.correct && !feedback.itemResults && <p>Expected: {feedback.expected.join(" / ")}</p>}
           <span>Your attempt is saved on this device.</span>
           {sessionIndex + 1 < plan.length ? (
             <button className="next-exercise-button" onClick={() => void handleNextExercise()} type="button">
