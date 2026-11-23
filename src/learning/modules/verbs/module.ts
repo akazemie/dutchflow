@@ -1,7 +1,7 @@
 import rawVerbContent from "@/content/verbs/verbs.json";
 import { verbCollectionSchema, type VerbContent } from "@/content/verbs/schema";
-import type { EvaluationResult, ExerciseFocus, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
-import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import type { Answer, ExerciseFocus, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import { evaluateTypedAnswer } from "@/learning/exercises/evaluate-typed-answer";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
 
 const verbCollection = verbCollectionSchema.parse(rawVerbContent);
@@ -41,6 +41,8 @@ function exerciseForVerb(verb: VerbContent, focusId: string, explanationLanguage
     level: verb.level,
     focusId,
     focusLabel,
+    title: "Translate into Dutch",
+    answerLabel: "Your answer in Dutch",
     prompt: example.en,
     hint: verb.explanation[explanationLanguage],
     acceptedAnswers: [example.nl, ...(example.acceptedVariants ?? [])],
@@ -70,17 +72,10 @@ export const verbsModule: LearningModule = {
     return exerciseForVerb(verb, context?.focusId ?? "perfectum", context?.explanationLanguage ?? "en");
   },
 
-  async evaluate(exercise: LearningExercise, answer: string): Promise<EvaluationResult> {
-    const expected = exercise.acceptedAnswers.map(normalizeAnswer);
-    const correct = normalizeAnswer(answer).length > 0 && expected.includes(normalizeAnswer(answer));
-
-    return {
-      correct,
-      feedback: correct
-        ? `Correct. ${exercise.acceptedAnswers[0]} is a correct ${exercise.focusLabel.toLocaleLowerCase("en-US")} form.`
-        : `Not quite. One accepted answer is: ${exercise.acceptedAnswers[0]}`,
-      rating: correct ? "good" : "again",
-      skillIds: [exercise.skillId],
-    };
+  async evaluate(exercise: LearningExercise, answer: Answer) {
+    if (exercise.type !== "typed-answer" || answer.type !== "typed-answer") {
+      throw new Error("Unsupported exercise or answer type for the verbs module.");
+    }
+    return evaluateTypedAnswer(exercise, answer);
   },
 };

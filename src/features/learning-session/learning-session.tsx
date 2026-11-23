@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import type { Answer, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
+import { learningModuleRegistry } from "@/learning/modules/registry";
 import { exerciseRendererRegistry } from "@/exercise-renderers/registry";
 import { useLearningRuntime } from "@/features/runtime/learning-runtime-provider";
 
@@ -88,7 +89,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
     }
   }
 
-  async function handleAnswer(answer: string) {
+  async function handleAnswer(answer: Answer) {
     if (!runtime || !module || !exercise || isSaving || feedback) return;
     setIsSaving(true);
     setError(null);
@@ -133,9 +134,13 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         <h1 id="empty-session-title">You’re caught up for now.</h1>
         <p>There are no new or due exercises for this module at your current level. Try another module or check your progress.</p>
         <div className="empty-session-actions">
-          <Link className="primary-button" href={moduleId === "verbs" ? "/learn/vocabulary/" : "/learn/verbs/"}>
-            Try {moduleId === "verbs" ? "vocabulary" : "verbs"}
-          </Link>
+          {learningModuleRegistry
+            .filter((entry) => entry.id !== moduleId)
+            .map((entry) => (
+              <Link className="primary-button" href={`/learn/${entry.id}/`} key={entry.id}>
+                Try {entry.displayName.toLocaleLowerCase("en-US")}
+              </Link>
+            ))}
           <Link className="text-link" href="/progress/">View progress</Link>
           <Link className="text-link" href="/settings/">Change level</Link>
         </div>
@@ -181,7 +186,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
           ))}
         </div>
       </div>
-      <h1 id="exercise-title">Translate into Dutch</h1>
+      <h1 id="exercise-title">{exercise.title}</h1>
       <p className="prompt-translation">“{exercise.prompt}.”</p>
       {exercise.hint && <p className="exercise-hint">{exercise.hint}</p>}
       <Renderer key={exercise.id} exercise={exercise} disabled={isSaving || feedback !== null} onAnswer={handleAnswer} />

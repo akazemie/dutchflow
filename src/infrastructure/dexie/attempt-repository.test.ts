@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { DexieAttemptRepository } from "./attempt-repository";
 import { DutchFlowDatabase } from "./database";
+import { DexieLearnerDataRepository } from "./learner-data-repository";
+import type { ExerciseAttempt } from "@/application/ports/attempt-repository";
 
 describe("DexieAttemptRepository", () => {
   const db = new DutchFlowDatabase(`dutchflow-test-${crypto.randomUUID()}`);
@@ -18,7 +20,7 @@ describe("DexieAttemptRepository", () => {
       contentId: "verb:lopen",
       moduleId: "verbs",
       exerciseType: "typed-answer",
-      answer: "Ik heb gelopen.",
+      answer: { type: "typed-answer" as const, value: "Ik heb gelopen." },
       correct: true,
       rating: "good" as const,
       createdAt: "2026-11-22T12:00:00.000Z",
@@ -28,5 +30,26 @@ describe("DexieAttemptRepository", () => {
     await repository.save(attempt);
 
     await expect(db.exerciseAttempts.get(attempt.id)).resolves.toEqual(attempt);
+  });
+
+  it("reads legacy attempts whose answer is still a string", async () => {
+    const legacyAttempt: ExerciseAttempt = {
+      id: "legacy-attempt",
+      learnerId: "legacy-learner",
+      skillId: "verb:lopen:perfectum",
+      contentId: "verb:lopen",
+      moduleId: "verbs",
+      exerciseType: "typed-answer",
+      answer: "Ik heb gelopen.",
+      correct: true,
+      rating: "good",
+      createdAt: "2026-11-22T12:00:00.000Z",
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    await db.exerciseAttempts.put(legacyAttempt);
+
+    const snapshot = await new DexieLearnerDataRepository(db).read("legacy-learner");
+
+    expect(snapshot.attempts).toEqual([legacyAttempt]);
   });
 });

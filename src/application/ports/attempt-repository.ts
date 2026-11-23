@@ -1,3 +1,5 @@
+import type { Answer } from "@/learning/contracts/module";
+
 export interface ExerciseAttempt {
   id: string;
   learnerId: string;
@@ -5,7 +7,7 @@ export interface ExerciseAttempt {
   contentId: string;
   moduleId: string;
   exerciseType: string;
-  answer: string;
+  answer: Answer | string;
   correct: boolean;
   rating: "again" | "hard" | "good" | "easy";
   createdAt: string;

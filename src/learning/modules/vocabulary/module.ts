@@ -1,7 +1,7 @@
 import rawContent from "@/content/vocabulary/vocabulary.json";
 import { vocabularyCollectionSchema } from "@/content/vocabulary/schema";
-import type { EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
-import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import type { Answer, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import { evaluateTypedAnswer } from "@/learning/exercises/evaluate-typed-answer";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
 
 const collection = vocabularyCollectionSchema.parse(rawContent);
@@ -37,20 +37,18 @@ export const vocabularyModule: LearningModule = {
       level: item.level,
       focusId: "meaning",
       focusLabel: "Vocabulary",
+      title: "Translate into Dutch",
+      answerLabel: "Your answer in Dutch",
       prompt: item.prompt.en,
       hint: item.explanation[explanationLanguage],
       acceptedAnswers: [item.answer, ...item.acceptedVariants],
     };
   },
 
-  async evaluate(exercise, answer): Promise<EvaluationResult> {
-    const normalizedAnswer = normalizeAnswer(answer);
-    const correct = normalizedAnswer.length > 0 && exercise.acceptedAnswers.map(normalizeAnswer).includes(normalizedAnswer);
-    return {
-      correct,
-      feedback: correct ? `Correct. ${exercise.acceptedAnswers[0]} is right.` : `Not quite. One accepted answer is: ${exercise.acceptedAnswers[0]}`,
-      rating: correct ? "good" : "again",
-      skillIds: [exercise.skillId],
-    };
+  async evaluate(exercise: LearningExercise, answer: Answer) {
+    if (exercise.type !== "typed-answer" || answer.type !== "typed-answer") {
+      throw new Error("Unsupported exercise or answer type for the vocabulary module.");
+    }
+    return evaluateTypedAnswer(exercise, answer);
   },
 };
