@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
+import type { LearningExercise, TypedAnswerExercise } from "@/learning/contracts/module";
 import { verbsModule } from "./module";
+
+function assertTypedAnswer(exercise: LearningExercise): asserts exercise is TypedAnswerExercise {
+  if (exercise.type !== "typed-answer") throw new Error(`Expected typed-answer, received ${exercise.type}.`);
+}
 
 describe("Dutch verb exercise evaluation", () => {
   it("includes available lower-level content for a higher selected level", async () => {
@@ -62,6 +67,8 @@ describe("Dutch verb exercise evaluation", () => {
   it("creates distinct skill IDs for Perfectum and Imperfectum facets", async () => {
     const perfectum = await verbsModule.createExercise("verb:werken", { focusId: "perfectum" });
     const imperfectum = await verbsModule.createExercise("verb:werken", { focusId: "imperfectum-plural" });
+    assertTypedAnswer(perfectum);
+    assertTypedAnswer(imperfectum);
 
     expect(perfectum.skillId).toBe("verb:werken:perfectum");
     expect(imperfectum.skillId).toBe("verb:werken:imperfectum:plural");
@@ -70,6 +77,7 @@ describe("Dutch verb exercise evaluation", () => {
 
   it("accepts both we and wij for the plural imperfectum example", async () => {
     const exercise = await verbsModule.createExercise("verb:wonen", { focusId: "imperfectum-plural" });
+    assertTypedAnswer(exercise);
 
     expect(exercise.acceptedAnswers).toContain("Wij woonden in Brussel.");
     expect(exercise.acceptedAnswers).toContain("We woonden in Brussel.");
@@ -82,6 +90,7 @@ describe("Dutch verb exercise evaluation", () => {
 
   it("accepts the we pronoun for the fietsen plural imperfectum example", async () => {
     const exercise = await verbsModule.createExercise("verb:fietsen", { focusId: "imperfectum-plural" });
+    assertTypedAnswer(exercise);
 
     expect(exercise.acceptedAnswers).toContain("Wij fietsten naar het werk.");
     expect(exercise.acceptedAnswers).toContain("We fietsten naar het werk.");
@@ -94,6 +103,8 @@ describe("Dutch verb exercise evaluation", () => {
   it("keeps separable and auxiliary variants as accepted answers", async () => {
     const separable = await verbsModule.createExercise("verb:opbellen", { focusId: "perfectum" });
     const bothAuxiliaries = await verbsModule.createExercise("verb:lopen", { focusId: "perfectum" });
+    assertTypedAnswer(separable);
+    assertTypedAnswer(bothAuxiliaries);
 
     expect(separable.acceptedAnswers).toContain("Ik heb hem opgebeld.");
     expect(bothAuxiliaries.acceptedAnswers).toContain("Ik ben gelopen.");

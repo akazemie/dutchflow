@@ -1,4 +1,5 @@
 import type { ExerciseStrategy } from "@/learning/core/preferences";
+import type { ExerciseType } from "@/learning/contracts/module";
 
 export interface SessionCandidate {
   skillId: string;
@@ -6,6 +7,8 @@ export interface SessionCandidate {
   itemId: string;
   focusId: string;
   estimatedMinutes: number;
+  exerciseType?: ExerciseType;
+  seed?: string;
 }
 
 export interface SessionPlanInput {

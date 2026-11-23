@@ -1,7 +1,8 @@
 import type { EvaluationResult, TypedAnswer, TypedAnswerExercise } from "@/learning/contracts/module";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import { gradeScore } from "./grade-score";
 
-function isOneEditAway(answer: string, expected: string): boolean {
+export function isOneEditAway(answer: string, expected: string): boolean {
   if (Math.abs(answer.length - expected.length) > 1) return false;
 
   let answerIndex = 0;
@@ -29,7 +30,7 @@ function isOneEditAway(answer: string, expected: string): boolean {
   return edits === 1;
 }
 
-function letterCount(value: string): number {
+export function letterCount(value: string): number {
   return [...value].filter((character) => /\p{L}/u.test(character)).length;
 }
 
@@ -43,13 +44,15 @@ export function evaluateTypedAnswer(
   const correct = normalizedAnswer.length > 0 && normalizedExpected.includes(normalizedAnswer);
 
   if (correct) {
+    const { rating } = gradeScore(1, exercise.partialCredit);
     return {
       correct: true,
       feedback: `Correct. ${expected[0]} is right.`,
       score: 1,
       expected,
-      rating: "good",
+      rating,
       skillIds: [exercise.skillId],
+      skillResults: [{ skillId: exercise.skillId, correct: true, rating }],
     };
   }
 
@@ -57,17 +60,20 @@ export function evaluateTypedAnswer(
   const almost = exercise.typoTolerance === "one-edit"
     && letterCount(normalizedAnswer) >= 5
     && normalizedExpected.some(
-    (candidate) => letterCount(candidate) >= 5 && isOneEditAway(normalizedAnswer, candidate),
-  );
+      (candidate) => letterCount(candidate) >= 5 && isOneEditAway(normalizedAnswer, candidate),
+    );
+  const score = almost ? 0.5 : 0;
+  const { rating } = gradeScore(score, exercise.partialCredit);
 
   return {
     correct: false,
-    feedback: almost
+    feedback: almost && rating === "hard"
       ? `Almost. One accepted answer is: ${expected[0]}`
       : `Not quite. One accepted answer is: ${expected[0]}`,
-    score: almost ? 0.5 : 0,
+    score,
     expected,
-    rating: almost ? "hard" : "again",
+    rating,
     skillIds: [exercise.skillId],
+    skillResults: [{ skillId: exercise.skillId, correct: false, rating }],
   };
 }

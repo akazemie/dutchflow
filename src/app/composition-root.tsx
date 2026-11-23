@@ -48,6 +48,7 @@ function createLearningRuntime(): LearningRuntime {
         module: learningModule,
         preferences: learnerPreferences,
         knownSkillIds: knownProgress.filter((record) => record.moduleId === moduleId).map((record) => record.skillId),
+        skillProgress: knownProgress.filter((record) => record.moduleId === moduleId),
         dueReviews: dueSchedules.map((schedule) => ({
           skillId: schedule.skillId,
           moduleId: schedule.moduleId,

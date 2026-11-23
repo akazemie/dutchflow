@@ -1,17 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { Answer, LearningExercise } from "@/learning/contracts/module";
+import type { ExerciseRendererProps } from "./types";
 
-export interface ExerciseRendererProps {
-  exercise: LearningExercise;
-  disabled: boolean;
-  onAnswer(answer: Answer): void;
-}
-
-export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRendererProps) {
+export function TypedAnswerRenderer({ exercise, disabled, onAnswer }: ExerciseRendererProps<"typed-answer">) {
   const [answer, setAnswer] = useState("");
-  if (exercise.type !== "typed-answer") return null;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
