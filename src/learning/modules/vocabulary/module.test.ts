@@ -28,4 +28,17 @@ describe("vocabularyModule", () => {
 
     expect(result).toMatchObject({ correct: true, rating: "good", skillIds: ["vocabulary:appel:meaning"] });
   });
+
+  it("uses target words rather than sentence translations for multiple-choice options", async () => {
+    const exercise = await vocabularyModule.createExercise("vocabulary:appel", {
+      exerciseType: "multiple-choice",
+      seed: "word-options",
+    });
+
+    expect(exercise.type).toBe("multiple-choice");
+    if (exercise.type !== "multiple-choice") throw new Error("Expected a multiple-choice exercise.");
+    expect(exercise.options.map((option) => option.text)).toContain("appel");
+    expect(exercise.options.map((option) => option.text)).toContain("boek");
+    expect(exercise.options.every((option) => !option.text.includes("."))).toBe(true);
+  });
 });

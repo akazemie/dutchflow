@@ -3,6 +3,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { FillGapExercise, MultipleChoiceExercise, TypedAnswerExercise } from "@/learning/contracts/module";
+import { ExerciseRendererView } from "./exercise-renderer-view";
 import { FillGapRenderer } from "./fill-gap-renderer";
 import { MultipleChoiceRenderer } from "./multiple-choice-renderer";
 import { TypedAnswerRenderer } from "./typed-answer-renderer";
@@ -96,6 +97,20 @@ describe("exercise renderers", () => {
     expect(onAnswer).toHaveBeenCalledWith({ type: "multiple-choice", optionId: "wrong" });
   });
 
+  it("clears multiple-choice selection when rerendered with a new exercise", () => {
+    const first = { ...multipleChoiceExercise, id: "mc-first" };
+    const next = { ...multipleChoiceExercise, id: "mc-next" };
+    const props = { disabled: false, feedback: null, onAnswer: vi.fn() };
+    const { rerender } = render(<ExerciseRendererView exercise={first} {...props} />);
+
+    fireEvent.click(screen.getByRole("radio", { name: "Ze eet een peer." }));
+    expect(screen.getByRole("radio", { name: "Ze eet een peer." })).toHaveProperty("checked", true);
+
+    rerender(<ExerciseRendererView exercise={next} {...props} />);
+
+    expect(screen.getByRole("radio", { name: "Ze eet een peer." })).toHaveProperty("checked", false);
+  });
+
   it("submits fill-gap values and displays per-blank expected feedback", () => {
     const onAnswer = vi.fn();
     render(
@@ -123,5 +138,6 @@ describe("exercise renderers", () => {
 
     expect(onAnswer).toHaveBeenCalledWith({ type: "fill-gap", values: { gap: "peer" } });
     expect(screen.getByText("Expected: appel")).toBeTruthy();
+    expect(screen.queryByText("Not quite.")).toBeNull();
   });
 });

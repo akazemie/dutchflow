@@ -5,6 +5,7 @@ import type { ReviewScheduleRepository } from "./ports/review-schedule-repositor
 import type { ReviewScheduler } from "@/learning/scheduling/review-scheduler";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
 import { advanceExerciseStage, getExerciseStage, skillRecordId } from "@/learning/core/progress";
+import { createExerciseId } from "@/learning/core/create-exercise-id";
 
 export interface SubmitAnswerInput {
   learnerId: string;
@@ -29,7 +30,7 @@ export async function submitAnswer(
     throw new Error("Exercise evaluation must return at least one skill result.");
   }
   const now = (dependencies.now ?? (() => new Date()))().toISOString();
-  const createId = dependencies.createId ?? (() => crypto.randomUUID());
+  const createId = dependencies.createId ?? createExerciseId;
   const attempt: ExerciseAttempt = {
     id: createId(),
     learnerId: input.learnerId,

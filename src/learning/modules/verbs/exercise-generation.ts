@@ -11,6 +11,7 @@ import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { createFillGapSegments } from "@/learning/exercises/create-fill-gap-segments";
 import { createMultipleChoiceOptions, selectDistinctDistractors } from "@/learning/exercises/create-multiple-choice-options";
 import type { AnswerOption } from "@/learning/exercises/create-multiple-choice-options";
+import { generateWeakForms } from "./conjugation/weak-forms";
 
 export interface VerbPrompt {
   example: { en: string; nl: string; acceptedVariants?: string[] };
@@ -45,6 +46,14 @@ export function getVerbPrompt(verb: VerbContent, focusId: string, focuses: Exerc
 
 export function verbSkills(verb: VerbContent, focuses: ExerciseFocus[]): LearningSkill[] {
   return focuses.map((focus) => ({ skillId: getVerbPrompt(verb, focus.id, focuses).skillId, focusId: focus.id }));
+}
+
+function getWeakifiedForms(verb: VerbContent) {
+  if (verb.morphology.type !== "strong") return undefined;
+  let stem = verb.lemma.replace(/en$/iu, "").replace(/([bcdfghjklmnpqrstvwxz])\1$/iu, "$1");
+  stem = stem.replace(/(^|[^aeiou])([aeou])([ptkfschx])$/iu, "$1$2$2$3");
+  stem = stem.replace(/v$/iu, "f").replace(/z$/iu, "s");
+  return generateWeakForms({ type: "weak", stem, gePrefix: true });
 }
 
 function replaceWholeForm(sentence: string, form: string, replacement: string): string | undefined {
@@ -84,6 +93,11 @@ export function getVerbDistractors(verb: VerbContent, focusId: string, prompt: V
       if (candidate) candidates.push(candidate);
     }
   };
+
+  const weakifiedForms = getWeakifiedForms(verb);
+  if (focusId === "perfectum") addTargetReplacement(weakifiedForms?.perfectumParticiple);
+  if (focusId === "imperfectum-singular") addTargetReplacement(weakifiedForms?.imperfectum.singular);
+  if (focusId === "imperfectum-plural") addTargetReplacement(weakifiedForms?.imperfectum.plural);
 
   const swappedEnding = swapDentalEnding(prompt.targetForm);
   if (verb.morphology.type === "weak") addTargetReplacement(swappedEnding);

@@ -1,38 +1,7 @@
 import type { EvaluationResult, TypedAnswer, TypedAnswerExercise } from "@/learning/contracts/module";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
+import { isAlmostAnswer } from "./evaluate-almost-answer";
 import { gradeScore } from "./grade-score";
-
-export function isOneEditAway(answer: string, expected: string): boolean {
-  if (Math.abs(answer.length - expected.length) > 1) return false;
-
-  let answerIndex = 0;
-  let expectedIndex = 0;
-  let edits = 0;
-
-  while (answerIndex < answer.length && expectedIndex < expected.length) {
-    if (answer[answerIndex] === expected[expectedIndex]) {
-      answerIndex += 1;
-      expectedIndex += 1;
-      continue;
-    }
-
-    edits += 1;
-    if (edits > 1) return false;
-    if (answer.length > expected.length) answerIndex += 1;
-    else if (expected.length > answer.length) expectedIndex += 1;
-    else {
-      answerIndex += 1;
-      expectedIndex += 1;
-    }
-  }
-
-  if (answerIndex < answer.length || expectedIndex < expected.length) edits += 1;
-  return edits === 1;
-}
-
-export function letterCount(value: string): number {
-  return [...value].filter((character) => /\p{L}/u.test(character)).length;
-}
 
 export function evaluateTypedAnswer(
   exercise: TypedAnswerExercise,
@@ -57,11 +26,7 @@ export function evaluateTypedAnswer(
   }
 
   // Only one insertion, deletion, or substitution across whole normalized answers of at least five letters qualifies.
-  const almost = exercise.typoTolerance === "one-edit"
-    && letterCount(normalizedAnswer) >= 5
-    && normalizedExpected.some(
-      (candidate) => letterCount(candidate) >= 5 && isOneEditAway(normalizedAnswer, candidate),
-    );
+  const almost = isAlmostAnswer(answer.value, expected, exercise.typoTolerance);
   const score = almost ? 0.5 : 0;
   const { rating } = gradeScore(score, exercise.partialCredit);
 

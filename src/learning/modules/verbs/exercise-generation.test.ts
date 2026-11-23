@@ -9,6 +9,15 @@ const collection = verbCollectionSchema.parse(rawVerbContent);
 const focuses = verbsModule.exerciseFocuses;
 
 describe("verb multiple-choice distractors", () => {
+  it("adds a weak-ified form as a distractor for strong verbs", () => {
+    const verb = collection.items.find((item) => item.id === "verb:lopen");
+    if (!verb) throw new Error("Expected lopen content.");
+    const prompt = getVerbPrompt(verb, "imperfectum-singular", focuses);
+
+    expect(getVerbDistractors(verb, "imperfectum-singular", prompt).map((option) => option.text))
+      .toContain("Ik loopte.");
+  });
+
   it("excludes every accepted answer variant, including variants containing the t/d form", async () => {
     const verb = collection.items.find((item) => item.id === "verb:fietsen");
     if (!verb) throw new Error("Expected fietsen content.");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Answer, EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { SkillProgress } from "@/learning/core/progress";
@@ -9,7 +9,7 @@ import type { ExplanationLanguage } from "@/learning/core/preferences";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
 import { learningModuleRegistry } from "@/learning/modules/registry";
-import { exerciseRendererRegistry } from "@/exercise-renderers/registry";
+import { ExerciseRendererView } from "@/exercise-renderers/exercise-renderer-view";
 import { useLearningRuntime } from "@/features/runtime/learning-runtime-provider";
 
 interface LearningSessionProps {
@@ -172,50 +172,6 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   }
   if (!module || !exercise) return <p className="loading-copy" role="status">Preparing your exercise…</p>;
 
-  let renderer: ReactNode;
-  switch (exercise.type) {
-    case "typed-answer": {
-      const Renderer = exerciseRendererRegistry["typed-answer"];
-      renderer = Renderer ? (
-        <Renderer
-          exercise={exercise}
-          disabled={isSaving || feedback !== null}
-          feedback={feedback}
-          onAnswer={(answer) => void handleAnswer(answer)}
-        />
-      ) : <p role="alert">No renderer is registered for typed-answer exercises.</p>;
-      break;
-    }
-    case "multiple-choice": {
-      const Renderer = exerciseRendererRegistry["multiple-choice"];
-      renderer = Renderer ? (
-        <Renderer
-          exercise={exercise}
-          disabled={isSaving || feedback !== null}
-          feedback={feedback}
-          onAnswer={(answer) => void handleAnswer(answer)}
-        />
-      ) : <p role="alert">No renderer is registered for multiple-choice exercises.</p>;
-      break;
-    }
-    case "fill-gap": {
-      const Renderer = exerciseRendererRegistry["fill-gap"];
-      renderer = Renderer ? (
-        <Renderer
-          exercise={exercise}
-          disabled={isSaving || feedback !== null}
-          feedback={feedback}
-          onAnswer={(answer) => void handleAnswer(answer)}
-        />
-      ) : <p role="alert">No renderer is registered for fill-gap exercises.</p>;
-      break;
-    }
-    case "word-ordering":
-    case "matching":
-      renderer = <p role="alert">This exercise type is not available yet.</p>;
-      break;
-  }
-
   return (
     <section className="lesson-card" aria-labelledby="exercise-title">
       <div className="lesson-card-topline">
@@ -254,14 +210,20 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       <h1 id="exercise-title">{exercise.title}</h1>
       {"prompt" in exercise && <p className="prompt-translation">“{exercise.prompt}.”</p>}
       {exercise.hint && <p className="exercise-hint">{exercise.hint}</p>}
-      {renderer}
+      <ExerciseRendererView
+        key={exercise.id}
+        exercise={exercise}
+        disabled={isSaving || feedback !== null}
+        feedback={feedback}
+        onAnswer={(answer) => void handleAnswer(answer)}
+      />
       {isSaving && <p className="save-status" role="status">Saving your attempt…</p>}
       {error && <p className="notice notice-error" role="alert">{error}</p>}
       {feedback && (
         <div className={`feedback ${feedback.correct ? "feedback-correct" : "feedback-incorrect"}`} role="status">
           <strong>{feedback.correct ? "Goed gedaan!" : "Keep practicing"}</strong>
           <p>{feedback.feedback}</p>
-          {!feedback.correct && <p>Expected: {feedback.expected.join(" / ")}</p>}
+          {!feedback.correct && !feedback.itemResults && <p>Expected: {feedback.expected.join(" / ")}</p>}
           <span>Your attempt is saved on this device.</span>
           {sessionIndex + 1 < plan.length ? (
             <button className="next-exercise-button" onClick={() => void handleNextExercise()} type="button">

@@ -25,7 +25,7 @@ const exercise: MultipleChoiceExercise = {
 
 describe("evaluateMultipleChoice", () => {
   it.each([
-    ["correct option", "correct", true, 1, "good"],
+    ["correct option", "correct", true, 1, "hard"],
     ["wrong option", "wrong", false, 0, "again"],
     ["empty answer", "", false, 0, "again"],
   ] as const)("grades a %s", (_name, optionId, correct, score, rating) => {

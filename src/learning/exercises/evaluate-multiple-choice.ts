@@ -7,7 +7,8 @@ export function evaluateMultipleChoice(
 ): EvaluationResult {
   const correct = answer.optionId === exercise.correctOptionId;
   const score = correct ? 1 : 0;
-  const { rating } = gradeScore(score, exercise.partialCredit);
+  const grade = gradeScore(score, exercise.partialCredit);
+  const rating = correct ? "hard" : grade.rating;
   const expected = exercise.options
     .filter((option) => option.id === exercise.correctOptionId)
     .map((option) => option.text);

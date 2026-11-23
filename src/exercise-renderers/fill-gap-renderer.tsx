@@ -48,7 +48,6 @@ export function FillGapRenderer({
       <button className="primary-button" type="submit" disabled={disabled || exercise.blanks.some((blank) => !values[blank.id]?.trim())}>
         Check answer
       </button>
-      {feedback && <p className="renderer-feedback" aria-live="polite">{feedback.feedback}</p>}
     </form>
   );
 }

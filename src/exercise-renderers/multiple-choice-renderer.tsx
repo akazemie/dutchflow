@@ -6,11 +6,9 @@ import type { ExerciseRendererProps } from "./types";
 export function MultipleChoiceRenderer({
   exercise,
   disabled,
-  feedback,
   onAnswer,
 }: ExerciseRendererProps<"multiple-choice">) {
   const [selectedOptionId, setSelectedOptionId] = useState("");
-  const correctOption = exercise.options.find((option) => option.id === exercise.correctOptionId);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,13 +38,6 @@ export function MultipleChoiceRenderer({
       <button className="primary-button" type="submit" disabled={disabled || !selectedOptionId}>
         Check answer
       </button>
-      {feedback && (
-        <p className="renderer-feedback" aria-live="polite">
-          {feedback.correct
-            ? feedback.feedback
-            : `${feedback.feedback} ${correctOption ? `Expected: ${correctOption.text}` : ""}`}
-        </p>
-      )}
     </form>
   );
 }

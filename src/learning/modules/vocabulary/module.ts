@@ -25,8 +25,8 @@ function vocabularyWord(item: VocabularyContent): string {
 function getDistractors(item: VocabularyContent) {
   const candidates = collection.items
     .filter((candidate) => candidate.level === item.level && candidate.id !== item.id)
-    .map((candidate) => ({ id: `option-${candidate.id}`, text: candidate.answer }));
-  return selectDistinctDistractors(candidates, [item.answer, ...item.acceptedVariants], 3);
+    .map((candidate) => ({ id: `option-${candidate.id}`, text: vocabularyWord(candidate) }));
+  return selectDistinctDistractors(candidates, [vocabularyWord(item), ...item.acceptedVariants], 3);
 }
 
 function typesFor(item: VocabularyContent): ExerciseType[] {
@@ -84,12 +84,12 @@ export const vocabularyModule: LearningModule = {
     const base = commonFields(item, id, focusLabel);
 
     if (requestedType === "multiple-choice" && supportedTypes.includes(requestedType)) {
-      const correctOption = { id: `correct-${id}`, text: item.answer };
+      const correctOption = { id: `correct-${id}`, text: vocabularyWord(item) };
       return {
         ...base,
         type: "multiple-choice",
         prompt: item.prompt.en,
-        answerLabel: "Choose the correct Dutch translation",
+        answerLabel: "Choose the correct Dutch word",
         typoTolerance: "none",
         partialCredit: "none",
         ...createMultipleChoiceOptions(correctOption, getDistractors(item), context?.seed ?? id),

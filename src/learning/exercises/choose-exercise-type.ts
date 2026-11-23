@@ -23,6 +23,7 @@ export function chooseExerciseType(
   }
 
   if (supportedTypes.includes(preferredType)) return preferredType;
+  if (stage === 0 && supportedTypes.includes("fill-gap")) return "fill-gap";
   if (supportedTypes.includes("typed-answer")) return "typed-answer";
   throw new Error(`Exercise type ${preferredType} is unsupported and typed-answer fallback is unavailable.`);
 }

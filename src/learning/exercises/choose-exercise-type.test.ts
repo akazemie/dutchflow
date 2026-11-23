@@ -47,6 +47,10 @@ describe("chooseExerciseType", () => {
     expect(chooseExerciseType(["typed-answer"], undefined, "seed")).toBe("typed-answer");
   });
 
+  it("falls back to fill-gap before typed-answer for a new skill", () => {
+    expect(chooseExerciseType(["fill-gap", "typed-answer"], undefined, "seed")).toBe("fill-gap");
+  });
+
   it("rejects an empty supported type list", () => {
     expect(() => chooseExerciseType([], undefined, "seed")).toThrow("supports none");
   });
