@@ -71,6 +71,61 @@ function matchingPlannerFixture() {
   };
 }
 
+function matchingFacetsFixture(verbCount: number) {
+  const items: LearningItem[] = Array.from({ length: verbCount }, (_, index) => ({
+    id: `verb:matching-${index + 1}`,
+    moduleId: "verbs",
+    displayName: `matching ${index + 1}`,
+    contentVersion: 3,
+    level: "A1",
+  }));
+  const skillsByItem = new Map(items.map(({ id }) => [id, [
+    { skillId: `${id}:perfectum`, focusId: "perfectum" },
+    { skillId: `${id}:imperfectum:singular`, focusId: "imperfectum-singular" },
+    { skillId: `${id}:imperfectum:plural`, focusId: "imperfectum-plural" },
+  ]]));
+  const plannerModule: LearningModule = {
+    ...verbsModule,
+    async loadItems() { return items; },
+    listSkills(itemId) { return skillsByItem.get(itemId) ?? []; },
+    supportedExerciseTypes(_itemId, focusId) {
+      return focusId === "perfectum" ? ["matching"] : ["typed-answer"];
+    },
+  };
+  const skillProgress: SkillProgress[] = [...skillsByItem.entries()].flatMap(([itemId, skills]) =>
+    skills.map((skill) => ({
+      id: `learner:${skill.skillId}`,
+      learnerId: "learner",
+      skillId: skill.skillId,
+      moduleId: "verbs",
+      itemId,
+      focusId: skill.focusId,
+      attempts: 2,
+      correctAttempts: 2,
+      consecutiveCorrect: 2,
+      exerciseStage: 2,
+      lastReviewedAt: "2026-11-23T12:00:00.000Z",
+      createdAt: "2026-11-22T12:00:00.000Z",
+      updatedAt: "2026-11-23T12:00:00.000Z",
+    })),
+  );
+  const dueReviews = (itemId: string) => (skillsByItem.get(itemId) ?? []).map((skill) => ({
+    ...skill,
+    moduleId: "verbs",
+    itemId,
+    estimatedMinutes: 2,
+  }));
+
+  return {
+    module: plannerModule,
+    items,
+    skillsByItem,
+    skillProgress,
+    knownSkillIds: skillProgress.map(({ skillId }) => skillId),
+    dueReviews,
+  };
+}
+
 describe("startSession", () => {
   it("includes lower-level items when preparing a higher-level session", async () => {
     const preferences: LearnerPreferences = {
@@ -184,6 +239,53 @@ describe("startSession", () => {
     expect(session.plan.some((candidate) =>
       candidate.itemId === "verb:lopen" && candidate.exerciseType !== "matching",
     )).toBe(false);
+  });
+
+  it("does not plan matching when six verbs each have only one due facet", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 10,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    const fixture = matchingFacetsFixture(6);
+    const dueReviews = fixture.items.map(({ id }) => fixture.dueReviews(id)[0]!);
+
+    const session = await startSession({
+      module: fixture.module,
+      preferences,
+      dueReviews,
+      knownSkillIds: fixture.knownSkillIds,
+      skillProgress: fixture.skillProgress,
+    });
+
+    expect(session.plan).not.toContainEqual(expect.objectContaining({ exerciseType: "matching" }));
+    expect(session.plan).toHaveLength(5);
+  });
+
+  it("plans matching when all three facets of one verb are due and collapses its siblings", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 10,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    const fixture = matchingFacetsFixture(1);
+    const itemId = fixture.items[0]!.id;
+
+    const session = await startSession({
+      module: fixture.module,
+      preferences,
+      dueReviews: fixture.dueReviews(itemId),
+      knownSkillIds: fixture.knownSkillIds,
+      skillProgress: fixture.skillProgress,
+    });
+
+    expect(session.plan).toEqual([
+      expect.objectContaining({ itemId, exerciseType: "matching", estimatedMinutes: 6 }),
+    ]);
   });
 
   it("does not offer matching when its triple estimate exceeds the daily budget", async () => {

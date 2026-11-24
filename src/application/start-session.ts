@@ -49,6 +49,17 @@ export async function startSession(input: {
   }
 
   const dueSkillIds = new Set(input.dueReviews.map((candidate) => candidate.skillId));
+  const dueSkillsByItem = new Map<string, Set<string>>();
+  for (const candidate of input.dueReviews) {
+    const dueSkills = dueSkillsByItem.get(candidate.itemId) ?? new Set<string>();
+    dueSkills.add(candidate.skillId);
+    dueSkillsByItem.set(candidate.itemId, dueSkills);
+  }
+  const itemsWithMultipleDueSkills = new Set(
+    [...skillsByItem].filter(([itemId, skills]) =>
+      skills.filter(({ skillId }) => dueSkillsByItem.get(itemId)?.has(skillId)).length >= 2,
+    ).map(([itemId]) => itemId),
+  );
   const eligibleNewItems = newItems.filter((candidate) =>
     !knownSkills.has(candidate.skillId) && !dueSkillIds.has(candidate.skillId),
   );
@@ -70,10 +81,14 @@ export async function startSession(input: {
     });
     const isMatchingAnchor = siblingSkills[0]?.skillId === candidate.skillId;
     const withinTimeBudget = candidate.estimatedMinutes * 3 <= input.preferences.dailyLearningMinutes;
-    const availableTypes = supportedTypes.filter((type) =>
+    let availableTypes = supportedTypes.filter((type) =>
       (withinTimeBudget || type !== "matching")
+      && (itemsWithMultipleDueSkills.has(candidate.itemId) || type !== "matching")
       && (isMatchingAnchor || type !== "matching"),
     );
+    if (availableTypes.length === 0 && supportedTypes.includes("matching")) {
+      availableTypes = ["typed-answer"];
+    }
     const exerciseType = chooseExerciseType(availableTypes, progressBySkill.get(candidate.skillId), seed);
     return {
       ...candidate,
