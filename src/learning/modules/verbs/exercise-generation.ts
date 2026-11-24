@@ -6,6 +6,7 @@ import type {
   MultipleChoiceExercise,
   TypedAnswerExercise,
 } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import type { VerbContent } from "@/content/verbs/schema";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
@@ -18,7 +19,7 @@ import { generateWeakForms } from "./conjugation/weak-forms";
 
 export interface VerbPrompt {
   example: { en: string; nl: string; acceptedVariants?: string[] };
-  focusLabel: string;
+  focusLabel: { key: string };
   skillId: string;
   targetForm: string;
 }
@@ -58,17 +59,17 @@ export function getVerbMatchingPairs(verb: VerbContent, focuses: ExerciseFocus[]
   const facets = [
     {
       focusId: "perfectum",
-      left: "Perfectum",
+      left: message("focus.perfectum"),
       right: `${perfectumAuxiliary} + ${verb.forms.perfectum.participle}`,
     },
     {
       focusId: "imperfectum-singular",
-      left: "Imperfectum singular",
+      left: message("focus.imperfectum.singular"),
       right: verb.forms.imperfectum.singular,
     },
     {
       focusId: "imperfectum-plural",
-      left: "Imperfectum plural",
+      left: message("focus.imperfectum.plural"),
       right: verb.forms.imperfectum.plural,
     },
   ];
@@ -107,9 +108,9 @@ export function createVerbMatching(
     skillId: pairs[0]!.skillId,
     level: verb.level,
     focusId: "matching",
-    focusLabel: "Verb forms",
-    title: "Match each facet to its form",
-    answerLabel: "Tap a facet, then its matching form",
+    focusLabel: message("focus.verbForms"),
+    title: message("exercise.title.matchFacets"),
+    answerLabel: message("exercise.answer.matchForms"),
     typoTolerance: "none",
     partialCredit: "none",
     hint: verb.explanation[explanationLanguage],
@@ -217,8 +218,8 @@ function commonFields(
     level: verb.level,
     focusId,
     focusLabel: prompt.focusLabel,
-    title: "Translate into Dutch",
-    answerLabel: "Select or enter the correct Dutch form",
+    title: message("exercise.title.translate"),
+    answerLabel: message("exercise.answer.verbForm"),
     typoTolerance: "none" as const,
     partialCredit: "none" as const,
     hint: verb.explanation[explanationLanguage],
@@ -273,7 +274,7 @@ export function createVerbFillGap(
     ...commonFields(verb, focusId, prompt, id, explanationLanguage),
     type: "fill-gap",
     prompt: prompt.example.en,
-    answerLabel: "Fill in the missing Dutch verb form",
+    answerLabel: message("exercise.answer.verbForm"),
     typoTolerance: "none",
     partialCredit: "none",
     segments,

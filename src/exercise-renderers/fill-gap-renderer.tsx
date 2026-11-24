@@ -2,12 +2,12 @@
 
 import { useState, type FormEvent } from "react";
 import type { ExerciseRendererProps } from "./types";
-import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function FillGapRenderer({
   exercise,
   disabled,
   feedback,
+  t,
   onAnswer,
 }: ExerciseRendererProps<"fill-gap">) {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -20,7 +20,7 @@ export function FillGapRenderer({
 
   return (
     <form className="exercise-answer-form fill-gap-form" onSubmit={handleSubmit}>
-      <p className="fill-gap-sentence" aria-label={exercise.answerLabel}>
+      <p className="fill-gap-sentence" aria-label={t(exercise.answerLabel)}>
         {exercise.segments.map((segment) => {
           if (segment.type === "text") return <span key={segment.id}>{segment.text}</span>;
           const result = resultsById.get(segment.blankId);
@@ -28,7 +28,10 @@ export function FillGapRenderer({
           return (
             <span className="fill-gap-answer" key={segment.blankId}>
               <input
-                aria-label={`${exercise.answerLabel} ${blankNumber}`}
+                aria-label={t("renderer.blankNumber", {
+                  label: t(exercise.answerLabel),
+                  number: blankNumber,
+                })}
                 autoComplete="off"
                 disabled={disabled}
                 onChange={(event) => setValues((current) => ({
@@ -39,7 +42,9 @@ export function FillGapRenderer({
               />
               {result && (
                 <span className={result.correct ? "item-result-correct" : "item-result-incorrect"}>
-                  {result.correct ? "Correct" : `Expected: ${result.expected.join(" / ")}`}
+                  {result.correct
+                    ? t("renderer.correct")
+                    : `${t("renderer.expected")}: ${result.expected.join(" / ")}`}
                 </span>
               )}
             </span>
@@ -47,7 +52,7 @@ export function FillGapRenderer({
         })}
       </p>
       <button className="primary-button" type="submit" disabled={disabled || exercise.blanks.some((blank) => !values[blank.id]?.trim())}>
-        {EXERCISE_RENDERER_TEXT.checkAnswer}
+        {t("renderer.checkAnswer")}
       </button>
     </form>
   );

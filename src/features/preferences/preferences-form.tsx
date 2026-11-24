@@ -5,25 +5,29 @@ import {
   EXERCISE_STRATEGIES,
   EXPLANATION_LANGUAGES,
   LANGUAGE_LEVELS,
+  type ExplanationLanguage,
+  type ExerciseStrategy,
   type LearnerPreferenceChanges,
   type LearnerPreferences,
 } from "@/learning/core/preferences";
 import { useLearningRuntime } from "@/features/runtime/learning-runtime-provider";
+import { useI18n } from "@/features/i18n/i18n-provider";
 
-const languageLabels: Record<(typeof EXPLANATION_LANGUAGES)[number], string> = {
-  en: "English",
-  nl: "Nederlands",
-  fa: "فارسی",
+const languageKeys: Record<ExplanationLanguage, string> = {
+  en: "language.en",
+  nl: "language.nl",
+  fa: "language.fa",
 };
 
-const strategyLabels: Record<(typeof EXERCISE_STRATEGIES)[number], string> = {
-  balanced: "Mix reviews and new practice",
-  "review-first": "Review due skills first",
-  "new-first": "Learn new skills first",
+const strategyKeys: Record<ExerciseStrategy, string> = {
+  balanced: "strategy.balanced",
+  "review-first": "strategy.reviewFirst",
+  "new-first": "strategy.newFirst",
 };
 
 export function PreferencesForm() {
   const runtime = useLearningRuntime();
+  const { t, setExplanationLanguage } = useI18n();
   const [preferences, setPreferences] = useState<LearnerPreferences | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
@@ -38,7 +42,7 @@ export function PreferencesForm() {
         const loaded = await runtime.getPreferences();
         if (isCurrent) setPreferences(loaded);
       } catch {
-        if (isCurrent) setError("DutchFlow could not load your preferences from this device.");
+        if (isCurrent) setError(t("settings.error.load"));
       }
     }
 
@@ -46,7 +50,7 @@ export function PreferencesForm() {
     return () => {
       isCurrent = false;
     };
-  }, [runtime]);
+  }, [runtime, t]);
 
   function update<K extends keyof LearnerPreferenceChanges>(key: K, value: LearnerPreferenceChanges[K]) {
     setSaved(false);
@@ -68,23 +72,25 @@ export function PreferencesForm() {
     };
 
     try {
-      setPreferences(await runtime.updatePreferences(changes));
+      const updated = await runtime.updatePreferences(changes);
+      setPreferences(updated);
+      setExplanationLanguage(updated.explanationLanguage);
       setSaved(true);
     } catch {
-      setError("Your preferences could not be saved locally. Check browser storage and try again.");
+      setError(t("settings.error.save"));
     } finally {
       setIsSaving(false);
     }
   }
 
   if (!preferences) {
-    return <p className="loading-copy" role="status">{error ?? "Loading your preferences…"}</p>;
+    return <p className="loading-copy" role="status">{error ?? t("settings.loading")}</p>;
   }
 
   return (
     <form className="preferences-card" onSubmit={handleSubmit}>
       <label className="preference-field">
-        <span>Language level</span>
+        <span>{t("settings.level")}</span>
         <select
           value={preferences.level}
           onChange={(event) => update("level", event.currentTarget.value as LearnerPreferences["level"])}
@@ -94,31 +100,33 @@ export function PreferencesForm() {
       </label>
 
       <label className="preference-field">
-        <span>Explanation language</span>
+        <span>{t("settings.explanationLanguage")}</span>
         <select
           value={preferences.explanationLanguage}
           onChange={(event) => update("explanationLanguage", event.currentTarget.value as LearnerPreferences["explanationLanguage"])}
         >
           {EXPLANATION_LANGUAGES.map((language) => (
-            <option key={language} value={language}>{languageLabels[language]}</option>
+            <option key={language} value={language}>{t(languageKeys[language])}</option>
           ))}
         </select>
       </label>
 
       <label className="preference-field">
-        <span>Exercise strategy</span>
+        <span>{t("settings.strategy")}</span>
         <select
           value={preferences.exerciseStrategy}
           onChange={(event) => update("exerciseStrategy", event.currentTarget.value as LearnerPreferences["exerciseStrategy"])}
         >
           {EXERCISE_STRATEGIES.map((strategy) => (
-            <option key={strategy} value={strategy}>{strategyLabels[strategy]}</option>
+            <option key={strategy} value={strategy}>{t(strategyKeys[strategy])}</option>
           ))}
         </select>
       </label>
 
       <label className="preference-field time-field">
-        <span>Daily learning time <strong>{preferences.dailyLearningMinutes} min</strong></span>
+        <span>
+          {t("settings.dailyTime")} <strong>{t("common.minutes", { minutes: preferences.dailyLearningMinutes })}</strong>
+        </span>
         <input
           max={60}
           min={5}
@@ -127,14 +135,17 @@ export function PreferencesForm() {
           value={preferences.dailyLearningMinutes}
           onChange={(event) => update("dailyLearningMinutes", Number(event.currentTarget.value))}
         />
-        <span className="range-labels"><span>5 min</span><span>60 min</span></span>
+        <span className="range-labels">
+          <span>{t("common.minutes", { minutes: 5 })}</span>
+          <span>{t("common.minutes", { minutes: 60 })}</span>
+        </span>
       </label>
 
       <div className="preferences-actions">
         <button className="primary-button" disabled={isSaving} type="submit">
-          {isSaving ? "Saving…" : "Save preferences"}
+          {isSaving ? t("settings.saving") : t("settings.save")}
         </button>
-        {saved && <span className="save-status" role="status">Saved on this device</span>}
+        {saved && <span className="save-status" role="status">{t("settings.saved")}</span>}
       </div>
       {error && <p className="notice-error" role="alert">{error}</p>}
     </form>

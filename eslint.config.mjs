@@ -18,6 +18,7 @@ export default defineConfig([
         { type: "learning", pattern: "src/learning/**" },
         { type: "content", pattern: "src/content/**" },
         { type: "renderers", pattern: "src/exercise-renderers/**" },
+        { type: "i18n", pattern: "src/i18n/**" },
         { type: "infrastructure", pattern: "src/infrastructure/**" },
       ],
       "boundaries/files": [
@@ -51,7 +52,7 @@ export default defineConfig([
             },
             {
               from: { element: { type: "features" } },
-              allow: { to: { element: { types: ["application", "learning", "renderers"] } } },
+              allow: { to: { element: { types: ["application", "i18n", "learning", "renderers"] } } },
             },
             {
               from: { element: { type: "application-ports" } },
@@ -71,6 +72,10 @@ export default defineConfig([
             },
             {
               from: { element: { type: "renderers" } },
+              allow: { to: { element: { types: ["i18n", "learning"] } } },
+            },
+            {
+              from: { element: { type: "i18n" } },
               allow: { to: { element: { type: "learning" } } },
             },
           ],

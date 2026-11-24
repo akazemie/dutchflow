@@ -23,4 +23,13 @@ export class DexieAttemptRepository implements AttemptRepository {
     const attempts = await this.db.exerciseAttempts.where("learnerId").equals(learnerId).toArray();
     return attempts.map(normalizeAttempt);
   }
+
+  async listSince(learnerId: string, createdAt: string): Promise<ExerciseAttempt[]> {
+    const attempts = await this.db.exerciseAttempts
+      .where("createdAt")
+      .aboveOrEqual(createdAt)
+      .filter((attempt) => attempt.learnerId === learnerId)
+      .toArray();
+    return attempts.map(normalizeAttempt);
+  }
 }

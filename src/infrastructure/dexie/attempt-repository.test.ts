@@ -38,6 +38,59 @@ describe("DexieAttemptRepository", () => {
     }]);
   });
 
+  it("lists attempts since an indexed createdAt boundary for one learner", async () => {
+    const repository = new DexieAttemptRepository(db);
+    const records: StoredExerciseAttempt[] = [
+      {
+        id: "before-midnight",
+        learnerId: "learner-a",
+        skillId: "verb:lopen:perfectum",
+        contentId: "verb:lopen",
+        moduleId: "verbs",
+        exerciseType: "typed-answer",
+        answer: "old answer",
+        correct: true,
+        rating: "good",
+        createdAt: "2026-11-23T23:59:59.999Z",
+        updatedAt: "2026-11-23T23:59:59.999Z",
+      },
+      {
+        id: "at-boundary",
+        learnerId: "learner-a",
+        skillId: "verb:lopen:perfectum",
+        contentId: "verb:lopen",
+        moduleId: "verbs",
+        exerciseType: "typed-answer",
+        answer: "today",
+        correct: true,
+        rating: "good",
+        createdAt: "2026-11-24T00:00:00.000Z",
+        updatedAt: "2026-11-24T00:00:00.000Z",
+      },
+      {
+        id: "other-learner",
+        learnerId: "learner-b",
+        skillId: "verb:lopen:perfectum",
+        contentId: "verb:lopen",
+        moduleId: "verbs",
+        exerciseType: "typed-answer",
+        answer: "today",
+        correct: true,
+        rating: "good",
+        createdAt: "2026-11-24T08:00:00.000Z",
+        updatedAt: "2026-11-24T08:00:00.000Z",
+      },
+    ];
+    await db.exerciseAttempts.bulkPut(records);
+
+    const attempts = await repository.listSince("learner-a", "2026-11-24T00:00:00.000Z");
+
+    expect(attempts.map(({ id, answer }) => ({ id, answer }))).toEqual([{
+      id: "at-boundary",
+      answer: { type: "typed-answer", value: "today" },
+    }]);
+  });
+
   it("migrates a v3 attempt row to the v4 answer and skill schema", async () => {
     const dbName = `dutchflow-migration-${crypto.randomUUID()}`;
     const legacyDb = new Dexie(dbName);

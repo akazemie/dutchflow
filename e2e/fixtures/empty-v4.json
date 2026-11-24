@@ -1,0 +1,21 @@
+{
+  "format": "dutchflow-backup",
+  "version": 4,
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "learnerId": "00000000-0000-4000-8000-000000000001",
+  "snapshot": {
+    "preferences": {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "learnerId": "00000000-0000-4000-8000-000000000001",
+      "level": "A1",
+      "explanationLanguage": "en",
+      "exerciseStrategy": "review-first",
+      "dailyLearningMinutes": 10,
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    "attempts": [],
+    "progress": [],
+    "reviewSchedules": [],
+    "sessions": []
+  }
+}

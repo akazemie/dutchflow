@@ -1,4 +1,5 @@
 import type { EvaluationResult, MatchingAnswer, MatchingExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 
 export function evaluateMatching(
   exercise: MatchingExercise,
@@ -31,7 +32,7 @@ export function evaluateMatching(
   }));
   return {
     correct,
-    feedback: correct ? "All pairs are correct." : "Check the mismatched pairs.",
+    feedback: message(correct ? "evaluation.allPairs" : "evaluation.checkMismatches"),
     score,
     expected,
     rating,

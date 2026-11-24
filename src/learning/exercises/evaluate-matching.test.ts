@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { MatchingExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { evaluateMatching } from "./evaluate-matching";
 
 const exercise: MatchingExercise = {
@@ -10,15 +11,15 @@ const exercise: MatchingExercise = {
   skillId: "verb:lopen:perfectum",
   level: "A1",
   focusId: "matching",
-  focusLabel: "Verb forms",
-  title: "Match each facet to its form",
-  answerLabel: "Tap a facet, then its matching form",
+  focusLabel: message("focus.verbForms"),
+  title: message("exercise.title.matchFacets"),
+  answerLabel: message("exercise.answer.matchForms"),
   typoTolerance: "none",
   partialCredit: "none",
   pairs: [
-    { id: "perfectum", left: "Perfectum", right: "hebben or zijn + gelopen", skillId: "verb:lopen:perfectum" },
-    { id: "singular", left: "Imperfectum singular", right: "liep", skillId: "verb:lopen:imperfectum:singular" },
-    { id: "plural", left: "Imperfectum plural", right: "liepen", skillId: "verb:lopen:imperfectum:plural" },
+    { id: "perfectum", left: message("focus.perfectum"), right: "hebben or zijn + gelopen", skillId: "verb:lopen:perfectum" },
+    { id: "singular", left: message("focus.imperfectum.singular"), right: "liep", skillId: "verb:lopen:imperfectum:singular" },
+    { id: "plural", left: message("focus.imperfectum.plural"), right: "liepen", skillId: "verb:lopen:imperfectum:plural" },
   ],
   rightOrder: ["plural", "perfectum", "singular"],
 };

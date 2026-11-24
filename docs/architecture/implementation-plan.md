@@ -86,7 +86,17 @@ Extend the exercise and answer contracts with multiple-choice, fill-gap, word-or
 
 Add a Dexie answer-recorder port/adapter that reads each prior skill state and writes the attempt, progress, review schedules, and a new learning-session record in one transaction. Keep scheduling and progress transitions synchronous within the transaction. Return planned sessions in memory and persist them only with the first answer; preserve the first completion timestamp. Add persisted learning-session records with start/completion lifecycle and attempt skill/session IDs. Upgrade Dexie v3 to v4, normalize legacy answers and skill IDs, and add version 4 backups with optional attempt duration; keep v1–v3 importable and validate scheduler IDs against a known list. Backup replacement spans preferences, attempts, progress, schedules, and sessions in one transaction.
 
-**Status: In progress.** Atomic answer recording, the v4 data model, migration, and backward-compatible backup handling are being implemented with injected-failure and migration tests.
+**Status: Complete.** Atomic answer recording, the v4 data model, migration, and backward-compatible backup handling are covered by injected-failure and migration tests. Sessions are persisted with the first answer, and completion preserves its original timestamp.
+
+### 11. Daily budget, interface localization, and browser coverage (PR 3B)
+
+Calculate time already spent today from persisted attempt durations, counting legacy attempts without a duration as zero. Measure only visible-tab time and cap each exercise at five minutes. Plan against the remaining daily budget; below two minutes, show the daily-goal state and offer an optional five-minute extra session that cannot include matching. Use an injected clock for local-day boundaries and budget tests.
+
+Use a small typed English/Dutch message catalog and React context rather than locale routes or an i18n dependency. The Dutch catalog is a draft for native review. Persian remains an explanation language only: the UI and document fall back to English, the document stays left-to-right, and only Persian explanation text carries Persian language/direction attributes. Exercise prompts remain their authored English source text in every explanation locale.
+
+Add Playwright as the sole new dependency. E2E tests import version 4 backup fixtures to control browser state, exercise the static export's real routes and 404 response, verify answer/progress persistence and preference/backup flows, and run tap-based exercise flows at the Pixel 5 viewport. CI runs E2E against the built export served by a static-file server.
+
+**Status: Implemented; pending review and merge.** Daily-budget orchestration, visible-time measurement, the typed English/Dutch catalog, and fixture-driven Playwright coverage are in place. Lint, typecheck, content validation, unit/integration tests, static build, and E2E tests pass.
 
 ## Test and quality gates
 
@@ -96,9 +106,10 @@ Add a Dexie answer-recorder port/adapter that reads each prior skill state and w
 - Integration tests cover exercise completion and persistence; end-to-end tests cover core responsive flows and data backup/restore.
 - Boundary linting checks the intended dependency direction.
 
-## Decisions to confirm during implementation setup
+## Confirmed implementation decisions
 
-- `ts-fsrs@5.4.2` is pinned for Node 20 compatibility and browser-side scheduling; scheduler metadata records both package and model versions.
-- Verify the chosen Next.js features and deployment target work with `output: 'export'`.
-- Select and configure the interface i18n library; `next-intl` is a candidate, while content translation remains schema-based data.
-- Choose the first supported explanation locales and define locale fallback behavior.
+- `ts-fsrs@5.4.2` is pinned for browser-side scheduling; scheduler metadata records both package and model versions.
+- The App Router static export is the deployment target; Playwright verifies exported routes and the generated 404 page.
+- UI messages use a typed English/Dutch catalog without locale routes or an i18n dependency. Dutch messages are a draft pending native review.
+- Persian remains an explanation language with English UI fallback; only Persian explanation elements use RTL direction.
+- Exercise prompts remain their authored English source text in every explanation locale.

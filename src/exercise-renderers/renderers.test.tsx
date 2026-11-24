@@ -9,6 +9,8 @@ import type {
   TypedAnswerExercise,
   WordOrderingExercise,
 } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
+import { formatMessage, type MessageTranslator } from "@/i18n/catalog";
 import { ExerciseRendererView } from "./exercise-renderer-view";
 import { FillGapRenderer } from "./fill-gap-renderer";
 import { MatchingRenderer } from "./matching-renderer";
@@ -24,9 +26,9 @@ const typedExercise: TypedAnswerExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Translate",
-  answerLabel: "Your Dutch answer",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.translate"),
+  answerLabel: message("exercise.answer.yourDutch"),
   typoTolerance: "one-edit",
   partialCredit: "graded",
   prompt: "She eats an apple.",
@@ -41,9 +43,9 @@ const multipleChoiceExercise: MultipleChoiceExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Choose the answer",
-  answerLabel: "Choose one Dutch translation",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.chooseTranslation"),
+  answerLabel: message("exercise.answer.chooseDutchWord"),
   typoTolerance: "none",
   partialCredit: "none",
   prompt: "She eats an apple.",
@@ -62,9 +64,9 @@ const fillGapExercise: FillGapExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Complete the sentence",
-  answerLabel: "Fill in the missing word",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.completeSentence"),
+  answerLabel: message("exercise.answer.fillDutchWord"),
   typoTolerance: "one-edit",
   partialCredit: "graded",
   prompt: "She eats an apple.",
@@ -84,9 +86,9 @@ const wordOrderingExercise: WordOrderingExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Build the sentence",
-  answerLabel: "Tap the words in sentence order",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.buildSentence"),
+  answerLabel: message("exercise.answer.orderSentence"),
   typoTolerance: "none",
   partialCredit: "none",
   prompt: "She eats an apple.",
@@ -107,18 +109,23 @@ const matchingExercise: MatchingExercise = {
   skillId: "verb:lopen:perfectum",
   level: "A1",
   focusId: "matching",
-  focusLabel: "Verb forms",
-  title: "Match each facet to its form",
-  answerLabel: "Tap a facet, then its matching form",
+  focusLabel: message("focus.verbForms"),
+  title: message("exercise.title.matchFacets"),
+  answerLabel: message("exercise.answer.matchForms"),
   typoTolerance: "none",
   partialCredit: "none",
   pairs: [
-    { id: "perfectum", left: "Perfectum", right: "hebben + gelopen", skillId: "verb:lopen:perfectum" },
-    { id: "singular", left: "Imperfectum singular", right: "liep", skillId: "verb:lopen:imperfectum:singular" },
-    { id: "plural", left: "Imperfectum plural", right: "liepen", skillId: "verb:lopen:imperfectum:plural" },
+    { id: "perfectum", left: message("focus.perfectum"), right: "hebben + gelopen", skillId: "verb:lopen:perfectum" },
+    { id: "singular", left: message("focus.imperfectum.singular"), right: "liep", skillId: "verb:lopen:imperfectum:singular" },
+    { id: "plural", left: message("focus.imperfectum.plural"), right: "liepen", skillId: "verb:lopen:imperfectum:plural" },
   ],
   rightOrder: ["singular", "perfectum", "plural"],
 };
+
+const t: MessageTranslator = (value, params) =>
+  typeof value === "string"
+    ? formatMessage("en", value, params)
+    : formatMessage("en", value.key, value.params);
 
 describe("exercise renderers", () => {
   afterEach(cleanup);
@@ -126,10 +133,10 @@ describe("exercise renderers", () => {
   it("submits a typed answer and uses the exercise-provided label", () => {
     const onAnswer = vi.fn();
     render(
-      <TypedAnswerRenderer exercise={typedExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
+      <TypedAnswerRenderer exercise={typedExercise} disabled={false} feedback={null} t={t} onAnswer={onAnswer} />,
     );
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Your Dutch answer" }), {
+    fireEvent.change(screen.getByRole("textbox", { name: "Your answer in Dutch" }), {
       target: { value: "Ze eet een appel." },
     });
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
@@ -140,7 +147,7 @@ describe("exercise renderers", () => {
   it("provides keyboard-accessible multiple-choice radios and submits the chosen option", () => {
     const onAnswer = vi.fn();
     render(
-      <MultipleChoiceRenderer exercise={multipleChoiceExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
+      <MultipleChoiceRenderer exercise={multipleChoiceExercise} disabled={false} feedback={null} t={t} onAnswer={onAnswer} />,
     );
 
     fireEvent.click(screen.getByRole("radio", { name: "Ze eet een peer." }));
@@ -152,7 +159,7 @@ describe("exercise renderers", () => {
   it("clears multiple-choice selection when rerendered with a new exercise", () => {
     const first = { ...multipleChoiceExercise, id: "mc-first" };
     const next = { ...multipleChoiceExercise, id: "mc-next" };
-    const props = { disabled: false, feedback: null, onAnswer: vi.fn() };
+    const props = { disabled: false, feedback: null, onAnswer: vi.fn(), t };
     const { rerender } = render(<ExerciseRendererView exercise={first} {...props} />);
 
     fireEvent.click(screen.getByRole("radio", { name: "Ze eet een peer." }));
@@ -169,9 +176,10 @@ describe("exercise renderers", () => {
       <FillGapRenderer
         exercise={fillGapExercise}
         disabled={false}
+        t={t}
         feedback={{
           correct: false,
-          feedback: "Not quite.",
+          feedback: message("evaluation.expected", { expected: "appel" }),
           score: 0,
           expected: ["appel"],
           rating: "again",
@@ -183,7 +191,7 @@ describe("exercise renderers", () => {
       />,
     );
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Fill in the missing word 1" }), {
+    fireEvent.change(screen.getByRole("textbox", { name: "Fill in the missing Dutch word 1" }), {
       target: { value: "peer" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
@@ -196,7 +204,7 @@ describe("exercise renderers", () => {
   it("uses focusable native buttons to build and submit a word order", () => {
     const onAnswer = vi.fn();
     render(
-      <WordOrderingRenderer exercise={wordOrderingExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
+      <WordOrderingRenderer exercise={wordOrderingExercise} disabled={false} feedback={null} t={t} onAnswer={onAnswer} />,
     );
 
     const todayButton = screen.getByRole("button", { name: "vandaag" });
@@ -222,7 +230,7 @@ describe("exercise renderers", () => {
   it("resets wrong matches so all three facets can be corrected", () => {
     const onAnswer = vi.fn();
     const { rerender } = render(
-      <MatchingRenderer exercise={matchingExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
+      <MatchingRenderer exercise={matchingExercise} disabled={false} feedback={null} t={t} onAnswer={onAnswer} />,
     );
     const perfectumButton = screen.getByRole("button", { name: /^Perfectum/ });
 
@@ -231,23 +239,23 @@ describe("exercise renderers", () => {
     expect(document.activeElement).toBe(perfectumButton);
     fireEvent.click(perfectumButton);
     fireEvent.click(screen.getByRole("button", { name: "liep" }));
-    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum singular/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum · singular/ }));
     fireEvent.click(screen.getByRole("button", { name: "liepen" }));
-    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum plural/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum · plural/ }));
     fireEvent.click(screen.getByRole("button", { name: "hebben + gelopen" }));
 
     expect(screen.getByRole("button", { name: /^Perfectum/ }).textContent).toContain("liep");
-    expect(screen.getByRole("button", { name: /^Imperfectum singular/ }).textContent).toContain("liepen");
-    expect(screen.getByRole("button", { name: /^Imperfectum plural/ }).textContent).toContain("hebben + gelopen");
+    expect(screen.getByRole("button", { name: /^Imperfectum · singular/ }).textContent).toContain("liepen");
+    expect(screen.getByRole("button", { name: /^Imperfectum · plural/ }).textContent).toContain("hebben + gelopen");
 
     fireEvent.click(screen.getByRole("button", { name: "Reset matches" }));
     expect(onAnswer).not.toHaveBeenCalled();
     expect(screen.getByRole("button", { name: /^Perfectum/ }).textContent).toBe("Perfectum");
     fireEvent.click(screen.getByRole("button", { name: "Perfectum" }));
     fireEvent.click(screen.getByRole("button", { name: "hebben + gelopen" }));
-    fireEvent.click(screen.getByRole("button", { name: "Imperfectum singular" }));
+    fireEvent.click(screen.getByRole("button", { name: "Imperfectum · singular" }));
     fireEvent.click(screen.getByRole("button", { name: "liep" }));
-    fireEvent.click(screen.getByRole("button", { name: "Imperfectum plural" }));
+    fireEvent.click(screen.getByRole("button", { name: "Imperfectum · plural" }));
     fireEvent.click(screen.getByRole("button", { name: "liepen" }));
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
@@ -260,9 +268,10 @@ describe("exercise renderers", () => {
       <MatchingRenderer
         exercise={matchingExercise}
         disabled
+        t={t}
         feedback={{
           correct: true,
-          feedback: "All pairs are correct.",
+          feedback: message("evaluation.allPairs"),
           score: 1,
           expected: ["hebben + gelopen", "liep", "liepen"],
           rating: "hard",
@@ -281,6 +290,10 @@ describe("exercise renderers", () => {
         onAnswer={onAnswer}
       />,
     );
-    expect(screen.getByText("Perfectum: Correct. Expected hebben + gelopen")).toBeTruthy();
+    const firstResult = screen.getAllByRole("listitem")[0].textContent ?? "";
+    expect(firstResult).toContain("Perfectum");
+    expect(firstResult).toContain("Correct");
+    expect(firstResult).toContain("Expected");
+    expect(firstResult).toContain("hebben + gelopen");
   });
 });

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { FillGapExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { evaluateFillGap } from "./evaluate-fill-gap";
 
 const exercise: FillGapExercise = {
@@ -10,9 +11,9 @@ const exercise: FillGapExercise = {
   skillId: "vocabulary:sentences:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Complete the sentence",
-  answerLabel: "Fill in the missing words",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.completeSentence"),
+  answerLabel: message("exercise.answer.fillDutchWords"),
   typoTolerance: "one-edit",
   partialCredit: "graded",
   prompt: "She reads a book.",

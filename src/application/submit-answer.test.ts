@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { ExerciseAttempt } from "./ports/attempt-repository";
 import type { AnswerRecorder } from "./ports/answer-recorder";
 import type { LearningSession } from "@/learning/core/session";
+import { message } from "@/learning/contracts/message";
 import { submitAnswer } from "./submit-answer";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
@@ -101,7 +102,7 @@ describe("submitAnswer", () => {
       async evaluate() {
         return {
           correct: false,
-          feedback: "Partially correct.",
+          feedback: message("evaluation.expected", { expected: "answer" }),
           score: 0.5,
           expected: [],
           rating: "hard",

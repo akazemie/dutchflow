@@ -1,5 +1,6 @@
 import type { Answer, EvaluationResult, LearningExercise, LearningModule } from "@/learning/contracts/module";
 import type { LearnerPreferenceChanges, LearnerPreferences } from "@/learning/core/preferences";
+import type { CreateLearningSessionOptions } from "./create-learning-session";
 import type { PreparedLearningSession } from "./start-session";
 import type { ExerciseAttempt } from "./ports/attempt-repository";
 import type { SkillProgress } from "@/learning/core/progress";
@@ -14,7 +15,7 @@ export interface LearningRuntime {
   getDueReviews(): Promise<ReviewSchedule[]>;
   exportData(): Promise<string>;
   importData(serialized: string): Promise<void>;
-  createSession(moduleId: string): Promise<PreparedLearningSession>;
+  createSession(moduleId: string, options?: CreateLearningSessionOptions): Promise<PreparedLearningSession>;
   submitAnswer(input: {
     exercise: LearningExercise;
     answer: Answer;

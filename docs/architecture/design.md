@@ -136,7 +136,15 @@ Audio can use static assets or local browser storage. Speech/listening evaluatio
 
 ## Internationalization
 
-Keep interface strings in `i18n/` and educational translations in content translation maps. Explanation language is a learner preference and affects both interface messaging and the selected content translation. These concerns share locale identifiers but remain separately maintainable.
+Keep interface strings in a typed English/Dutch message catalog and educational translations in content translation maps. Explanation language is a learner preference and selects the interface locale (`en` or `nl`) as well as the content explanation. The Dutch catalog is a draft pending native review. Persian (`fa`) remains supported for explanations but falls back to English UI; the document remains `lang="en"`/`"nl"` and `dir="ltr"`, while only Persian explanation elements use `lang="fa" dir="rtl"`. Exercise prompts remain authored English source text regardless of explanation language.
+
+The interface uses a small React context and has no locale routes or additional i18n dependency. Catalog parity is tested so every UI locale provides every message key.
+
+## Daily learning-time budget
+
+The application use case loads attempts since local midnight using the injected clock and sums their measured `durationMs`; legacy attempts without a duration contribute zero. The session UI measures visible-tab time from exercise display to submission and caps each attempt at five minutes. Planning, matching eligibility, and refill use one effective budget. When less than two minutes remain, the session reports the daily goal reached; an optional extra session receives exactly five minutes and excludes matching.
+
+Playwright tests import backup fixtures through the real UI to set browser state. They run against the built static export using a file-serving test server that resolves exported route files and returns a real 404 for missing routes; production code has no test-only state controls.
 
 ## Testing strategy
 

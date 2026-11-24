@@ -1,0 +1,61 @@
+{
+  "format": "dutchflow-backup",
+  "version": 4,
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "learnerId": "00000000-0000-4000-8000-000000000001",
+  "snapshot": {
+    "preferences": {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "learnerId": "00000000-0000-4000-8000-000000000001",
+      "level": "A1",
+      "explanationLanguage": "en",
+      "exerciseStrategy": "review-first",
+      "dailyLearningMinutes": 10,
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    "attempts": [],
+    "progress": [
+      {
+        "id": "legacy-progress-book",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "vocabulary:boek:meaning",
+        "moduleId": "vocabulary",
+        "itemId": "vocabulary:boek",
+        "focusId": "meaning",
+        "attempts": 1,
+        "correctAttempts": 1,
+        "consecutiveCorrect": 1,
+        "exerciseStage": 1,
+        "lastReviewedAt": "2025-01-01T00:00:00.000Z",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "updatedAt": "2025-01-01T00:00:00.000Z"
+      }
+    ],
+    "reviewSchedules": [
+      {
+        "id": "legacy-schedule-book",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "vocabulary:boek:meaning",
+        "moduleId": "vocabulary",
+        "itemId": "vocabulary:boek",
+        "focusId": "meaning",
+        "scheduler": "ts-fsrs@5.4.2/fsrs-6",
+        "card": {
+          "due": "2020-01-01T00:00:00.000Z",
+          "stability": 0,
+          "difficulty": 0,
+          "elapsed_days": 0,
+          "scheduled_days": 0,
+          "learning_steps": 0,
+          "reps": 0,
+          "lapses": 0,
+          "state": 0,
+          "last_review": null
+        },
+        "dueAt": "2020-01-01T00:00:00.000Z",
+        "updatedAt": "2020-01-01T00:00:00.000Z"
+      }
+    ],
+    "sessions": []
+  }
+}

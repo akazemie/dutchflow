@@ -1,4 +1,5 @@
 import type { EvaluationResult, WordOrderingAnswer, WordOrderingExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
 
 export function evaluateWordOrdering(
@@ -21,7 +22,9 @@ export function evaluateWordOrdering(
 
   return {
     correct,
-    feedback: correct ? "Correct." : `Not quite. Expected: ${expected[0] ?? ""}`,
+    feedback: correct
+      ? message("evaluation.correct")
+      : message("evaluation.expected", { expected: expected[0] ?? "" }),
     score: correct ? 1 : 0,
     expected,
     rating,

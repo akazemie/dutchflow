@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import type { Answer, EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { SkillProgress } from "@/learning/core/progress";
@@ -10,16 +10,38 @@ import type { ExplanationLanguage } from "@/learning/core/preferences";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
 import { filterEligibleExerciseTypes } from "@/learning/planning/matching-candidates";
 import type { SessionCandidate } from "@/learning/planning/session-planner";
+import type { PreparedLearningSession } from "@/application/start-session";
 import { learningModuleRegistry } from "@/learning/modules/registry";
 import { ExerciseRendererView } from "@/exercise-renderers/exercise-renderer-view";
 import { useLearningRuntime } from "@/features/runtime/learning-runtime-provider";
+import { VisibleExerciseTimer } from "@/application/visible-exercise-timer";
+import { useI18n } from "@/features/i18n/i18n-provider";
 
 interface LearningSessionProps {
   moduleId: string;
 }
 
+interface PreparedSessionView {
+  items: LearningItem[];
+  exercise: LearningExercise | null;
+}
+
+async function materializeSession(session: PreparedLearningSession): Promise<PreparedSessionView> {
+  const items = await session.module.loadItems({ level: session.preferences.level });
+  if (session.plan.length === 0) return { items, exercise: null };
+  const candidate = session.plan[0]!;
+  const exercise = await session.module.createExercise(candidate.itemId, {
+    focusId: candidate.focusId,
+    explanationLanguage: session.preferences.explanationLanguage,
+    exerciseType: candidate.exerciseType,
+    seed: candidate.seed,
+  });
+  return { items, exercise };
+}
+
 export function LearningSession({ moduleId }: LearningSessionProps) {
   const runtime = useLearningRuntime();
+  const { t } = useI18n();
   const [module, setModule] = useState<LearningModule | null>(null);
   const [items, setItems] = useState<LearningItem[]>([]);
   const [skillProgress, setSkillProgress] = useState<SkillProgress[]>([]);
@@ -33,8 +55,36 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const [exercise, setExercise] = useState<LearningExercise | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [emptySession, setEmptySession] = useState(false);
+  const [dailyGoalReached, setDailyGoalReached] = useState(false);
   const [feedback, setFeedback] = useState<EvaluationResult | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [timer] = useState(() => new VisibleExerciseTimer());
+
+  const activateSession = useCallback((
+    session: PreparedLearningSession,
+    view: PreparedSessionView,
+  ) => {
+    setModule(session.module);
+    setItems(view.items);
+    setPlan(session.plan);
+    setSessionIndex(0);
+    setLearningSession(session.session);
+    setExplanationLanguage(session.preferences.explanationLanguage);
+    setEmptySession(session.plan.length === 0);
+    setDailyGoalReached(session.dailyGoalReached);
+    if (session.plan.length === 0) {
+      setExercise(null);
+      setIsPlannedExercise(false);
+      return;
+    }
+
+    const firstCandidate = session.plan[0]!;
+    setSkillProgress(session.skillProgress);
+    setIsPlannedExercise(true);
+    setSelectedItemId(firstCandidate.itemId);
+    setFocusId(firstCandidate.focusId);
+    setExercise(view.exercise);
+  }, []);
 
   useEffect(() => {
     let isCurrent = true;
@@ -43,40 +93,10 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       try {
         if (!runtime) return;
         const session = await runtime.createSession(moduleId);
-        const items = await session.module.loadItems({ level: session.preferences.level });
-        if (session.plan.length === 0) {
-          if (isCurrent) {
-            setModule(session.module);
-            setItems(items);
-            setPlan([]);
-            setLearningSession(session.session);
-            setExplanationLanguage(session.preferences.explanationLanguage);
-            setEmptySession(true);
-          }
-          return;
-        }
-        const firstCandidate = session.plan[0];
-        const firstExercise = await session.module.createExercise(firstCandidate.itemId, {
-          focusId: firstCandidate.focusId,
-          explanationLanguage: session.preferences.explanationLanguage,
-          exerciseType: firstCandidate.exerciseType,
-          seed: firstCandidate.seed,
-        });
-        if (isCurrent) {
-          setModule(session.module);
-          setItems(items);
-          setSkillProgress(session.skillProgress);
-          setPlan(session.plan);
-          setSessionIndex(0);
-          setLearningSession(session.session);
-          setIsPlannedExercise(true);
-          setSelectedItemId(firstCandidate.itemId);
-          setFocusId(firstCandidate.focusId);
-          setExplanationLanguage(session.preferences.explanationLanguage);
-          setExercise(firstExercise);
-        }
+        const view = await materializeSession(session);
+        if (isCurrent) activateSession(session, view);
       } catch {
-        if (isCurrent) setError("DutchFlow could not load this exercise. Please refresh and try again.");
+        if (isCurrent) setError("session.error.load");
       }
     }
 
@@ -84,7 +104,38 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
     return () => {
       isCurrent = false;
     };
-  }, [moduleId, runtime]);
+  }, [activateSession, moduleId, runtime]);
+
+  useEffect(() => {
+    if (!exercise) return;
+    const activeTimer = timer;
+    activeTimer.start();
+    const updateVisibility = () => {
+      if (document.visibilityState === "hidden") activeTimer.pause();
+      else activeTimer.resume();
+    };
+    document.addEventListener("visibilitychange", updateVisibility);
+    updateVisibility();
+    return () => {
+      document.removeEventListener("visibilitychange", updateVisibility);
+      activeTimer.pause();
+    };
+  }, [exercise, timer]);
+
+  async function startExtraSession() {
+    if (!runtime || isSaving) return;
+    setIsSaving(true);
+    setError(null);
+    try {
+      const session = await runtime.createSession(moduleId, { extraSession: true });
+      const view = await materializeSession(session);
+      activateSession(session, view);
+    } catch {
+      setError("session.error.extra");
+    } finally {
+      setIsSaving(false);
+    }
+  }
 
   async function changeExercise(itemId: string, nextFocusId: string) {
     if (!module || isSaving) return;
@@ -133,7 +184,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       setFeedback(null);
       setError(null);
     } catch {
-      setError("DutchFlow could not prepare that exercise. Please try another selection.");
+      setError("session.error.prepare");
     }
   }
 
@@ -143,22 +194,27 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
     setError(null);
 
     try {
-      const { result } = await runtime.submitAnswer({ exercise, answer, session: learningSession });
+      const { result } = await runtime.submitAnswer({
+        exercise,
+        answer,
+        session: learningSession,
+        durationMs: timer.elapsedMs(),
+      });
       setFeedback(result);
       if (isPlannedExercise && sessionIndex + 1 === plan.length) {
         try {
           await runtime.completeSession(learningSession.id);
         } catch {
-          setError("Your answer was saved, but the session could not be marked complete.");
+          setError("session.error.complete");
         }
       }
       try {
         setSkillProgress(await runtime.getProgress());
       } catch {
-        setError("Progress was saved, but could not be refreshed for this session.");
+        setError("session.error.progress");
       }
     } catch {
-      setError("Your attempt could not be saved locally. Check browser storage and try again.");
+      setError("session.error.save");
     } finally {
       setIsSaving(false);
     }
@@ -183,46 +239,59 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       setExercise(nextExercise);
       setFeedback(null);
     } catch {
-      setError("DutchFlow could not prepare the next exercise. Please try again.");
+      setError("session.error.prepare");
     } finally {
       setIsSaving(false);
     }
   }
 
-  if (error && !exercise) return <p className="notice notice-error" role="alert">{error}</p>;
+  if (error && !exercise) return <p className="notice notice-error" role="alert">{t(error)}</p>;
   if (emptySession) {
     return (
       <section className="lesson-card empty-session" aria-labelledby="empty-session-title">
-        <span className="lesson-label">SESSION COMPLETE</span>
-        <h1 id="empty-session-title">You’re caught up for now.</h1>
-        <p>There are no new or due exercises for this module at your current level. Try another module or check your progress.</p>
+        <span className="lesson-label">
+          {dailyGoalReached ? t("session.dailyGoal.label") : t("session.complete.label")}
+        </span>
+        <h1 id="empty-session-title">
+          {dailyGoalReached ? t("session.dailyGoal.title") : t("session.complete.title")}
+        </h1>
+        <p>
+          {dailyGoalReached
+            ? t("session.dailyGoal.body")
+            : t("session.complete.body")}
+        </p>
         <div className="empty-session-actions">
+          {dailyGoalReached && (
+            <button className="primary-button" disabled={isSaving} onClick={() => void startExtraSession()} type="button">
+              {t("session.dailyGoal.extra")}
+            </button>
+          )}
           {learningModuleRegistry
             .filter((entry) => entry.id !== moduleId)
             .map((entry) => (
               <Link className="primary-button" href={`/learn/${entry.id}/`} key={entry.id}>
-                Try {entry.displayName.toLocaleLowerCase("en-US")}
+                {t("session.tryModule", { module: t(entry.i18nKey) })}
               </Link>
             ))}
-          <Link className="text-link" href="/progress/">View progress</Link>
-          <Link className="text-link" href="/settings/">Change level</Link>
+          <Link className="text-link" href="/progress/">{t("session.viewProgress")}</Link>
+          <Link className="text-link" href="/settings/">{t("session.changeLevel")}</Link>
         </div>
       </section>
     );
   }
-  if (!module || !exercise) return <p className="loading-copy" role="status">Preparing your exercise…</p>;
+  if (!module || !exercise) return <p className="loading-copy" role="status">{t("session.loading")}</p>;
 
   return (
     <section className="lesson-card" aria-labelledby="exercise-title">
       <div className="lesson-card-topline">
-        <span className="lesson-label">{module.displayName}</span>
+        <span className="lesson-label">{t(module.i18nKey)}</span>
         <div className="lesson-meta">
-          <span className="level-pill">{exercise.focusLabel} · {exercise.level}</span>
+          <span className="level-pill">{t(exercise.focusLabel)} · {exercise.level}</span>
           <span className="session-count">{sessionIndex + 1} / {plan.length}</span>
         </div>
       </div>
       <div className="practice-controls">
-        <label className="learning-item-select-label" htmlFor="study-item-select">Study item</label>
+        <label className="learning-item-select-label" htmlFor="study-item-select">{t("session.studyItem")}</label>
         <select
           id="study-item-select"
           className="learning-item-select"
@@ -232,7 +301,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         >
           {items.map((item) => <option key={item.id} value={item.id}>{item.displayName}</option>)}
         </select>
-        <div className="focus-switch" role="group" aria-label="Choose tense and number">
+        <div className="focus-switch" role="group" aria-label={t("session.chooseFocus")}>
           {module.exerciseFocuses.map((focus) => (
             <button
               aria-pressed={focusId === focus.id}
@@ -242,35 +311,46 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
               onClick={() => void changeExercise(selectedItemId ?? exercise.contentId, focus.id)}
               type="button"
             >
-              {focus.label}
+              {t(focus.label)}
             </button>
           ))}
         </div>
       </div>
-      <h1 id="exercise-title">{exercise.title}</h1>
+      <h1 id="exercise-title">{t(exercise.title)}</h1>
       {"prompt" in exercise && <p className="prompt-translation">“{exercise.prompt}.”</p>}
-      {exercise.hint && <p className="exercise-hint">{exercise.hint}</p>}
+      {exercise.hint && (
+        <p
+          className="exercise-hint"
+          lang={explanationLanguage === "fa" ? "fa" : undefined}
+          dir={explanationLanguage === "fa" ? "rtl" : undefined}
+        >
+          {exercise.hint}
+        </p>
+      )}
       <ExerciseRendererView
         key={exercise.id}
         exercise={exercise}
         disabled={isSaving || feedback !== null}
         feedback={feedback}
+        t={t}
         onAnswer={(answer) => void handleAnswer(answer)}
       />
-      {isSaving && <p className="save-status" role="status">Saving your attempt…</p>}
-      {error && <p className="notice notice-error" role="alert">{error}</p>}
+      {isSaving && <p className="save-status" role="status">{t("session.saving")}</p>}
+      {error && <p className="notice notice-error" role="alert">{t(error)}</p>}
       {feedback && (
         <div className={`feedback ${feedback.correct ? "feedback-correct" : "feedback-incorrect"}`} role="status">
-          <strong>{feedback.correct ? "Goed gedaan!" : "Keep practicing"}</strong>
-          <p>{feedback.feedback}</p>
-          {!feedback.correct && !feedback.itemResults && <p>Expected: {feedback.expected.join(" / ")}</p>}
-          <span>Your attempt is saved on this device.</span>
+          <strong>{t(feedback.correct ? "session.feedback.good" : "session.feedback.practice")}</strong>
+          <p>{t(feedback.feedback)}</p>
+          {!feedback.correct && !feedback.itemResults && (
+            <p>{t("session.feedback.expected", { answers: feedback.expected.join(" / ") })}</p>
+          )}
+          <span>{t("session.feedback.saved")}</span>
           {sessionIndex + 1 < plan.length ? (
             <button className="next-exercise-button" onClick={() => void handleNextExercise()} type="button">
-              Next exercise <span aria-hidden="true">→</span>
+              {t("session.next")} <span aria-hidden="true">→</span>
             </button>
           ) : (
-            <p className="session-complete">You’ve finished today’s planned practice.</p>
+            <p className="session-complete">{t("session.finished")}</p>
           )}
         </div>
       )}

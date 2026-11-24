@@ -1,4 +1,5 @@
 import type { EvaluationResult, MultipleChoiceAnswer, MultipleChoiceExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { gradeScore } from "./grade-score";
 
 export function evaluateMultipleChoice(
@@ -15,7 +16,9 @@ export function evaluateMultipleChoice(
 
   return {
     correct,
-    feedback: correct ? "Correct." : `Not quite. Expected: ${expected[0] ?? ""}`,
+    feedback: correct
+      ? message("evaluation.correct")
+      : message("evaluation.expected", { expected: expected[0] ?? "" }),
     score,
     expected,
     rating,

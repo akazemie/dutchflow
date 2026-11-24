@@ -1,4 +1,5 @@
 import type { ExplanationLanguage, LanguageLevel } from "@/learning/core/preferences";
+import type { MessageDescriptor } from "./message";
 
 export type TypoTolerance = "none" | "one-edit";
 export type PartialCredit = "none" | "graded";
@@ -13,7 +14,7 @@ export interface LearningItem {
 
 export interface ExerciseFocus {
   id: string;
-  label: string;
+  label: MessageDescriptor;
 }
 
 export interface LearningSkill {
@@ -35,9 +36,9 @@ interface BaseExercise {
   skillId: string;
   level: string;
   focusId: string;
-  focusLabel: string;
-  title: string;
-  answerLabel: string;
+  focusLabel: MessageDescriptor;
+  title: MessageDescriptor;
+  answerLabel: MessageDescriptor;
   typoTolerance: TypoTolerance;
   partialCredit: PartialCredit;
   hint?: string;
@@ -76,7 +77,7 @@ export interface WordOrderingExercise extends BaseExercise {
 
 export interface MatchingExercise extends BaseExercise {
   type: "matching";
-  pairs: Array<{ id: string; left: string; right: string; skillId: string }>;
+  pairs: Array<{ id: string; left: MessageDescriptor; right: string; skillId: string }>;
   rightOrder: string[];
 }
 
@@ -143,7 +144,7 @@ export interface ExerciseItemResult {
 
 export interface EvaluationResult {
   correct: boolean;
-  feedback: string;
+  feedback: MessageDescriptor;
   score: number;
   expected: string[];
   rating: SchedulerRating;

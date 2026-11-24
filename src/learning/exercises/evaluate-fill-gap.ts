@@ -1,4 +1,5 @@
 import type { EvaluationResult, FillGapAnswer, FillGapExercise, SchedulerRating } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
 import { isAlmostAnswer } from "./evaluate-almost-answer";
 import { gradeScore } from "./grade-score";
@@ -24,11 +25,14 @@ export function evaluateFillGap(exercise: FillGapExercise, answer: FillGapAnswer
 
   return {
     ...grade,
-    feedback: grade.correct
-      ? "Correct."
-      : hasAlmostAnswer && skillRating === "hard"
-        ? `Almost. Expected: ${expected.join(" / ")}`
-        : `Not quite. Expected: ${expected.join(" / ")}`,
+    feedback: message(
+      grade.correct
+        ? "evaluation.correct"
+        : hasAlmostAnswer && skillRating === "hard"
+          ? "evaluation.almostExpected"
+          : "evaluation.expected",
+      { expected: expected.join(" / ") },
+    ),
     score,
     expected,
     rating: skillRating,

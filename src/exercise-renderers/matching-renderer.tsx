@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import type { ExerciseRendererProps } from "./types";
-import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function MatchingRenderer({
   exercise,
   disabled,
   feedback,
+  t,
   onAnswer,
 }: ExerciseRendererProps<"matching">) {
   const [selectedLeftId, setSelectedLeftId] = useState<string | null>(null);
@@ -21,7 +21,7 @@ export function MatchingRenderer({
     const pair = exercise.pairs.find((item) => item.id === pairId);
     if (!pair) return;
     setSelectedLeftId(pairId);
-    setAnnouncement(EXERCISE_RENDERER_TEXT.facetSelected(pair.left));
+    setAnnouncement(t("renderer.facetSelected", { facet: t(pair.left) }));
   }
 
   function selectRight(pairId: string) {
@@ -31,20 +31,20 @@ export function MatchingRenderer({
     if (!pair || !leftPair) return;
     setMatches((current) => ({ ...current, [selectedLeftId]: pairId }));
     setSelectedLeftId(null);
-    setAnnouncement(EXERCISE_RENDERER_TEXT.pairMatched(leftPair.left, pair.right));
+    setAnnouncement(t("renderer.pairMatched", { facet: t(leftPair.left), form: pair.right }));
   }
 
   function resetMatches() {
     setMatches({});
     setSelectedLeftId(null);
-    setAnnouncement(EXERCISE_RENDERER_TEXT.matchesReset);
+    setAnnouncement(t("renderer.matchesReset"));
   }
 
   return (
     <div className="exercise-answer-form matching-form">
-      <p>{exercise.answerLabel}</p>
+      <p>{t(exercise.answerLabel)}</p>
       <div className="matching-columns">
-        <div className="matching-column" role="group" aria-label={EXERCISE_RENDERER_TEXT.facets}>
+        <div className="matching-column" role="group" aria-label={t("renderer.facets")}>
           {exercise.pairs.map((pair) => (
             <button
               key={pair.id}
@@ -54,7 +54,7 @@ export function MatchingRenderer({
               aria-pressed={selectedLeftId === pair.id}
               onClick={() => selectLeft(pair.id)}
             >
-              {pair.left}
+              {t(pair.left)}
               {matches[pair.id] && (
                 <span className="matching-assignment">
                   {" → "}{exercise.pairs.find((item) => item.id === matches[pair.id])?.right}
@@ -63,7 +63,7 @@ export function MatchingRenderer({
             </button>
           ))}
         </div>
-        <div className="matching-column" role="group" aria-label={EXERCISE_RENDERER_TEXT.forms}>
+        <div className="matching-column" role="group" aria-label={t("renderer.forms")}>
           {rightIds.map((rightId) => {
             const pair = exercise.pairs.find((item) => item.id === rightId);
             if (!pair) return null;
@@ -85,14 +85,14 @@ export function MatchingRenderer({
       </div>
       <p className="visually-hidden" aria-live="polite">{announcement}</p>
       {feedback && (
-        <ul className="matching-results" aria-live="polite" aria-label={EXERCISE_RENDERER_TEXT.matchingResults}>
+        <ul className="matching-results" aria-live="polite" aria-label={t("renderer.matchingResults")}>
           {exercise.pairs.map((pair) => {
             const result = resultById.get(pair.id);
             if (!result) return null;
             return (
               <li className={result.correct ? "item-result-correct" : "item-result-incorrect"} key={pair.id}>
-                {pair.left}: {result.correct ? EXERCISE_RENDERER_TEXT.correct : EXERCISE_RENDERER_TEXT.incorrect}{" "}
-                {EXERCISE_RENDERER_TEXT.expected} {result.expected.join(" / ")}
+                {t(pair.left)}: {result.correct ? t("renderer.correct") : t("renderer.incorrect")}{" "}
+                {t("renderer.expected")} {result.expected.join(" / ")}
               </li>
             );
           })}
@@ -104,7 +104,7 @@ export function MatchingRenderer({
         disabled={disabled || (Object.keys(matches).length === 0 && selectedLeftId === null)}
         onClick={resetMatches}
       >
-        {EXERCISE_RENDERER_TEXT.resetMatches}
+        {t("renderer.resetMatches")}
       </button>
       <button
         className="primary-button"
@@ -112,7 +112,7 @@ export function MatchingRenderer({
         disabled={disabled}
         onClick={() => onAnswer({ type: "matching", matches })}
       >
-        {EXERCISE_RENDERER_TEXT.checkAnswer}
+        {t("renderer.checkAnswer")}
       </button>
     </div>
   );

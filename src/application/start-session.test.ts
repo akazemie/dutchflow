@@ -6,10 +6,12 @@ import { verbsModule } from "@/learning/modules/verbs/module";
 import { startSession } from "./start-session";
 
 function prepareSession(
-  input: Omit<Parameters<typeof startSession>[0], "learnerId">,
+  input: Omit<Parameters<typeof startSession>[0], "learnerId" | "minutesSpentToday"> & {
+    minutesSpentToday?: number;
+  },
 ) {
   return startSession(
-    { ...input, learnerId: "learner-test" },
+    { ...input, learnerId: "learner-test", minutesSpentToday: input.minutesSpentToday ?? 0 },
     {
       now: () => new Date("2026-11-24T12:00:00.000Z"),
       createId: () => "session-test",
@@ -308,6 +310,71 @@ describe("startSession", () => {
       plannedSkillIds: [...fixture.skillsByItem.get(itemId)!.map(({ skillId }) => skillId)],
       plannedExerciseTypes: ["matching"],
     });
+  });
+
+  it("treats less than two remaining minutes as goal reached, but allows exactly two", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 10,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+
+    const atBoundary = await prepareSession({
+      module: verbsModule,
+      preferences,
+      dueReviews: [],
+      minutesSpentToday: 8,
+    });
+    const belowBoundary = await prepareSession({
+      module: verbsModule,
+      preferences,
+      dueReviews: [],
+      minutesSpentToday: 8.001,
+    });
+
+    expect(atBoundary).toMatchObject({
+      dailyGoalReached: false,
+      effectiveBudgetMinutes: 2,
+    });
+    expect(atBoundary.plan).toHaveLength(1);
+    expect(belowBoundary).toMatchObject({
+      dailyGoalReached: true,
+      effectiveBudgetMinutes: 0,
+      plan: [],
+    });
+  });
+
+  it("uses an exact five-minute extra-session budget and never selects matching", async () => {
+    const preferences: LearnerPreferences = {
+      id: "00000000-0000-4000-8000-000000000001",
+      learnerId: "00000000-0000-4000-8000-000000000001",
+      ...DEFAULT_PREFERENCE_VALUES,
+      dailyLearningMinutes: 60,
+      updatedAt: "2026-11-22T12:00:00.000Z",
+    };
+    const fixture = matchingFacetsFixture(1);
+    const itemId = fixture.items[0]!.id;
+
+    const session = await prepareSession({
+      module: fixture.module,
+      preferences,
+      dueReviews: fixture.dueReviews(itemId).map((candidate) => ({
+        ...candidate,
+        estimatedMinutes: 1,
+      })),
+      knownSkillIds: fixture.knownSkillIds,
+      skillProgress: fixture.skillProgress,
+      minutesSpentToday: 60,
+      extraSession: true,
+    });
+
+    expect(session.effectiveBudgetMinutes).toBe(5);
+    expect(session.dailyGoalReached).toBe(false);
+    expect(session.plan.length).toBeGreaterThan(0);
+    expect(session.plan.some((candidate) => candidate.exerciseType === "matching")).toBe(false);
+    expect(session.plan.reduce((total, candidate) => total + candidate.estimatedMinutes, 0)).toBeLessThanOrEqual(5);
   });
 
   it("does not offer matching when its triple estimate exceeds the daily budget", async () => {

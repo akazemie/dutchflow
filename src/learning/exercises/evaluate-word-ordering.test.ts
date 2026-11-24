@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { WordOrderingExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { evaluateWordOrdering } from "./evaluate-word-ordering";
 
 const exercise: WordOrderingExercise = {
@@ -10,9 +11,9 @@ const exercise: WordOrderingExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Build the sentence",
-  answerLabel: "Tap the words in sentence order",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.buildSentence"),
+  answerLabel: message("exercise.answer.orderSentence"),
   typoTolerance: "none",
   partialCredit: "none",
   prompt: "She eats an apple.",
