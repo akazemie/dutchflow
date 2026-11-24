@@ -1,9 +1,30 @@
 import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREFERENCE_VALUES, type LearnerPreferences } from "@/learning/core/preferences";
 import type { SkillProgress } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 import type { LearningItem, LearningModule } from "@/learning/contracts/module";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import { startSession } from "./start-session";
+import type { LearningSessionRepository } from "./ports/learning-session-repository";
+
+const sessionRepository: LearningSessionRepository = {
+  async save() {},
+  async complete() {},
+};
+
+function prepareSession(
+  input: Omit<Parameters<typeof startSession>[0], "learnerId">,
+  sessions = sessionRepository,
+) {
+  return startSession(
+    { ...input, learnerId: "learner-test" },
+    {
+      sessions,
+      now: () => new Date("2026-11-24T12:00:00.000Z"),
+      createId: () => "session-test",
+    },
+  );
+}
 
 function matchingPlannerFixture() {
   const otherItems: LearningItem[] = Array.from({ length: 4 }, (_, index) => ({
@@ -137,7 +158,7 @@ describe("startSession", () => {
       updatedAt: "2026-11-22T12:00:00.000Z",
     };
 
-    const session = await startSession({ module: verbsModule, preferences, dueReviews: [] });
+    const session = await prepareSession({ module: verbsModule, preferences, dueReviews: [] });
 
     expect(session.plan).toHaveLength(2);
     expect(session.plan.every(({ itemId }) => itemId === "verb:lopen")).toBe(true);
@@ -156,7 +177,7 @@ describe("startSession", () => {
     const knownSkillIds = allA1Items.flatMap((item) =>
       verbsModule.listSkills(item.id).map((skill) => skill.skillId),
     );
-    const session = await startSession({
+    const session = await prepareSession({
       module: verbsModule,
       preferences,
       dueReviews: [],
@@ -177,7 +198,7 @@ describe("startSession", () => {
     };
     const createExercise = vi.spyOn(verbsModule, "createExercise");
 
-    await startSession({ module: verbsModule, preferences, dueReviews: [] });
+    await prepareSession({ module: verbsModule, preferences, dueReviews: [] });
 
     expect(createExercise).not.toHaveBeenCalled();
     expect(verbsModule.listSkills("verb:werken")).toEqual([
@@ -198,7 +219,7 @@ describe("startSession", () => {
     };
     const fixture = matchingPlannerFixture();
 
-    const session = await startSession({
+    const session = await prepareSession({
       module: fixture.module,
       preferences,
       dueReviews: [...fixture.otherDueReviews, ...fixture.verbDueReviews],
@@ -220,7 +241,7 @@ describe("startSession", () => {
     };
     const fixture = matchingPlannerFixture();
 
-    const session = await startSession({
+    const session = await prepareSession({
       module: fixture.module,
       preferences,
       dueReviews: [...fixture.verbDueReviews, ...fixture.otherDueReviews],
@@ -252,7 +273,7 @@ describe("startSession", () => {
     const fixture = matchingFacetsFixture(6);
     const dueReviews = fixture.items.map(({ id }) => fixture.dueReviews(id)[0]!);
 
-    const session = await startSession({
+    const session = await prepareSession({
       module: fixture.module,
       preferences,
       dueReviews,
@@ -274,18 +295,34 @@ describe("startSession", () => {
     };
     const fixture = matchingFacetsFixture(1);
     const itemId = fixture.items[0]!.id;
+    const savedSessions: LearningSession[] = [];
+    const sessions: LearningSessionRepository = {
+      async save(session) { savedSessions.push(session); },
+      async complete() {},
+    };
 
-    const session = await startSession({
+    const session = await prepareSession({
       module: fixture.module,
       preferences,
       dueReviews: fixture.dueReviews(itemId),
       knownSkillIds: fixture.knownSkillIds,
       skillProgress: fixture.skillProgress,
-    });
+    }, sessions);
 
     expect(session.plan).toEqual([
       expect.objectContaining({ itemId, exerciseType: "matching", estimatedMinutes: 6 }),
     ]);
+    expect(session.sessionId).toBe("session-test");
+    expect(savedSessions[0]).toMatchObject({
+      id: "session-test",
+      learnerId: "learner-test",
+      moduleId: "verbs",
+      startedAt: "2026-11-24T12:00:00.000Z",
+      strategy: preferences.exerciseStrategy,
+      preferences: { level: preferences.level, dailyLearningMinutes: 10 },
+      plannedSkillIds: [...fixture.skillsByItem.get(itemId)!.map(({ skillId }) => skillId)],
+      plannedExerciseTypes: ["matching"],
+    });
   });
 
   it("does not offer matching when its triple estimate exceeds the daily budget", async () => {
@@ -322,7 +359,7 @@ describe("startSession", () => {
       updatedAt: "2026-11-23T12:00:00.000Z",
     }));
 
-    const session = await startSession({
+    const session = await prepareSession({
       module: matchingModule,
       preferences,
       dueReviews: skills.map((skill) => ({

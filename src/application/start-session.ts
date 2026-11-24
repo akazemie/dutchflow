@@ -1,16 +1,19 @@
 import type { LearningModule } from "@/learning/contracts/module";
 import type { LearnerPreferences } from "@/learning/core/preferences";
 import type { SkillProgress } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
 import { collapseMatchingCandidates, filterEligibleExerciseTypes } from "@/learning/planning/matching-candidates";
 import { planSession, type SessionCandidate } from "@/learning/planning/session-planner";
+import type { LearningSessionRepository } from "./ports/learning-session-repository";
 
 export interface PreparedLearningSession {
   module: LearningModule;
   preferences: LearnerPreferences;
   plan: SessionCandidate[];
   skillProgress: SkillProgress[];
+  sessionId: string;
 }
 
 function candidateKey(candidate: SessionCandidate): string {
@@ -18,12 +21,17 @@ function candidateKey(candidate: SessionCandidate): string {
 }
 
 export async function startSession(input: {
+  learnerId: string;
   module: LearningModule;
   preferences: LearnerPreferences;
   dueReviews: SessionCandidate[];
   knownSkillIds?: string[];
   skillProgress?: SkillProgress[];
   estimatedMinutesPerExercise?: number;
+}, dependencies: {
+  sessions: LearningSessionRepository;
+  now?: () => Date;
+  createId?: () => string;
 }): Promise<PreparedLearningSession> {
   const items = await input.module.loadItems({ level: input.preferences.level });
   const newItems: SessionCandidate[] = [];
@@ -35,6 +43,7 @@ export async function startSession(input: {
   ]);
   const knownSkillIds = [...knownSkills];
   const skillsByItem = new Map(items.map((item) => [item.id, input.module.listSkills(item.id)]));
+  const sessionId = (dependencies.createId ?? createExerciseId)();
 
   for (const item of items) {
     for (const skill of input.module.listSkills(item.id)) {
@@ -68,13 +77,14 @@ export async function startSession(input: {
   );
 
   const progressBySkill = new Map(skillProgress.map((progress) => [progress.skillId, progress]));
-  const sessionSeed = createExerciseId();
+  const sessionSeed = sessionId;
   let candidateIndex = 0;
   const prepareCandidates = (candidates: readonly SessionCandidate[]) => candidates.map((candidate) => {
     const seed = `${sessionSeed}:${candidate.skillId}:${candidateIndex++}`;
     const siblingSkills = skillsByItem.get(candidate.itemId) ?? input.module.listSkills(candidate.itemId);
+    const declaredTypes = input.module.supportedExerciseTypes(candidate.itemId, candidate.focusId);
     const supportedTypes = filterEligibleExerciseTypes({
-      supportedTypes: input.module.supportedExerciseTypes(candidate.itemId, candidate.focusId),
+      supportedTypes: declaredTypes,
       siblingSkills,
       knownSkillIds,
       skillProgress,
@@ -86,7 +96,7 @@ export async function startSession(input: {
       && (itemsWithMultipleDueSkills.has(candidate.itemId) || type !== "matching")
       && (isMatchingAnchor || type !== "matching"),
     );
-    if (availableTypes.length === 0 && supportedTypes.includes("matching")) {
+    if (availableTypes.length === 0 && declaredTypes.includes("matching")) {
       availableTypes = ["typed-answer"];
     }
     const exerciseType = chooseExerciseType(availableTypes, progressBySkill.get(candidate.skillId), seed);
@@ -153,10 +163,31 @@ export async function startSession(input: {
     plan = [...plan, ...refill];
   }
 
+  const plannedSkillIds = [...new Set(plan.flatMap((candidate) =>
+    candidate.exerciseType === "matching"
+      ? (skillsByItem.get(candidate.itemId) ?? []).map(({ skillId }) => skillId)
+      : [candidate.skillId],
+  ))];
+  const session: LearningSession = {
+    id: sessionId,
+    learnerId: input.learnerId,
+    moduleId: input.module.id,
+    startedAt: (dependencies.now ?? (() => new Date()))().toISOString(),
+    strategy: input.preferences.exerciseStrategy,
+    preferences: {
+      level: input.preferences.level,
+      dailyLearningMinutes: input.preferences.dailyLearningMinutes,
+    },
+    plannedSkillIds,
+    plannedExerciseTypes: plan.map((candidate) => candidate.exerciseType ?? "typed-answer"),
+  };
+  await dependencies.sessions.save(session);
+
   return {
     module: input.module,
     preferences: input.preferences,
     plan,
     skillProgress,
+    sessionId,
   };
 }

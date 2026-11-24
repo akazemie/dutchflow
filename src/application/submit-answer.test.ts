@@ -1,10 +1,29 @@
 import { describe, expect, it } from "vitest";
-import type { ExerciseAttempt, AttemptRepository } from "./ports/attempt-repository";
+import type { ExerciseAttempt } from "./ports/attempt-repository";
+import type { AnswerRecorder } from "./ports/answer-recorder";
 import { submitAnswer } from "./submit-answer";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
 import { createFsrsReviewScheduler } from "@/learning/scheduling/review-scheduler";
 import type { LearningModule } from "@/learning/contracts/module";
+
+function inMemoryRecorder(
+  saved: ExerciseAttempt[],
+  progress: Map<string, SkillProgress>,
+  schedules: Map<string, ReviewSchedule>,
+): AnswerRecorder {
+  return {
+    async record({ attempt, skillUpdates }) {
+      saved.push(attempt);
+      for (const update of skillUpdates) {
+        const key = `${update.learnerId}:${update.skillId}`;
+        const records = update.buildRecords(progress.get(key), schedules.get(key));
+        progress.set(records.progress.id, records.progress);
+        schedules.set(records.schedule.id, records.schedule);
+      }
+    },
+  };
+}
 
 describe("submitAnswer", () => {
   it("evaluates and saves an attempt with learner and skill identifiers", async () => {
@@ -12,27 +31,18 @@ describe("submitAnswer", () => {
     const saved: ExerciseAttempt[] = [];
     const progress = new Map<string, SkillProgress>();
     const schedules = new Map<string, ReviewSchedule>();
-    const attempts: AttemptRepository = { async save(attempt) { saved.push(attempt); } };
 
     const { result, attempt } = await submitAnswer(
       {
         learnerId: "00000000-0000-4000-8000-000000000001",
+        sessionId: "session-1",
         module: verbsModule,
         exercise,
         answer: { type: "typed-answer", value: "Ik heb gelopen." },
+        durationMs: 1200,
       },
       {
-        attempts,
-        progress: {
-          async get(learnerId, skillId) { return progress.get(`${learnerId}:${skillId}`); },
-          async listByLearner(learnerId) { return [...progress.values()].filter((item) => item.learnerId === learnerId); },
-          async save(item) { progress.set(item.id, item); },
-        },
-        reviewSchedules: {
-          async get(learnerId, skillId) { return schedules.get(`${learnerId}:${skillId}`); },
-          async listDue(learnerId, dueAt) { return [...schedules.values()].filter((item) => item.learnerId === learnerId && item.dueAt <= dueAt); },
-          async save(item) { schedules.set(item.id, item); },
-        },
+        answerRecorder: inMemoryRecorder(saved, progress, schedules),
         scheduler: createFsrsReviewScheduler(),
         now: () => new Date("2026-11-22T12:00:00.000Z"),
         createId: () => "attempt-1",
@@ -44,6 +54,9 @@ describe("submitAnswer", () => {
       id: "attempt-1",
       learnerId: "00000000-0000-4000-8000-000000000001",
       skillId: "verb:lopen:perfectum",
+      skillIds: ["verb:lopen:perfectum"],
+      sessionId: "session-1",
+      durationMs: 1200,
       correct: true,
     });
     expect(saved).toEqual([attempt]);
@@ -93,19 +106,10 @@ describe("submitAnswer", () => {
         module: moduleWithResults,
         exercise,
         answer: { type: "typed-answer", value: "answer" },
+        sessionId: "session-1",
       },
       {
-        attempts: { async save(attempt) { saved.push(attempt); } },
-        progress: {
-          async get(id, skillId) { return progress.get(`${id}:${skillId}`); },
-          async listByLearner(id) { return [...progress.values()].filter((item) => item.learnerId === id); },
-          async save(item) { progress.set(item.id, item); },
-        },
-        reviewSchedules: {
-          async get(id, skillId) { return schedules.get(`${id}:${skillId}`); },
-          async listDue(id, dueAt) { return [...schedules.values()].filter((item) => item.learnerId === id && item.dueAt <= dueAt); },
-          async save(item) { schedules.set(item.id, item); },
-        },
+        answerRecorder: inMemoryRecorder(saved, progress, schedules),
         scheduler: createFsrsReviewScheduler(),
         now: () => new Date("2026-11-22T12:00:00.000Z"),
         createId: () => "attempt-multi",

@@ -14,8 +14,14 @@ export interface LearningRuntime {
   exportData(): Promise<string>;
   importData(serialized: string): Promise<void>;
   createSession(moduleId: string): Promise<PreparedLearningSession>;
-  submitAnswer(input: { exercise: LearningExercise; answer: Answer }): Promise<{
+  submitAnswer(input: {
+    exercise: LearningExercise;
+    answer: Answer;
+    sessionId: string;
+    durationMs?: number;
+  }): Promise<{
     result: EvaluationResult;
     attempt: ExerciseAttempt;
   }>;
+  completeSession(sessionId: string): Promise<void>;
 }
