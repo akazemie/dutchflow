@@ -1,13 +1,15 @@
 import Dexie, { type EntityTable } from "dexie";
-import type { ExerciseAttempt } from "@/application/ports/attempt-repository";
+import type { StoredExerciseAttempt } from "@/application/ports/attempt-repository";
 import type { LearnerPreferences } from "@/learning/core/preferences";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 
 export class DutchFlowDatabase extends Dexie {
-  exerciseAttempts!: EntityTable<ExerciseAttempt, "id">;
+  exerciseAttempts!: EntityTable<StoredExerciseAttempt, "id">;
   learnerPreferences!: EntityTable<LearnerPreferences, "id">;
   skillProgress!: EntityTable<SkillProgress, "id">;
   reviewSchedules!: EntityTable<ReviewSchedule, "id">;
+  learningSessions!: EntityTable<LearningSession, "id">;
 
   constructor(name = "dutchflow") {
     super(name);
@@ -23,6 +25,21 @@ export class DutchFlowDatabase extends Dexie {
       learnerPreferences: "id, learnerId, updatedAt",
       skillProgress: "id, learnerId, skillId, moduleId, updatedAt, &[learnerId+skillId]",
       reviewSchedules: "id, learnerId, skillId, moduleId, dueAt, [learnerId+dueAt], &[learnerId+skillId]",
+    });
+    this.version(4).stores({
+      exerciseAttempts: "id, learnerId, skillId, sessionId, contentId, moduleId, createdAt, updatedAt",
+      learnerPreferences: "id, learnerId, updatedAt",
+      skillProgress: "id, learnerId, skillId, moduleId, updatedAt, &[learnerId+skillId]",
+      reviewSchedules: "id, learnerId, skillId, moduleId, dueAt, [learnerId+dueAt], &[learnerId+skillId]",
+      learningSessions: "id, learnerId, moduleId, startedAt, completedAt",
+    }).upgrade(async (transaction) => {
+      await transaction.table("exerciseAttempts").toCollection().modify((attempt: StoredExerciseAttempt) => {
+        if (typeof attempt.answer === "string") {
+          attempt.answer = { type: "typed-answer", value: attempt.answer };
+        }
+        attempt.skillIds ??= [attempt.skillId];
+        attempt.sessionId ??= null;
+      });
     });
   }
 }

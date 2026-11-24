@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Answer, EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { SkillProgress } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
@@ -24,6 +25,8 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const [skillProgress, setSkillProgress] = useState<SkillProgress[]>([]);
   const [plan, setPlan] = useState<SessionCandidate[]>([]);
   const [sessionIndex, setSessionIndex] = useState(0);
+  const [learningSession, setLearningSession] = useState<LearningSession | null>(null);
+  const [isPlannedExercise, setIsPlannedExercise] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [focusId, setFocusId] = useState("perfectum");
   const [explanationLanguage, setExplanationLanguage] = useState<ExplanationLanguage>("en");
@@ -46,6 +49,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
             setModule(session.module);
             setItems(items);
             setPlan([]);
+            setLearningSession(session.session);
             setExplanationLanguage(session.preferences.explanationLanguage);
             setEmptySession(true);
           }
@@ -64,6 +68,8 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
           setSkillProgress(session.skillProgress);
           setPlan(session.plan);
           setSessionIndex(0);
+          setLearningSession(session.session);
+          setIsPlannedExercise(true);
           setSelectedItemId(firstCandidate.itemId);
           setFocusId(firstCandidate.focusId);
           setExplanationLanguage(session.preferences.explanationLanguage);
@@ -85,7 +91,12 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
     try {
       const skill = module.listSkills(itemId).find((candidate) => candidate.focusId === nextFocusId);
       if (!skill) throw new Error(`No skill found for item ${itemId} and focus ${nextFocusId}.`);
-      const seed = createExerciseId();
+      const currentCandidate = plan[sessionIndex];
+      const isPlannedSelection = currentCandidate?.moduleId === module.id
+        && currentCandidate.itemId === itemId
+        && currentCandidate.skillId === skill.skillId
+        && currentCandidate.focusId === nextFocusId;
+      const seed = isPlannedSelection ? currentCandidate.seed ?? createExerciseId() : createExerciseId();
       const supportedTypes = filterEligibleExerciseTypes({
         supportedTypes: module.supportedExerciseTypes(itemId, nextFocusId),
         siblingSkills: module.listSkills(itemId),
@@ -95,16 +106,19 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
       const nextExercise = await module.createExercise(itemId, {
         focusId: nextFocusId,
         explanationLanguage,
-        exerciseType: chooseExerciseType(
-          supportedTypes,
-          skillProgress.find((progress) => progress.skillId === skill.skillId),
-          seed,
-        ),
+        exerciseType: isPlannedSelection && currentCandidate.exerciseType
+          ? currentCandidate.exerciseType
+          : chooseExerciseType(
+            supportedTypes,
+            skillProgress.find((progress) => progress.skillId === skill.skillId),
+            seed,
+          ),
         seed,
       });
       setSelectedItemId(itemId);
       setFocusId(nextFocusId);
       setExercise(nextExercise);
+      setIsPlannedExercise(isPlannedSelection);
       if (nextExercise.type === "matching") {
         const coveredSkillIds = new Set(nextExercise.pairs.map((pair) => pair.skillId));
         setPlan((current) => [
@@ -124,13 +138,20 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   }
 
   async function handleAnswer(answer: Answer) {
-    if (!runtime || !module || !exercise || isSaving || feedback) return;
+    if (!runtime || !module || !exercise || !learningSession || isSaving || feedback) return;
     setIsSaving(true);
     setError(null);
 
     try {
-      const { result } = await runtime.submitAnswer({ exercise, answer });
+      const { result } = await runtime.submitAnswer({ exercise, answer, session: learningSession });
       setFeedback(result);
+      if (isPlannedExercise && sessionIndex + 1 === plan.length) {
+        try {
+          await runtime.completeSession(learningSession.id);
+        } catch {
+          setError("Your answer was saved, but the session could not be marked complete.");
+        }
+      }
       try {
         setSkillProgress(await runtime.getProgress());
       } catch {
@@ -156,6 +177,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
         seed: nextCandidate.seed,
       });
       setSessionIndex((current) => current + 1);
+      setIsPlannedExercise(true);
       setSelectedItemId(nextCandidate.itemId);
       setFocusId(nextCandidate.focusId);
       setExercise(nextExercise);

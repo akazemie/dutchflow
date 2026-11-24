@@ -1,3 +1,5 @@
+import type { SchedulerId } from "@/learning/scheduling/scheduler-identifiers";
+
 export type ExerciseStage = 0 | 1 | 2;
 
 export interface SkillProgress {
@@ -23,7 +25,7 @@ export interface ReviewSchedule {
   moduleId: string;
   itemId: string;
   focusId: string;
-  scheduler: "ts-fsrs@5.4.2/fsrs-6";
+  scheduler: SchedulerId;
   card: {
     due: string;
     stability: number;
