@@ -9,6 +9,19 @@ const collection = verbCollectionSchema.parse(rawVerbContent);
 const focuses = verbsModule.exerciseFocuses;
 
 describe("verb multiple-choice distractors", () => {
+  it("preserves sentence-initial capitalization in wrong auxiliary distractors", () => {
+    const verb = collection.items.find((item) => item.id === "verb:werken");
+    if (!verb) throw new Error("Expected werken content.");
+    const prompt = getVerbPrompt(verb, "perfectum", focuses);
+    const promptWithInitialAuxiliary = {
+      ...prompt,
+      example: { ...prompt.example, nl: "Heeft de student gewerkt?" },
+    };
+
+    expect(getVerbDistractors(verb, "perfectum", promptWithInitialAuxiliary))
+      .toContainEqual(expect.objectContaining({ text: "Is de student gewerkt?" }));
+  });
+
   it("adds a weak-ified form as a distractor for strong verbs", () => {
     const verb = collection.items.find((item) => item.id === "verb:lopen");
     if (!verb) throw new Error("Expected lopen content.");

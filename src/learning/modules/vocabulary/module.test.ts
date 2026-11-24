@@ -29,6 +29,23 @@ describe("vocabularyModule", () => {
     expect(result).toMatchObject({ correct: true, rating: "good", skillIds: ["vocabulary:appel:meaning"] });
   });
 
+  it.each([
+    ["vocabulary:man", "de mat", "again", 0],
+    ["vocabulary:kat", "de kar", "again", 0],
+    ["vocabulary:vriendin", "de vriendim", "hard", 0.5],
+    ["vocabulary:vriendin", "het vriendim", "again", 0],
+    ["vocabulary:appel", "Zij eet een appal.", "hard", 0.5],
+    ["vocabulary:boek", "Ik lees een boak.", "again", 0],
+  ] as const)("grades noun typo %s / %s as %s", async (itemId, value, rating, score) => {
+    const exercise = await vocabularyModule.createExercise(itemId);
+
+    await expect(vocabularyModule.evaluate(exercise, { type: "typed-answer", value })).resolves.toMatchObject({
+      correct: false,
+      rating,
+      score,
+    });
+  });
+
   it("uses target words rather than sentence translations for multiple-choice options", async () => {
     const exercise = await vocabularyModule.createExercise("vocabulary:appel", {
       exerciseType: "multiple-choice",
@@ -40,5 +57,33 @@ describe("vocabularyModule", () => {
     expect(exercise.options.map((option) => option.text)).toContain("appel");
     expect(exercise.options.map((option) => option.text)).toContain("boek");
     expect(exercise.options.every((option) => !option.text.includes("."))).toBe(true);
+  });
+
+  it("excludes distractor words that appear in the Dutch answer sentence", async () => {
+    const exercise = await vocabularyModule.createExercise("vocabulary:station", {
+      exerciseType: "multiple-choice",
+      seed: "station-options",
+    });
+
+    expect(exercise.type).toBe("multiple-choice");
+    if (exercise.type !== "multiple-choice") throw new Error("Expected a multiple-choice exercise.");
+    expect(exercise.options.map((option) => option.text)).toContain("station");
+    expect(exercise.options.map((option) => option.text)).not.toContain("trein");
+  });
+
+  it("does not offer matching", () => {
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:appel", "meaning")).not.toContain("matching");
+  });
+
+  it("supports word ordering only when the answer sentence has enough tokens", async () => {
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:boek", "meaning")).toContain("word-ordering");
+    expect(vocabularyModule.supportedExerciseTypes("vocabulary:man", "meaning")).not.toContain("word-ordering");
+
+    const exercise = await vocabularyModule.createExercise("vocabulary:boek", {
+      exerciseType: "word-ordering",
+      seed: "book-word-order",
+    });
+
+    expect(exercise.type).toBe("word-ordering");
   });
 });

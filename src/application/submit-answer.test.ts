@@ -124,8 +124,11 @@ describe("submitAnswer", () => {
       correctAttempts: 0,
       consecutiveCorrect: 0,
       exerciseStage: 0,
+      focusId: "imperfectum-plural",
     });
     expect(schedules.has(`${learnerId}:${firstSkill}`)).toBe(true);
-    expect(schedules.has(`${learnerId}:${secondSkill}`)).toBe(true);
+    expect(schedules.get(`${learnerId}:${secondSkill}`)).toMatchObject({
+      focusId: "imperfectum-plural",
+    });
   });
 });

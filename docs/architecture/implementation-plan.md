@@ -76,9 +76,11 @@ Add audio-prompt exercises and local/static audio assets when content is ready. 
 
 ### 9. Graded exercise types and adaptive practice
 
-Extend the exercise and answer contracts with multiple-choice, fill-gap, word-ordering, and matching payloads. Add deterministic seeded option ordering, shared pure evaluators, per-skill results, adaptive exercise stages, and version 3 backups while retaining v1/v2 import. Modules list skills directly and declare supported types per skill; unsupported choices fall back to typed-answer. Multiple-choice and fill-gap generation/renderers ship in phase 2A. Vocabulary word-ordering and multi-skill matching generation/renderers ship in phase 2B. Matching applies each pair's correctness and rating to its own `skillId`; writes are independent and not yet atomic.
+Extend the exercise and answer contracts with multiple-choice, fill-gap, word-ordering, and matching payloads. Add deterministic seeded option ordering, shared pure evaluators, per-skill results, adaptive exercise stages, and version 3 backups while retaining v1/v2 import. Modules list skills directly and declare supported types per skill; unsupported choices fall back to typed-answer. Multiple-choice and fill-gap generation/renderers shipped in phase 2A. Vocabulary word-ordering and multi-skill verb matching shipped in phase 2B. Matching is offered only when all sibling skills declared by the module are known at stage 1 or above and at least two sibling facets are due in the session's due-review candidates. The planner selects within the normal budget first, collapses sibling candidates only for a matching exercise present in that plan, then refills the freed time. Matching is priced at three times the normal per-skill estimate. Each matching pair applies its own correctness and rating to its `skillId`; the application resolves each skill's focus before saving progress and schedules. These writes are independent and not yet atomic.
 
 **Done when:** each available type has pure evaluator and renderer tests, deterministic session selection is verified, old/new backup fixtures round-trip, content validation and all quality gates pass, and the exercise flow remains keyboard accessible.
+
+**Status: Complete.** Phase 2B includes deterministic word-order generation, verb matching, accessible renderers, planner eligibility and budgeting, per-skill updates, backup v3 coverage, and passing quality gates.
 
 ## Test and quality gates
 

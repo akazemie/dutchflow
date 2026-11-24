@@ -18,12 +18,19 @@ export function chooseExerciseType(
   } else if (stage === 1) {
     preferredType = "fill-gap";
   } else {
-    const random = createSeededRandom(seed);
-    preferredType = random() < 0.5 ? "typed-answer" : "word-ordering";
+    const advancedTypes = supportedTypes.filter((type) =>
+      type === "typed-answer" || type === "word-ordering" || type === "matching",
+    );
+    if (advancedTypes.length > 0) {
+      const random = createSeededRandom(seed);
+      return advancedTypes[Math.floor(random() * advancedTypes.length)]!;
+    }
+    preferredType = "typed-answer";
   }
 
   if (supportedTypes.includes(preferredType)) return preferredType;
   if (stage === 0 && supportedTypes.includes("fill-gap")) return "fill-gap";
   if (supportedTypes.includes("typed-answer")) return "typed-answer";
+  if (supportedTypes.length > 0) return supportedTypes[0]!;
   throw new Error(`Exercise type ${preferredType} is unsupported and typed-answer fallback is unavailable.`);
 }

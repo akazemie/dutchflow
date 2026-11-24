@@ -2,15 +2,18 @@ import rawVerbContent from "@/content/verbs/verbs.json";
 import { verbCollectionSchema, type VerbContent } from "@/content/verbs/schema";
 import type { Answer, ExerciseFocus, ExerciseType, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
+import { evaluateMatching } from "@/learning/exercises/evaluate-matching";
 import { evaluateFillGap } from "@/learning/exercises/evaluate-fill-gap";
 import { evaluateMultipleChoice } from "@/learning/exercises/evaluate-multiple-choice";
 import { evaluateTypedAnswer } from "@/learning/exercises/evaluate-typed-answer";
 import {
   createVerbFillGap,
+  createVerbMatching,
   createVerbMultipleChoice,
   createVerbTypedAnswer,
   getVerbDistractors,
   getVerbPrompt,
+  supportsVerbMatching,
   verbSkills,
 } from "./exercise-generation";
 
@@ -33,6 +36,7 @@ function typesFor(verb: VerbContent, focusId: string): ExerciseType[] {
   const types: ExerciseType[] = ["typed-answer"];
   if (getVerbDistractors(verb, focusId, prompt).length >= 3) types.push("multiple-choice");
   if (createVerbFillGap(verb, focusId, prompt, "en")) types.push("fill-gap");
+  if (supportsVerbMatching(verb, exerciseFocuses)) types.push("matching");
   return types;
 }
 
@@ -81,6 +85,10 @@ export const verbsModule: LearningModule = {
       const exercise = createVerbFillGap(verb, focusId, prompt, explanationLanguage);
       if (exercise) return exercise;
     }
+    if (requestedType === "matching" && supportedTypes.includes(requestedType)) {
+      const exercise = createVerbMatching(verb, exerciseFocuses, context?.seed, explanationLanguage);
+      if (exercise) return exercise;
+    }
     return createVerbTypedAnswer(verb, focusId, prompt, explanationLanguage);
   },
 
@@ -97,6 +105,9 @@ export const verbsModule: LearningModule = {
       case "fill-gap":
         if (answer.type !== "fill-gap") throw new Error("Exercise and answer types must match.");
         return evaluateFillGap(exercise, answer);
+      case "matching":
+        if (answer.type !== "matching") throw new Error("Exercise and answer types must match.");
+        return evaluateMatching(exercise, answer);
       default:
         throw new Error(`Exercise type ${exercise.type} is not implemented by the verbs module.`);
     }

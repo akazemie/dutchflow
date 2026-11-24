@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { ExerciseRendererProps } from "./types";
+import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function MultipleChoiceRenderer({
   exercise,
@@ -36,7 +37,7 @@ export function MultipleChoiceRenderer({
         {exercise.options.find((option) => option.id === selectedOptionId)?.text ?? ""}
       </span>
       <button className="primary-button" type="submit" disabled={disabled || !selectedOptionId}>
-        Check answer
+        {EXERCISE_RENDERER_TEXT.checkAnswer}
       </button>
     </form>
   );
