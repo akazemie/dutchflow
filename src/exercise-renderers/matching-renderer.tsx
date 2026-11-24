@@ -34,6 +34,12 @@ export function MatchingRenderer({
     setAnnouncement(EXERCISE_RENDERER_TEXT.pairMatched(leftPair.left, pair.right));
   }
 
+  function resetMatches() {
+    setMatches({});
+    setSelectedLeftId(null);
+    setAnnouncement(EXERCISE_RENDERER_TEXT.matchesReset);
+  }
+
   return (
     <div className="exercise-answer-form matching-form">
       <p>{exercise.answerLabel}</p>
@@ -92,6 +98,14 @@ export function MatchingRenderer({
           })}
         </ul>
       )}
+      <button
+        className="secondary-button matching-reset-button"
+        type="button"
+        disabled={disabled || (Object.keys(matches).length === 0 && selectedLeftId === null)}
+        onClick={resetMatches}
+      >
+        {EXERCISE_RENDERER_TEXT.resetMatches}
+      </button>
       <button
         className="primary-button"
         type="button"

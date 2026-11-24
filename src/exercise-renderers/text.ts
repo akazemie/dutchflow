@@ -5,6 +5,8 @@ export const EXERCISE_RENDERER_TEXT = {
   facets: "Facets",
   forms: "Forms",
   matchingResults: "Matching results",
+  resetMatches: "Reset matches",
+  matchesReset: "Matches reset.",
   expected: "Expected",
   expectedSentence: "Expected sentence",
   correct: "Correct.",

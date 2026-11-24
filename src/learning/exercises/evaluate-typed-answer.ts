@@ -3,9 +3,14 @@ import { normalizeAnswer } from "@/learning/core/normalize-answer";
 import { isAlmostAnswer } from "./evaluate-almost-answer";
 import { gradeScore } from "./grade-score";
 
+export interface TypedAnswerEvaluationOptions {
+  isAlmostAnswer?: typeof isAlmostAnswer;
+}
+
 export function evaluateTypedAnswer(
   exercise: TypedAnswerExercise,
   answer: TypedAnswer,
+  options: TypedAnswerEvaluationOptions = {},
 ): EvaluationResult {
   const normalizedAnswer = normalizeAnswer(answer.value);
   const expected = exercise.acceptedAnswers;
@@ -26,7 +31,7 @@ export function evaluateTypedAnswer(
   }
 
   // Only one insertion, deletion, or substitution across whole normalized answers of at least five letters qualifies.
-  const almost = isAlmostAnswer(answer.value, expected, exercise.typoTolerance);
+  const almost = (options.isAlmostAnswer ?? isAlmostAnswer)(answer.value, expected, exercise.typoTolerance);
   const score = almost ? 0.5 : 0;
   const { rating } = gradeScore(score, exercise.partialCredit);
 

@@ -13,6 +13,10 @@ export interface PreparedLearningSession {
   skillProgress: SkillProgress[];
 }
 
+function candidateKey(candidate: SessionCandidate): string {
+  return `${candidate.moduleId}:${candidate.itemId}:${candidate.skillId}`;
+}
+
 export async function startSession(input: {
   module: LearningModule;
   preferences: LearnerPreferences;
@@ -57,16 +61,19 @@ export async function startSession(input: {
   let candidateIndex = 0;
   const prepareCandidates = (candidates: readonly SessionCandidate[]) => candidates.map((candidate) => {
     const seed = `${sessionSeed}:${candidate.skillId}:${candidateIndex++}`;
+    const siblingSkills = skillsByItem.get(candidate.itemId) ?? input.module.listSkills(candidate.itemId);
     const supportedTypes = filterEligibleExerciseTypes({
       supportedTypes: input.module.supportedExerciseTypes(candidate.itemId, candidate.focusId),
-      siblingSkills: skillsByItem.get(candidate.itemId) ?? input.module.listSkills(candidate.itemId),
+      siblingSkills,
       knownSkillIds,
       skillProgress,
     });
+    const isMatchingAnchor = siblingSkills[0]?.skillId === candidate.skillId;
     const withinTimeBudget = candidate.estimatedMinutes * 3 <= input.preferences.dailyLearningMinutes;
-    const availableTypes = withinTimeBudget
-      ? supportedTypes
-      : supportedTypes.filter((type) => type !== "matching");
+    const availableTypes = supportedTypes.filter((type) =>
+      (withinTimeBudget || type !== "matching")
+      && (isMatchingAnchor || type !== "matching"),
+    );
     const exerciseType = chooseExerciseType(availableTypes, progressBySkill.get(candidate.skillId), seed);
     return {
       ...candidate,
@@ -78,17 +85,58 @@ export async function startSession(input: {
   const dueCandidates = prepareCandidates(input.dueReviews);
   const newCandidates = prepareCandidates(eligibleNewItems);
   const practiceCandidates = prepareCandidates(extraPracticeItems);
-  const matchingCollapsed = new Set(collapseMatchingCandidates(
-    [...dueCandidates, ...newCandidates, ...practiceCandidates],
-    skillsByItem,
-  ));
-  const plan = planSession({
-    dueReviews: dueCandidates.filter((candidate) => matchingCollapsed.has(candidate)),
-    newItems: newCandidates.filter((candidate) => matchingCollapsed.has(candidate)),
-    practiceItems: practiceCandidates.filter((candidate) => matchingCollapsed.has(candidate)),
+  const candidatePools = {
+    dueReviews: dueCandidates,
+    newItems: newCandidates,
+    practiceItems: practiceCandidates,
+  };
+  let plan = planSession({
+    ...candidatePools,
     strategy: input.preferences.exerciseStrategy,
     timeBudgetMinutes: input.preferences.dailyLearningMinutes,
   });
+  const processedMatchingGroups = new Set<string>();
+  const coveredSkillKeys = new Set<string>();
+
+  while (true) {
+    const newlyPlannedMatching = plan.filter((candidate) => {
+      if (candidate.exerciseType !== "matching") return false;
+      return !processedMatchingGroups.has(`${candidate.moduleId}:${candidate.itemId}`);
+    });
+    if (newlyPlannedMatching.length === 0) break;
+
+    for (const candidate of newlyPlannedMatching) {
+      processedMatchingGroups.add(`${candidate.moduleId}:${candidate.itemId}`);
+      for (const skill of skillsByItem.get(candidate.itemId) ?? []) {
+        coveredSkillKeys.add(candidateKey({ ...candidate, skillId: skill.skillId }));
+      }
+    }
+
+    plan = collapseMatchingCandidates(plan, skillsByItem);
+    const selectedSkillKeys = new Set(plan.map(candidateKey));
+    const remainingMinutes = input.preferences.dailyLearningMinutes
+      - plan.reduce((minutes, candidate) => minutes + candidate.estimatedMinutes, 0);
+    if (remainingMinutes <= 0) break;
+
+    const refillPools = {
+      dueReviews: candidatePools.dueReviews.filter((candidate) =>
+        !selectedSkillKeys.has(candidateKey(candidate)) && !coveredSkillKeys.has(candidateKey(candidate)),
+      ),
+      newItems: candidatePools.newItems.filter((candidate) =>
+        !selectedSkillKeys.has(candidateKey(candidate)) && !coveredSkillKeys.has(candidateKey(candidate)),
+      ),
+      practiceItems: candidatePools.practiceItems.filter((candidate) =>
+        !selectedSkillKeys.has(candidateKey(candidate)) && !coveredSkillKeys.has(candidateKey(candidate)),
+      ),
+    };
+    const refill = planSession({
+      ...refillPools,
+      strategy: input.preferences.exerciseStrategy,
+      timeBudgetMinutes: remainingMinutes,
+    });
+    if (refill.length === 0) break;
+    plan = [...plan, ...refill];
+  }
 
   return {
     module: input.module,

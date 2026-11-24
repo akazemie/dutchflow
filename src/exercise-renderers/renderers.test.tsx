@@ -91,7 +91,7 @@ const wordOrderingExercise: WordOrderingExercise = {
   partialCredit: "none",
   prompt: "She eats an apple.",
   tokens: [
-    { id: "today", text: "Vandaag" },
+    { id: "today", text: "vandaag" },
     { id: "eet", text: "eet" },
     { id: "ik", text: "ik" },
     { id: "een", text: "een" },
@@ -115,8 +115,9 @@ const matchingExercise: MatchingExercise = {
   pairs: [
     { id: "perfectum", left: "Perfectum", right: "hebben + gelopen", skillId: "verb:lopen:perfectum" },
     { id: "singular", left: "Imperfectum singular", right: "liep", skillId: "verb:lopen:imperfectum:singular" },
+    { id: "plural", left: "Imperfectum plural", right: "liepen", skillId: "verb:lopen:imperfectum:plural" },
   ],
-  rightOrder: ["singular", "perfectum"],
+  rightOrder: ["singular", "perfectum", "plural"],
 };
 
 describe("exercise renderers", () => {
@@ -198,14 +199,18 @@ describe("exercise renderers", () => {
       <WordOrderingRenderer exercise={wordOrderingExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
     );
 
-    const todayButton = screen.getByRole("button", { name: "Vandaag" });
+    const todayButton = screen.getByRole("button", { name: "vandaag" });
     expect(todayButton.tagName).toBe("BUTTON");
+    expect(screen.getByRole("button", { name: "Check answer" })).toHaveProperty("disabled", true);
     todayButton.focus();
     expect(document.activeElement).toBe(todayButton);
     fireEvent.click(todayButton);
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "eet" }));
     fireEvent.click(screen.getByRole("button", { name: "eet" }));
     fireEvent.click(screen.getByRole("button", { name: "ik" }));
     fireEvent.click(screen.getByRole("button", { name: "een" }));
+    expect(document.activeElement).toBe(screen.getByRole("list", { name: "Sentence order" }));
+    expect(screen.getByRole("button", { name: "Check answer" })).toHaveProperty("disabled", false);
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
     expect(onAnswer).toHaveBeenCalledWith({
@@ -214,25 +219,41 @@ describe("exercise renderers", () => {
     });
   });
 
-  it("pairs facets by tapping focusable buttons and shows per-pair expected feedback", () => {
+  it("resets wrong matches so all three facets can be corrected", () => {
     const onAnswer = vi.fn();
     const { rerender } = render(
       <MatchingRenderer exercise={matchingExercise} disabled={false} feedback={null} onAnswer={onAnswer} />,
     );
-    const perfectumButton = screen.getByRole("button", { name: "Perfectum" });
+    const perfectumButton = screen.getByRole("button", { name: /^Perfectum/ });
 
     expect(perfectumButton.tagName).toBe("BUTTON");
     perfectumButton.focus();
     expect(document.activeElement).toBe(perfectumButton);
     fireEvent.click(perfectumButton);
     fireEvent.click(screen.getByRole("button", { name: "liep" }));
-    fireEvent.click(screen.getByRole("button", { name: "Imperfectum singular" }));
+    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum singular/ }));
+    fireEvent.click(screen.getByRole("button", { name: "liepen" }));
+    fireEvent.click(screen.getByRole("button", { name: /^Imperfectum plural/ }));
     fireEvent.click(screen.getByRole("button", { name: "hebben + gelopen" }));
+
+    expect(screen.getByRole("button", { name: /^Perfectum/ }).textContent).toContain("liep");
+    expect(screen.getByRole("button", { name: /^Imperfectum singular/ }).textContent).toContain("liepen");
+    expect(screen.getByRole("button", { name: /^Imperfectum plural/ }).textContent).toContain("hebben + gelopen");
+
+    fireEvent.click(screen.getByRole("button", { name: "Reset matches" }));
+    expect(onAnswer).not.toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: /^Perfectum/ }).textContent).toBe("Perfectum");
+    fireEvent.click(screen.getByRole("button", { name: "Perfectum" }));
+    fireEvent.click(screen.getByRole("button", { name: "hebben + gelopen" }));
+    fireEvent.click(screen.getByRole("button", { name: "Imperfectum singular" }));
+    fireEvent.click(screen.getByRole("button", { name: "liep" }));
+    fireEvent.click(screen.getByRole("button", { name: "Imperfectum plural" }));
+    fireEvent.click(screen.getByRole("button", { name: "liepen" }));
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
-    expect(onAnswer).toHaveBeenCalledWith({
+    expect(onAnswer).toHaveBeenLastCalledWith({
       type: "matching",
-      matches: { perfectum: "singular", singular: "perfectum" },
+      matches: { perfectum: "perfectum", singular: "singular", plural: "plural" },
     });
 
     rerender(
@@ -240,26 +261,26 @@ describe("exercise renderers", () => {
         exercise={matchingExercise}
         disabled
         feedback={{
-          correct: false,
-          feedback: "Check the mismatched pairs.",
-          score: 0,
-          expected: ["hebben + gelopen", "liep"],
-          rating: "again",
+          correct: true,
+          feedback: "All pairs are correct.",
+          score: 1,
+          expected: ["hebben + gelopen", "liep", "liepen"],
+          rating: "hard",
           skillIds: matchingExercise.pairs.map((pair) => pair.skillId),
           skillResults: matchingExercise.pairs.map((pair) => ({
             skillId: pair.skillId,
-            correct: false,
-            rating: "again",
+            correct: true,
+            rating: "hard",
           })),
           itemResults: matchingExercise.pairs.map((pair) => ({
             itemId: pair.id,
-            correct: false,
+            correct: true,
             expected: [pair.right],
           })),
         }}
         onAnswer={onAnswer}
       />,
     );
-    expect(screen.getByText("Perfectum: Incorrect. Expected hebben + gelopen")).toBeTruthy();
+    expect(screen.getByText("Perfectum: Correct. Expected hebben + gelopen")).toBeTruthy();
   });
 });

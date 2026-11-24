@@ -18,6 +18,7 @@ describe("createWordOrderingFields", () => {
     );
 
     expect(first).toEqual(second);
+    expect(first?.tokens.find((token) => token.id === "exercise-1-token-0")?.text).toBe("vandaag");
     expect(first?.tokens.map((token) => token.text)).not.toContain("appel.");
     expect(first?.acceptedOrders).toEqual([
       ["Vandaag", "eet", "ik", "een", "appel"],

@@ -1,6 +1,7 @@
 import rawContent from "@/content/vocabulary/vocabulary.json";
 import { vocabularyCollectionSchema, type VocabularyContent } from "@/content/vocabulary/schema";
 import type { Answer, ExerciseType, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import type { TypoTolerance } from "@/learning/contracts/module";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
@@ -11,6 +12,7 @@ import { evaluateFillGap } from "@/learning/exercises/evaluate-fill-gap";
 import { evaluateMultipleChoice } from "@/learning/exercises/evaluate-multiple-choice";
 import { evaluateTypedAnswer } from "@/learning/exercises/evaluate-typed-answer";
 import { evaluateWordOrdering } from "@/learning/exercises/evaluate-word-ordering";
+import { isAlmostAnswer } from "@/learning/exercises/evaluate-almost-answer";
 
 const collection = vocabularyCollectionSchema.parse(rawContent);
 const itemById = new Map(collection.items.map((item) => [item.id, item]));
@@ -23,6 +25,38 @@ function getItem(itemId: string): VocabularyContent {
 
 function vocabularyWord(item: VocabularyContent): string {
   return item.lemma.replace(/^(de|het)\s+/iu, "");
+}
+
+function isAlmostVocabularyAnswer(
+  answer: string,
+  acceptedAnswers: readonly string[],
+  noun: string,
+  typoTolerance: TypoTolerance,
+): boolean {
+  const expectedNounTokens = normalizeAnswer(noun).split(/\s+/u);
+  if (expectedNounTokens.some((token) => !token)) return false;
+
+  return acceptedAnswers.some((acceptedAnswer) => {
+    const expectedTokens = normalizeAnswer(acceptedAnswer).split(/\s+/u);
+    const matchingStarts = expectedTokens.flatMap((_, index) =>
+      expectedNounTokens.every((token, offset) => expectedTokens[index + offset] === token) ? [index] : [],
+    );
+    if (matchingStarts.length !== 1) return false;
+
+    const start = matchingStarts[0]!;
+    const end = start + expectedNounTokens.length;
+    const answerTokens = normalizeAnswer(answer).split(/\s+/u);
+    if (answerTokens.length !== expectedTokens.length) return false;
+    if (answerTokens.some((token, index) =>
+      (index < start || index >= end) && token !== expectedTokens[index],
+    )) return false;
+
+    return isAlmostAnswer(
+      answerTokens.slice(start, end).join(" "),
+      [expectedTokens.slice(start, end).join(" ")],
+      typoTolerance,
+    );
+  });
 }
 
 function getDistractors(item: VocabularyContent) {
@@ -162,7 +196,10 @@ export const vocabularyModule: LearningModule = {
     switch (exercise.type) {
       case "typed-answer":
         if (answer.type !== "typed-answer") throw new Error("Exercise and answer types must match.");
-        return evaluateTypedAnswer(exercise, answer);
+        return evaluateTypedAnswer(exercise, answer, {
+          isAlmostAnswer: (submitted, accepted, typoTolerance) =>
+            isAlmostVocabularyAnswer(submitted, accepted, vocabularyWord(getItem(exercise.contentId)), typoTolerance),
+        });
       case "multiple-choice":
         if (answer.type !== "multiple-choice") throw new Error("Exercise and answer types must match.");
         return evaluateMultipleChoice(exercise, answer);

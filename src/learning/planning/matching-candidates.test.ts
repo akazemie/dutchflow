@@ -40,7 +40,7 @@ function candidate(skill: LearningSkill, exerciseType: SessionCandidate["exercis
 }
 
 describe("matching candidate planning", () => {
-  it("only exposes matching when all three skills are known and at stage one or above", () => {
+  it("only exposes matching when every sibling skill is known and at stage one or above", () => {
     const supportedTypes = ["typed-answer", "matching"] as const;
     const knownSkillIds = skills.map((skill) => skill.skillId);
 
@@ -63,6 +63,20 @@ describe("matching candidate planning", () => {
       siblingSkills: skills,
       knownSkillIds,
       skillProgress: skills.map((skill) => progress(skill, 1)),
+    })).toEqual(["typed-answer", "matching"]);
+  });
+
+  it("uses the module's sibling skill count rather than a fixed count", () => {
+    const extendedSkills = [
+      ...skills,
+      { skillId: "verb:lopen:pronunciation", focusId: "pronunciation" },
+    ];
+
+    expect(filterEligibleExerciseTypes({
+      supportedTypes: ["typed-answer", "matching"],
+      siblingSkills: extendedSkills,
+      knownSkillIds: extendedSkills.map((skill) => skill.skillId),
+      skillProgress: extendedSkills.map((skill) => progress(skill, 1)),
     })).toEqual(["typed-answer", "matching"]);
   });
 

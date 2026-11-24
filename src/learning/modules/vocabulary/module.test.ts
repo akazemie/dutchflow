@@ -29,6 +29,23 @@ describe("vocabularyModule", () => {
     expect(result).toMatchObject({ correct: true, rating: "good", skillIds: ["vocabulary:appel:meaning"] });
   });
 
+  it.each([
+    ["vocabulary:man", "de mat", "again", 0],
+    ["vocabulary:kat", "de kar", "again", 0],
+    ["vocabulary:vriendin", "de vriendim", "hard", 0.5],
+    ["vocabulary:vriendin", "het vriendim", "again", 0],
+    ["vocabulary:appel", "Zij eet een appal.", "hard", 0.5],
+    ["vocabulary:boek", "Ik lees een boak.", "again", 0],
+  ] as const)("grades noun typo %s / %s as %s", async (itemId, value, rating, score) => {
+    const exercise = await vocabularyModule.createExercise(itemId);
+
+    await expect(vocabularyModule.evaluate(exercise, { type: "typed-answer", value })).resolves.toMatchObject({
+      correct: false,
+      rating,
+      score,
+    });
+  });
+
   it("uses target words rather than sentence translations for multiple-choice options", async () => {
     const exercise = await vocabularyModule.createExercise("vocabulary:appel", {
       exerciseType: "multiple-choice",

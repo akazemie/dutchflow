@@ -12,7 +12,7 @@ export function filterEligibleExerciseTypes(input: {
 
   const knownSkills = new Set(input.knownSkillIds);
   const progressBySkill = new Map(input.skillProgress.map((progress) => [progress.skillId, progress]));
-  const matchingEligible = input.siblingSkills.length === 3 && input.siblingSkills.every(({ skillId }) => {
+  const matchingEligible = input.siblingSkills.length > 0 && input.siblingSkills.every(({ skillId }) => {
     const progress = progressBySkill.get(skillId);
     return knownSkills.has(skillId) && getExerciseStage(progress) >= 1;
   });

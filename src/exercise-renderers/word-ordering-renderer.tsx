@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { ExerciseRendererProps } from "./types";
 import { EXERCISE_RENDERER_TEXT } from "./text";
 
@@ -12,12 +12,27 @@ export function WordOrderingRenderer({
 }: ExerciseRendererProps<"word-ordering">) {
   const [orderedTokenIds, setOrderedTokenIds] = useState<string[]>([]);
   const [announcement, setAnnouncement] = useState("");
+  const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
+  const answerListRef = useRef<HTMLUListElement>(null);
+  const focusRequest = useRef<{ type: "available"; tokenId: string } | { type: "answer" } | null>(null);
   const orderedIds = new Set(orderedTokenIds);
   const result = feedback?.itemResults?.find((item) => item.itemId === exercise.id);
+
+  useLayoutEffect(() => {
+    const request = focusRequest.current;
+    if (!request) return;
+    focusRequest.current = null;
+    if (request.type === "answer") answerListRef.current?.focus();
+    else buttonRefs.current.get(request.tokenId)?.focus();
+  }, [orderedTokenIds]);
 
   function addToken(tokenId: string) {
     const token = exercise.tokens.find((item) => item.id === tokenId);
     if (!token) return;
+    const nextAvailable = exercise.tokens.find((item) => item.id !== tokenId && !orderedIds.has(item.id));
+    focusRequest.current = nextAvailable
+      ? { type: "available", tokenId: nextAvailable.id }
+      : { type: "answer" };
     setOrderedTokenIds((current) => [...current, tokenId]);
     setAnnouncement(EXERCISE_RENDERER_TEXT.wordAdded(token.text));
   }
@@ -25,6 +40,7 @@ export function WordOrderingRenderer({
   function removeToken(tokenId: string) {
     const token = exercise.tokens.find((item) => item.id === tokenId);
     if (!token) return;
+    focusRequest.current = { type: "available", tokenId };
     setOrderedTokenIds((current) => current.filter((id) => id !== tokenId));
     setAnnouncement(EXERCISE_RENDERER_TEXT.wordRemoved(token.text));
   }
@@ -37,6 +53,10 @@ export function WordOrderingRenderer({
           <li key={token.id}>
             <button
               className="word-ordering-token"
+              ref={(element) => {
+                if (element) buttonRefs.current.set(token.id, element);
+                else buttonRefs.current.delete(token.id);
+              }}
               type="button"
               disabled={disabled}
               onClick={() => addToken(token.id)}
@@ -46,7 +66,12 @@ export function WordOrderingRenderer({
           </li>
         ))}
       </ul>
-      <ul className="word-ordering-token-list word-ordering-answer" aria-label={EXERCISE_RENDERER_TEXT.sentenceOrder}>
+      <ul
+        className="word-ordering-token-list word-ordering-answer"
+        aria-label={EXERCISE_RENDERER_TEXT.sentenceOrder}
+        ref={answerListRef}
+        tabIndex={-1}
+      >
         {orderedTokenIds.map((tokenId) => {
           const token = exercise.tokens.find((item) => item.id === tokenId)!;
           return (
@@ -73,7 +98,7 @@ export function WordOrderingRenderer({
       <button
         className="primary-button"
         type="button"
-        disabled={disabled}
+        disabled={disabled || orderedTokenIds.length !== exercise.tokens.length}
         onClick={() => onAnswer({ type: "word-ordering", tokenIds: orderedTokenIds })}
       >
         {EXERCISE_RENDERER_TEXT.checkAnswer}

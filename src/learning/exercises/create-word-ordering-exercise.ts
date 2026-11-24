@@ -57,7 +57,10 @@ export function createWordOrderingFields(
     acceptedOrders.push(tokens);
   }
 
-  const tokens = sentenceTokens.map((text, index) => ({ id: `${exerciseId}-token-${index}`, text }));
+  const tokens = sentenceTokens.map((text, index) => ({
+    id: `${exerciseId}-token-${index}`,
+    text: index === 0 ? text.toLocaleLowerCase("nl-NL") : text,
+  }));
   const acceptedOrderKeys = new Set(acceptedOrders.map(sequenceKey));
   const shuffleSeed = seed ?? exerciseId;
   let shuffledTokens = seededShuffle(tokens, shuffleSeed);
