@@ -19,10 +19,6 @@ function normalizeAttempt(attempt: StoredExerciseAttempt): ExerciseAttempt {
 export class DexieAttemptRepository implements AttemptRepository {
   constructor(private readonly db: DutchFlowDatabase) {}
 
-  async save(attempt: ExerciseAttempt): Promise<void> {
-    await this.db.exerciseAttempts.put(attempt);
-  }
-
   async listByLearner(learnerId: string): Promise<ExerciseAttempt[]> {
     const attempts = await this.db.exerciseAttempts.where("learnerId").equals(learnerId).toArray();
     return attempts.map(normalizeAttempt);

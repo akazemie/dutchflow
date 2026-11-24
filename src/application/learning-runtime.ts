@@ -4,6 +4,7 @@ import type { PreparedLearningSession } from "./start-session";
 import type { ExerciseAttempt } from "./ports/attempt-repository";
 import type { SkillProgress } from "@/learning/core/progress";
 import type { ReviewSchedule } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 
 export interface LearningRuntime {
   loadLearningModule(moduleId: string): Promise<LearningModule>;
@@ -17,7 +18,7 @@ export interface LearningRuntime {
   submitAnswer(input: {
     exercise: LearningExercise;
     answer: Answer;
-    sessionId: string;
+    session: LearningSession;
     durationMs?: number;
   }): Promise<{
     result: EvaluationResult;

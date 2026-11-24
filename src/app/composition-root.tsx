@@ -60,7 +60,6 @@ function createLearningRuntime(): LearningRuntime {
           estimatedMinutes: 2,
         })),
       }, {
-        sessions,
         now: () => now,
       });
     },

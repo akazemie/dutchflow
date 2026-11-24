@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ExerciseAttempt } from "@/application/ports/attempt-repository";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 import { createFsrsReviewScheduler } from "@/learning/scheduling/review-scheduler";
 import { KNOWN_SCHEDULER_IDS } from "@/learning/scheduling/scheduler-identifiers";
 import { DexieAnswerRecorder } from "./answer-recorder";
@@ -12,6 +13,19 @@ const learnerId = "learner-a";
 const skillId = "verb:lopen:perfectum";
 const reviewedAt = "2026-11-24T12:00:00.000Z";
 const scheduler = createFsrsReviewScheduler();
+
+function session(): LearningSession {
+  return {
+    id: "session-a",
+    learnerId,
+    moduleId: "verbs",
+    startedAt: reviewedAt,
+    strategy: "balanced",
+    preferences: { level: "A1", dailyLearningMinutes: 10 },
+    plannedSkillIds: [skillId],
+    plannedExerciseTypes: ["typed-answer"],
+  };
+}
 
 function attempt(id: string): ExerciseAttempt {
   return {
@@ -80,6 +94,7 @@ afterEach(async () => {
     db.exerciseAttempts.clear(),
     db.skillProgress.clear(),
     db.reviewSchedules.clear(),
+    db.learningSessions.clear(),
   ]);
 });
 
@@ -88,6 +103,7 @@ describe("DexieAnswerRecorder", () => {
     vi.spyOn(db.exerciseAttempts, "add").mockRejectedValue(new Error("Injected attempt failure."));
 
     await expect(recorder.record({
+      session: session(),
       attempt: attempt("attempt-failing"),
       skillUpdates: [skillUpdate()],
     })).rejects.toThrow("Injected attempt failure.");
@@ -95,12 +111,14 @@ describe("DexieAnswerRecorder", () => {
     expect(await db.exerciseAttempts.count()).toBe(0);
     expect(await db.skillProgress.count()).toBe(0);
     expect(await db.reviewSchedules.count()).toBe(0);
+    expect(await db.learningSessions.count()).toBe(0);
   });
 
   it("rolls back the attempt when a progress write fails", async () => {
     vi.spyOn(db.skillProgress, "put").mockRejectedValue(new Error("Injected progress failure."));
 
     await expect(recorder.record({
+      session: session(),
       attempt: attempt("attempt-failing"),
       skillUpdates: [skillUpdate()],
     })).rejects.toThrow("Injected progress failure.");
@@ -108,12 +126,14 @@ describe("DexieAnswerRecorder", () => {
     expect(await db.exerciseAttempts.count()).toBe(0);
     expect(await db.skillProgress.count()).toBe(0);
     expect(await db.reviewSchedules.count()).toBe(0);
+    expect(await db.learningSessions.count()).toBe(0);
   });
 
   it("rolls back the attempt and progress when a schedule write fails", async () => {
     vi.spyOn(db.reviewSchedules, "put").mockRejectedValue(new Error("Injected schedule failure."));
 
     await expect(recorder.record({
+      session: session(),
       attempt: attempt("attempt-failing"),
       skillUpdates: [skillUpdate()],
     })).rejects.toThrow("Injected schedule failure.");
@@ -121,12 +141,28 @@ describe("DexieAnswerRecorder", () => {
     expect(await db.exerciseAttempts.count()).toBe(0);
     expect(await db.skillProgress.count()).toBe(0);
     expect(await db.reviewSchedules.count()).toBe(0);
+    expect(await db.learningSessions.count()).toBe(0);
+  });
+
+  it("rolls back all answer records when creating the session fails", async () => {
+    vi.spyOn(db.learningSessions, "add").mockRejectedValue(new Error("Injected session failure."));
+
+    await expect(recorder.record({
+      session: session(),
+      attempt: attempt("attempt-failing"),
+      skillUpdates: [skillUpdate()],
+    })).rejects.toThrow("Injected session failure.");
+
+    expect(await db.exerciseAttempts.count()).toBe(0);
+    expect(await db.skillProgress.count()).toBe(0);
+    expect(await db.reviewSchedules.count()).toBe(0);
+    expect(await db.learningSessions.count()).toBe(0);
   });
 
   it("reads previous skill state inside serialized transactions", async () => {
     await Promise.all([
-      recorder.record({ attempt: attempt("attempt-1"), skillUpdates: [skillUpdate()] }),
-      recorder.record({ attempt: attempt("attempt-2"), skillUpdates: [skillUpdate()] }),
+      recorder.record({ session: session(), attempt: attempt("attempt-1"), skillUpdates: [skillUpdate()] }),
+      recorder.record({ session: session(), attempt: attempt("attempt-2"), skillUpdates: [skillUpdate()] }),
     ]);
 
     await expect(db.skillProgress.get(`${learnerId}:${skillId}`)).resolves.toMatchObject({
@@ -139,5 +175,6 @@ describe("DexieAnswerRecorder", () => {
       card: { reps: 2 },
     });
     expect(await db.exerciseAttempts.count()).toBe(2);
+    expect(await db.learningSessions.count()).toBe(1);
   });
 });

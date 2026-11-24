@@ -1,6 +1,7 @@
 import type { ExerciseAttempt } from "@/application/ports/attempt-repository";
 import type { AnswerRecorder } from "@/application/ports/answer-recorder";
 import type { Answer, LearningExercise, LearningModule } from "@/learning/contracts/module";
+import type { LearningSession } from "@/learning/core/session";
 import type { ReviewScheduler } from "@/learning/scheduling/review-scheduler";
 import { KNOWN_SCHEDULER_IDS } from "@/learning/scheduling/scheduler-identifiers";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
@@ -9,7 +10,7 @@ import { createExerciseId } from "@/learning/core/create-exercise-id";
 
 export interface SubmitAnswerInput {
   learnerId: string;
-  sessionId: string;
+  session: LearningSession;
   module: LearningModule;
   exercise: LearningExercise;
   answer: Answer;
@@ -31,12 +32,15 @@ export async function submitAnswer(
   }
   const now = (dependencies.now ?? (() => new Date()))().toISOString();
   const createId = dependencies.createId ?? createExerciseId;
+  if (input.session.learnerId !== input.learnerId) {
+    throw new Error(`Learning session ${input.session.id} does not belong to learner ${input.learnerId}.`);
+  }
   const attempt: ExerciseAttempt = {
     id: createId(),
     learnerId: input.learnerId,
     skillId: result.skillResults[0]!.skillId,
     skillIds: [...new Set(result.skillResults.map(({ skillId }) => skillId))],
-    sessionId: input.sessionId,
+    sessionId: input.session.id,
     contentId: input.exercise.contentId,
     moduleId: input.exercise.moduleId,
     exerciseType: input.exercise.type,
@@ -59,6 +63,7 @@ export async function submitAnswer(
     return { skillResult, focusId };
   });
   await dependencies.answerRecorder.record({
+    session: input.session,
     attempt,
     skillUpdates: skillResultsWithFocus.map(({ skillResult, focusId }) => ({
       learnerId: input.learnerId,

@@ -22,7 +22,7 @@ describe("DexieLearningSessionRepository", () => {
       plannedSkillIds: ["verb:lopen:perfectum", "verb:lopen:imperfectum:singular"],
       plannedExerciseTypes: ["matching"],
     };
-    await repository.save(session);
+    await db.learningSessions.add(session);
 
     await repository.complete("learner-a", session.id, "2026-11-24T12:05:00.000Z");
 
@@ -33,7 +33,7 @@ describe("DexieLearningSessionRepository", () => {
   });
 
   it("does not complete a session owned by another learner", async () => {
-    await repository.save({
+    await db.learningSessions.add({
       id: "session-a",
       learnerId: "learner-a",
       moduleId: "verbs",
@@ -47,5 +47,24 @@ describe("DexieLearningSessionRepository", () => {
     await expect(repository.complete("learner-b", "session-a", "2026-11-24T12:05:00.000Z"))
       .rejects.toThrow("was not found for learner learner-b");
     expect((await db.learningSessions.get("session-a"))?.completedAt).toBeUndefined();
+  });
+
+  it("does not overwrite an existing completion timestamp", async () => {
+    await db.learningSessions.add({
+      id: "session-completed",
+      learnerId: "learner-a",
+      moduleId: "verbs",
+      startedAt: "2026-11-24T12:00:00.000Z",
+      completedAt: "2026-11-24T12:05:00.000Z",
+      strategy: "balanced",
+      preferences: { level: "A1", dailyLearningMinutes: 10 },
+      plannedSkillIds: [],
+      plannedExerciseTypes: [],
+    });
+
+    await repository.complete("learner-a", "session-completed", "2026-11-24T12:10:00.000Z");
+
+    expect((await db.learningSessions.get("session-completed"))?.completedAt)
+      .toBe("2026-11-24T12:05:00.000Z");
   });
 });

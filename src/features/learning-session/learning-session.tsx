@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Answer, EvaluationResult, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { SkillProgress } from "@/learning/core/progress";
+import type { LearningSession } from "@/learning/core/session";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import type { ExplanationLanguage } from "@/learning/core/preferences";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
@@ -24,7 +25,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   const [skillProgress, setSkillProgress] = useState<SkillProgress[]>([]);
   const [plan, setPlan] = useState<SessionCandidate[]>([]);
   const [sessionIndex, setSessionIndex] = useState(0);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [learningSession, setLearningSession] = useState<LearningSession | null>(null);
   const [isPlannedExercise, setIsPlannedExercise] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [focusId, setFocusId] = useState("perfectum");
@@ -48,7 +49,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
             setModule(session.module);
             setItems(items);
             setPlan([]);
-            setSessionId(session.sessionId);
+            setLearningSession(session.session);
             setExplanationLanguage(session.preferences.explanationLanguage);
             setEmptySession(true);
           }
@@ -67,7 +68,7 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
           setSkillProgress(session.skillProgress);
           setPlan(session.plan);
           setSessionIndex(0);
-          setSessionId(session.sessionId);
+          setLearningSession(session.session);
           setIsPlannedExercise(true);
           setSelectedItemId(firstCandidate.itemId);
           setFocusId(firstCandidate.focusId);
@@ -137,16 +138,16 @@ export function LearningSession({ moduleId }: LearningSessionProps) {
   }
 
   async function handleAnswer(answer: Answer) {
-    if (!runtime || !module || !exercise || !sessionId || isSaving || feedback) return;
+    if (!runtime || !module || !exercise || !learningSession || isSaving || feedback) return;
     setIsSaving(true);
     setError(null);
 
     try {
-      const { result } = await runtime.submitAnswer({ exercise, answer, sessionId });
+      const { result } = await runtime.submitAnswer({ exercise, answer, session: learningSession });
       setFeedback(result);
       if (isPlannedExercise && sessionIndex + 1 === plan.length) {
         try {
-          await runtime.completeSession(sessionId);
+          await runtime.completeSession(learningSession.id);
         } catch {
           setError("Your answer was saved, but the session could not be marked complete.");
         }

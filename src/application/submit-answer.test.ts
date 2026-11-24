@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ExerciseAttempt } from "./ports/attempt-repository";
 import type { AnswerRecorder } from "./ports/answer-recorder";
+import type { LearningSession } from "@/learning/core/session";
 import { submitAnswer } from "./submit-answer";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import type { SkillProgress, ReviewSchedule } from "@/learning/core/progress";
@@ -25,6 +26,19 @@ function inMemoryRecorder(
   };
 }
 
+function learningSession(learnerId: string): LearningSession {
+  return {
+    id: "session-1",
+    learnerId,
+    moduleId: "verbs",
+    startedAt: "2026-11-22T11:00:00.000Z",
+    strategy: "balanced",
+    preferences: { level: "A1", dailyLearningMinutes: 10 },
+    plannedSkillIds: ["verb:lopen:perfectum"],
+    plannedExerciseTypes: ["typed-answer"],
+  };
+}
+
 describe("submitAnswer", () => {
   it("evaluates and saves an attempt with learner and skill identifiers", async () => {
     const exercise = await verbsModule.createExercise("verb:lopen");
@@ -35,7 +49,7 @@ describe("submitAnswer", () => {
     const { result, attempt } = await submitAnswer(
       {
         learnerId: "00000000-0000-4000-8000-000000000001",
-        sessionId: "session-1",
+        session: learningSession("00000000-0000-4000-8000-000000000001"),
         module: verbsModule,
         exercise,
         answer: { type: "typed-answer", value: "Ik heb gelopen." },
@@ -106,7 +120,7 @@ describe("submitAnswer", () => {
         module: moduleWithResults,
         exercise,
         answer: { type: "typed-answer", value: "answer" },
-        sessionId: "session-1",
+        session: learningSession(learnerId),
       },
       {
         answerRecorder: inMemoryRecorder(saved, progress, schedules),

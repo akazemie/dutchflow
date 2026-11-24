@@ -24,6 +24,5 @@ export interface StoredExerciseAttempt extends Omit<ExerciseAttempt, "answer" | 
 }
 
 export interface AttemptRepository {
-  save(attempt: ExerciseAttempt): Promise<void>;
   listByLearner(learnerId: string): Promise<ExerciseAttempt[]>;
 }

@@ -6,32 +6,9 @@ import type { StoredExerciseAttempt } from "@/application/ports/attempt-reposito
 
 describe("DexieAttemptRepository", () => {
   const db = new DutchFlowDatabase(`dutchflow-test-${crypto.randomUUID()}`);
-  const repository = new DexieAttemptRepository(db);
 
   afterEach(async () => {
     await db.exerciseAttempts.clear();
-  });
-
-  it("persists an attempt with learner and skill IDs", async () => {
-    const attempt = {
-      id: crypto.randomUUID(),
-      learnerId: "00000000-0000-4000-8000-000000000001",
-      skillId: "verb:lopen:perfectum",
-      skillIds: ["verb:lopen:perfectum"],
-      sessionId: null,
-      contentId: "verb:lopen",
-      moduleId: "verbs",
-      exerciseType: "typed-answer",
-      answer: { type: "typed-answer" as const, value: "Ik heb gelopen." },
-      correct: true,
-      rating: "good" as const,
-      createdAt: "2026-11-22T12:00:00.000Z",
-      updatedAt: "2026-11-22T12:00:00.000Z",
-    };
-
-    await repository.save(attempt);
-
-    await expect(db.exerciseAttempts.get(attempt.id)).resolves.toEqual(attempt);
   });
 
   it("reads legacy attempts whose answer is still a string", async () => {

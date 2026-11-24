@@ -1,25 +1,16 @@
 import { describe, expect, it, vi } from "vitest";
 import { DEFAULT_PREFERENCE_VALUES, type LearnerPreferences } from "@/learning/core/preferences";
 import type { SkillProgress } from "@/learning/core/progress";
-import type { LearningSession } from "@/learning/core/session";
 import type { LearningItem, LearningModule } from "@/learning/contracts/module";
 import { verbsModule } from "@/learning/modules/verbs/module";
 import { startSession } from "./start-session";
-import type { LearningSessionRepository } from "./ports/learning-session-repository";
-
-const sessionRepository: LearningSessionRepository = {
-  async save() {},
-  async complete() {},
-};
 
 function prepareSession(
   input: Omit<Parameters<typeof startSession>[0], "learnerId">,
-  sessions = sessionRepository,
 ) {
   return startSession(
     { ...input, learnerId: "learner-test" },
     {
-      sessions,
       now: () => new Date("2026-11-24T12:00:00.000Z"),
       createId: () => "session-test",
     },
@@ -295,11 +286,6 @@ describe("startSession", () => {
     };
     const fixture = matchingFacetsFixture(1);
     const itemId = fixture.items[0]!.id;
-    const savedSessions: LearningSession[] = [];
-    const sessions: LearningSessionRepository = {
-      async save(session) { savedSessions.push(session); },
-      async complete() {},
-    };
 
     const session = await prepareSession({
       module: fixture.module,
@@ -307,13 +293,12 @@ describe("startSession", () => {
       dueReviews: fixture.dueReviews(itemId),
       knownSkillIds: fixture.knownSkillIds,
       skillProgress: fixture.skillProgress,
-    }, sessions);
+    });
 
     expect(session.plan).toEqual([
       expect.objectContaining({ itemId, exerciseType: "matching", estimatedMinutes: 6 }),
     ]);
-    expect(session.sessionId).toBe("session-test");
-    expect(savedSessions[0]).toMatchObject({
+    expect(session.session).toMatchObject({
       id: "session-test",
       learnerId: "learner-test",
       moduleId: "verbs",

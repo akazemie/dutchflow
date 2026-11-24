@@ -6,14 +6,13 @@ import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { chooseExerciseType } from "@/learning/exercises/choose-exercise-type";
 import { collapseMatchingCandidates, filterEligibleExerciseTypes } from "@/learning/planning/matching-candidates";
 import { planSession, type SessionCandidate } from "@/learning/planning/session-planner";
-import type { LearningSessionRepository } from "./ports/learning-session-repository";
 
 export interface PreparedLearningSession {
   module: LearningModule;
   preferences: LearnerPreferences;
   plan: SessionCandidate[];
   skillProgress: SkillProgress[];
-  sessionId: string;
+  session: LearningSession;
 }
 
 function candidateKey(candidate: SessionCandidate): string {
@@ -29,7 +28,6 @@ export async function startSession(input: {
   skillProgress?: SkillProgress[];
   estimatedMinutesPerExercise?: number;
 }, dependencies: {
-  sessions: LearningSessionRepository;
   now?: () => Date;
   createId?: () => string;
 }): Promise<PreparedLearningSession> {
@@ -181,13 +179,11 @@ export async function startSession(input: {
     plannedSkillIds,
     plannedExerciseTypes: plan.map((candidate) => candidate.exerciseType ?? "typed-answer"),
   };
-  await dependencies.sessions.save(session);
-
   return {
     module: input.module,
     preferences: input.preferences,
     plan,
     skillProgress,
-    sessionId,
+    session,
   };
 }
