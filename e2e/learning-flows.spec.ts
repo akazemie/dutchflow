@@ -88,6 +88,9 @@ test("uses English UI and RTL only on Persian explanations", async ({ page }) =>
   await importFixture(page, "empty-v4.json");
   await page.getByLabel("Explanation language").selectOption("fa");
   await page.getByRole("button", { name: "Save preferences" }).click();
+  await expect(page.getByText("Saved on this device", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByLabel("Explanation language")).toHaveValue("fa");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
 
