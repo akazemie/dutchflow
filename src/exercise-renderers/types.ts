@@ -5,11 +5,13 @@ import type {
   ExerciseByType,
   ExerciseType,
 } from "@/learning/contracts/module";
+import type { MessageTranslator } from "@/i18n/catalog";
 
 export interface ExerciseRendererProps<T extends ExerciseType> {
   exercise: ExerciseByType[T];
   disabled: boolean;
   feedback: EvaluationResult | null;
+  t: MessageTranslator;
   onAnswer(answer: AnswerByType[T]): void;
 }
 

@@ -1,0 +1,137 @@
+{
+  "format": "dutchflow-backup",
+  "version": 4,
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "learnerId": "00000000-0000-4000-8000-000000000001",
+  "snapshot": {
+    "preferences": {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "learnerId": "00000000-0000-4000-8000-000000000001",
+      "level": "A1",
+      "explanationLanguage": "en",
+      "exerciseStrategy": "review-first",
+      "dailyLearningMinutes": 10,
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    "attempts": [],
+    "progress": [
+      {
+        "id": "legacy-progress-perfectum",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:perfectum",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "perfectum",
+        "attempts": 2,
+        "correctAttempts": 2,
+        "consecutiveCorrect": 2,
+        "exerciseStage": 2,
+        "lastReviewedAt": "2025-01-01T00:00:00.000Z",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "updatedAt": "2025-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "legacy-progress-singular",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:imperfectum:singular",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "imperfectum-singular",
+        "attempts": 2,
+        "correctAttempts": 2,
+        "consecutiveCorrect": 2,
+        "exerciseStage": 2,
+        "lastReviewedAt": "2025-01-01T00:00:00.000Z",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "updatedAt": "2025-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "legacy-progress-plural",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:imperfectum:plural",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "imperfectum-plural",
+        "attempts": 2,
+        "correctAttempts": 2,
+        "consecutiveCorrect": 2,
+        "exerciseStage": 2,
+        "lastReviewedAt": "2025-01-01T00:00:00.000Z",
+        "createdAt": "2025-01-01T00:00:00.000Z",
+        "updatedAt": "2025-01-01T00:00:00.000Z"
+      }
+    ],
+    "reviewSchedules": [
+      {
+        "id": "legacy-schedule-perfectum",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:perfectum",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "perfectum",
+        "scheduler": "ts-fsrs@5.4.2/fsrs-6",
+        "card": {
+          "due": "2020-01-01T00:00:00.000Z",
+          "stability": 0,
+          "difficulty": 0,
+          "elapsed_days": 0,
+          "scheduled_days": 0,
+          "learning_steps": 0,
+          "reps": 0,
+          "lapses": 0,
+          "state": 0,
+          "last_review": null
+        },
+        "dueAt": "2020-01-01T00:00:00.000Z",
+        "updatedAt": "2020-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "legacy-schedule-singular",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:imperfectum:singular",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "imperfectum-singular",
+        "scheduler": "ts-fsrs@5.4.2/fsrs-6",
+        "card": {
+          "due": "2020-01-02T00:00:00.000Z",
+          "stability": 0,
+          "difficulty": 0,
+          "elapsed_days": 0,
+          "scheduled_days": 0,
+          "learning_steps": 0,
+          "reps": 0,
+          "lapses": 0,
+          "state": 0,
+          "last_review": null
+        },
+        "dueAt": "2020-01-02T00:00:00.000Z",
+        "updatedAt": "2020-01-01T00:00:00.000Z"
+      },
+      {
+        "id": "legacy-schedule-plural",
+        "learnerId": "00000000-0000-4000-8000-000000000001",
+        "skillId": "verb:lopen:imperfectum:plural",
+        "moduleId": "verbs",
+        "itemId": "verb:lopen",
+        "focusId": "imperfectum-plural",
+        "scheduler": "ts-fsrs@5.4.2/fsrs-6",
+        "card": {
+          "due": "2020-01-03T00:00:00.000Z",
+          "stability": 0,
+          "difficulty": 0,
+          "elapsed_days": 0,
+          "scheduled_days": 0,
+          "learning_steps": 0,
+          "reps": 0,
+          "lapses": 0,
+          "state": 0,
+          "last_review": null
+        },
+        "dueAt": "2020-01-03T00:00:00.000Z",
+        "updatedAt": "2020-01-01T00:00:00.000Z"
+      }
+    ],
+    "sessions": []
+  }
+}

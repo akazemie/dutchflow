@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { TypedAnswerExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { evaluateTypedAnswer } from "./evaluate-typed-answer";
 
 const exercise: TypedAnswerExercise = {
@@ -10,9 +11,9 @@ const exercise: TypedAnswerExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Translate into Dutch",
-  answerLabel: "Your answer in Dutch",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.translate"),
+  answerLabel: message("exercise.answer.yourDutch"),
   prompt: "She eats an apple.",
   typoTolerance: "one-edit",
   partialCredit: "graded",
@@ -79,7 +80,14 @@ describe("evaluateTypedAnswer", () => {
       rating,
       expected: exercise.acceptedAnswers,
     });
-    expect(result.feedback.toLocaleLowerCase("en-US")).toContain(rating === "hard" ? "almost" : correct ? "correct" : "not quite");
+    expect(result.feedback.key).toBe(
+      rating === "hard"
+        ? "evaluation.almostExpected"
+        : correct
+          ? "evaluation.correctExpected"
+          : "evaluation.incorrectExpected",
+    );
+    expect(result.feedback.params?.expected).toBe(exercise.acceptedAnswers[0]);
   });
 
   it("does not grant a hard rating for short answers even when one edit away", () => {

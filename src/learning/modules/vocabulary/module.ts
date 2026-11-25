@@ -2,6 +2,7 @@ import rawContent from "@/content/vocabulary/vocabulary.json";
 import { vocabularyCollectionSchema, type VocabularyContent } from "@/content/vocabulary/schema";
 import type { Answer, ExerciseType, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
 import type { TypoTolerance } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { createExerciseId } from "@/learning/core/create-exercise-id";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
@@ -79,7 +80,7 @@ function typesFor(item: VocabularyContent): ExerciseType[] {
   return types;
 }
 
-function commonFields(item: VocabularyContent, id: string, focusLabel: string) {
+function commonFields(item: VocabularyContent, id: string) {
   return {
     id,
     moduleId: "vocabulary",
@@ -87,8 +88,8 @@ function commonFields(item: VocabularyContent, id: string, focusLabel: string) {
     skillId: `${item.id}:meaning`,
     level: item.level,
     focusId: "meaning",
-    focusLabel,
-    title: "Translate into Dutch",
+    focusLabel: message("focus.vocabulary"),
+    title: message("exercise.title.translate"),
   };
 }
 
@@ -97,7 +98,7 @@ export const vocabularyModule: LearningModule = {
   displayName: "Dutch vocabulary",
   i18nKey: "modules.vocabulary.title",
   supportedLevels: [...new Set(collection.items.map((item) => item.level))],
-  exerciseFocuses: [{ id: "meaning", label: "Vocabulary" }],
+  exerciseFocuses: [{ id: "meaning", label: message("focus.vocabulary") }],
 
   async loadItems(query): Promise<LearningItem[]> {
     return collection.items.filter((item) => !query?.level || isLevelAvailableAt(item.level, query.level)).map((item) => ({
@@ -123,8 +124,7 @@ export const vocabularyModule: LearningModule = {
     const requestedType = context?.exerciseType ?? "typed-answer";
     const supportedTypes = typesFor(item);
     const id = createExerciseId();
-    const focusLabel = "Vocabulary";
-    const base = commonFields(item, id, focusLabel);
+    const base = commonFields(item, id);
 
     if (requestedType === "multiple-choice" && supportedTypes.includes(requestedType)) {
       const correctOption = { id: `correct-${id}`, text: vocabularyWord(item) };
@@ -132,7 +132,7 @@ export const vocabularyModule: LearningModule = {
         ...base,
         type: "multiple-choice",
         prompt: item.prompt.en,
-        answerLabel: "Choose the correct Dutch word",
+        answerLabel: message("exercise.answer.chooseDutchWord"),
         typoTolerance: "none",
         partialCredit: "none",
         ...createMultipleChoiceOptions(correctOption, getDistractors(item), context?.seed ?? id),
@@ -148,7 +148,7 @@ export const vocabularyModule: LearningModule = {
           ...base,
           type: "fill-gap",
           prompt: item.prompt.en,
-          answerLabel: "Fill in the missing Dutch word",
+          answerLabel: message("exercise.answer.fillDutchWord"),
           typoTolerance: "one-edit",
           partialCredit: "graded",
           segments,
@@ -169,8 +169,8 @@ export const vocabularyModule: LearningModule = {
           ...base,
           type: "word-ordering",
           prompt: item.prompt.en,
-          title: "Build the Dutch sentence",
-          answerLabel: "Tap the words in sentence order",
+          title: message("exercise.title.buildSentence"),
+          answerLabel: message("exercise.answer.orderSentence"),
           typoTolerance: "none",
           partialCredit: "none",
           ...fields,
@@ -182,7 +182,7 @@ export const vocabularyModule: LearningModule = {
       ...base,
       type: "typed-answer",
       prompt: item.prompt.en,
-      answerLabel: "Your answer in Dutch",
+      answerLabel: message("exercise.answer.yourDutch"),
       typoTolerance: "one-edit",
       partialCredit: "graded",
       hint: item.explanation[context?.explanationLanguage ?? "en"],

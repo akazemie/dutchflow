@@ -1,4 +1,5 @@
 import type { EvaluationResult, TypedAnswer, TypedAnswerExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { normalizeAnswer } from "@/learning/core/normalize-answer";
 import { isAlmostAnswer } from "./evaluate-almost-answer";
 import { gradeScore } from "./grade-score";
@@ -21,7 +22,7 @@ export function evaluateTypedAnswer(
     const { rating } = gradeScore(1, exercise.partialCredit);
     return {
       correct: true,
-      feedback: `Correct. ${expected[0]} is right.`,
+      feedback: message("evaluation.correctExpected", { expected: expected[0] ?? "" }),
       score: 1,
       expected,
       rating,
@@ -37,9 +38,10 @@ export function evaluateTypedAnswer(
 
   return {
     correct: false,
-    feedback: almost && rating === "hard"
-      ? `Almost. One accepted answer is: ${expected[0]}`
-      : `Not quite. One accepted answer is: ${expected[0]}`,
+    feedback: message(
+      almost && rating === "hard" ? "evaluation.almostExpected" : "evaluation.incorrectExpected",
+      { expected: expected[0] ?? "" },
+    ),
     score,
     expected,
     rating,

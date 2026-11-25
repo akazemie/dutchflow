@@ -2,11 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import type { ExerciseRendererProps } from "./types";
-import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function MultipleChoiceRenderer({
   exercise,
   disabled,
+  t,
   onAnswer,
 }: ExerciseRendererProps<"multiple-choice">) {
   const [selectedOptionId, setSelectedOptionId] = useState("");
@@ -19,7 +19,7 @@ export function MultipleChoiceRenderer({
   return (
     <form className="exercise-answer-form" onSubmit={handleSubmit}>
       <fieldset className="exercise-options" disabled={disabled}>
-        <legend>{exercise.answerLabel}</legend>
+        <legend>{t(exercise.answerLabel)}</legend>
         {exercise.options.map((option) => (
           <label className="exercise-option" key={option.id}>
             <input
@@ -37,7 +37,7 @@ export function MultipleChoiceRenderer({
         {exercise.options.find((option) => option.id === selectedOptionId)?.text ?? ""}
       </span>
       <button className="primary-button" type="submit" disabled={disabled || !selectedOptionId}>
-        {EXERCISE_RENDERER_TEXT.checkAnswer}
+        {t("renderer.checkAnswer")}
       </button>
     </form>
   );

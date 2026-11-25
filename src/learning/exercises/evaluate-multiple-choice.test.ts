@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { MultipleChoiceExercise } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { evaluateMultipleChoice } from "./evaluate-multiple-choice";
 
 const exercise: MultipleChoiceExercise = {
@@ -10,9 +11,9 @@ const exercise: MultipleChoiceExercise = {
   skillId: "vocabulary:appel:meaning",
   level: "A1",
   focusId: "meaning",
-  focusLabel: "Vocabulary",
-  title: "Choose the translation",
-  answerLabel: "Select one answer",
+  focusLabel: message("focus.vocabulary"),
+  title: message("exercise.title.chooseTranslation"),
+  answerLabel: message("exercise.answer.chooseDutchWord"),
   typoTolerance: "none",
   partialCredit: "none",
   prompt: "She eats an apple.",

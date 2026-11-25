@@ -13,6 +13,8 @@ export interface PreparedLearningSession {
   plan: SessionCandidate[];
   skillProgress: SkillProgress[];
   session: LearningSession;
+  effectiveBudgetMinutes: number;
+  dailyGoalReached: boolean;
 }
 
 function candidateKey(candidate: SessionCandidate): string {
@@ -24,6 +26,8 @@ export async function startSession(input: {
   module: LearningModule;
   preferences: LearnerPreferences;
   dueReviews: SessionCandidate[];
+  minutesSpentToday: number;
+  extraSession?: boolean;
   knownSkillIds?: string[];
   skillProgress?: SkillProgress[];
   estimatedMinutesPerExercise?: number;
@@ -34,6 +38,13 @@ export async function startSession(input: {
   const items = await input.module.loadItems({ level: input.preferences.level });
   const newItems: SessionCandidate[] = [];
   const estimatedMinutes = input.estimatedMinutesPerExercise ?? 2;
+  const remainingMinutes = input.preferences.dailyLearningMinutes - input.minutesSpentToday;
+  const dailyGoalReached = !input.extraSession && remainingMinutes < 2;
+  const effectiveBudgetMinutes = input.extraSession
+    ? 5
+    : dailyGoalReached
+      ? 0
+      : Math.max(0, remainingMinutes);
   const skillProgress = input.skillProgress ?? [];
   const knownSkills = new Set([
     ...(input.knownSkillIds ?? []),
@@ -88,7 +99,8 @@ export async function startSession(input: {
       skillProgress,
     });
     const isMatchingAnchor = siblingSkills[0]?.skillId === candidate.skillId;
-    const withinTimeBudget = candidate.estimatedMinutes * 3 <= input.preferences.dailyLearningMinutes;
+    const withinTimeBudget = !input.extraSession
+      && candidate.estimatedMinutes * 3 <= effectiveBudgetMinutes;
     let availableTypes = supportedTypes.filter((type) =>
       (withinTimeBudget || type !== "matching")
       && (itemsWithMultipleDueSkills.has(candidate.itemId) || type !== "matching")
@@ -116,7 +128,7 @@ export async function startSession(input: {
   let plan = planSession({
     ...candidatePools,
     strategy: input.preferences.exerciseStrategy,
-    timeBudgetMinutes: input.preferences.dailyLearningMinutes,
+    timeBudgetMinutes: effectiveBudgetMinutes,
   });
   const processedMatchingGroups = new Set<string>();
   const coveredSkillKeys = new Set<string>();
@@ -137,9 +149,9 @@ export async function startSession(input: {
 
     plan = collapseMatchingCandidates(plan, skillsByItem);
     const selectedSkillKeys = new Set(plan.map(candidateKey));
-    const remainingMinutes = input.preferences.dailyLearningMinutes
+    const remainingBudget = effectiveBudgetMinutes
       - plan.reduce((minutes, candidate) => minutes + candidate.estimatedMinutes, 0);
-    if (remainingMinutes <= 0) break;
+    if (remainingBudget <= 0) break;
 
     const refillPools = {
       dueReviews: candidatePools.dueReviews.filter((candidate) =>
@@ -155,7 +167,7 @@ export async function startSession(input: {
     const refill = planSession({
       ...refillPools,
       strategy: input.preferences.exerciseStrategy,
-      timeBudgetMinutes: remainingMinutes,
+      timeBudgetMinutes: remainingBudget,
     });
     if (refill.length === 0) break;
     plan = [...plan, ...refill];
@@ -185,5 +197,7 @@ export async function startSession(input: {
     plan,
     skillProgress,
     session,
+    effectiveBudgetMinutes,
+    dailyGoalReached,
   };
 }

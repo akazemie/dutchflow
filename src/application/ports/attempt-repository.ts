@@ -25,4 +25,5 @@ export interface StoredExerciseAttempt extends Omit<ExerciseAttempt, "answer" | 
 
 export interface AttemptRepository {
   listByLearner(learnerId: string): Promise<ExerciseAttempt[]>;
+  listSince(learnerId: string, createdAt: string): Promise<ExerciseAttempt[]>;
 }

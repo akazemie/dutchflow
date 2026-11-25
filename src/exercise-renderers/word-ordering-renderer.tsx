@@ -2,12 +2,12 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import type { ExerciseRendererProps } from "./types";
-import { EXERCISE_RENDERER_TEXT } from "./text";
 
 export function WordOrderingRenderer({
   exercise,
   disabled,
   feedback,
+  t,
   onAnswer,
 }: ExerciseRendererProps<"word-ordering">) {
   const [orderedTokenIds, setOrderedTokenIds] = useState<string[]>([]);
@@ -34,7 +34,7 @@ export function WordOrderingRenderer({
       ? { type: "available", tokenId: nextAvailable.id }
       : { type: "answer" };
     setOrderedTokenIds((current) => [...current, tokenId]);
-    setAnnouncement(EXERCISE_RENDERER_TEXT.wordAdded(token.text));
+    setAnnouncement(t("renderer.wordAdded", { word: token.text }));
   }
 
   function removeToken(tokenId: string) {
@@ -42,13 +42,13 @@ export function WordOrderingRenderer({
     if (!token) return;
     focusRequest.current = { type: "available", tokenId };
     setOrderedTokenIds((current) => current.filter((id) => id !== tokenId));
-    setAnnouncement(EXERCISE_RENDERER_TEXT.wordRemoved(token.text));
+    setAnnouncement(t("renderer.wordRemoved", { word: token.text }));
   }
 
   return (
     <div className="exercise-answer-form word-ordering-form">
-      <p>{exercise.answerLabel}</p>
-      <ul className="word-ordering-token-list" aria-label={EXERCISE_RENDERER_TEXT.availableWords}>
+      <p>{t(exercise.answerLabel)}</p>
+      <ul className="word-ordering-token-list" aria-label={t("renderer.availableWords")}>
         {exercise.tokens.filter((token) => !orderedIds.has(token.id)).map((token) => (
           <li key={token.id}>
             <button
@@ -68,7 +68,7 @@ export function WordOrderingRenderer({
       </ul>
       <ul
         className="word-ordering-token-list word-ordering-answer"
-        aria-label={EXERCISE_RENDERER_TEXT.sentenceOrder}
+        aria-label={t("renderer.sentenceOrder")}
         ref={answerListRef}
         tabIndex={-1}
       >
@@ -80,7 +80,7 @@ export function WordOrderingRenderer({
                 className="word-ordering-token"
                 type="button"
                 disabled={disabled}
-                aria-label={EXERCISE_RENDERER_TEXT.removeWord(token.text)}
+                aria-label={t("renderer.removeWord", { word: token.text })}
                 onClick={() => removeToken(token.id)}
               >
                 {token.text}
@@ -92,7 +92,7 @@ export function WordOrderingRenderer({
       <p className="visually-hidden" aria-live="polite">{announcement}</p>
       {result && (
         <p className={result.correct ? "item-result-correct" : "item-result-incorrect"} aria-live="polite">
-          {EXERCISE_RENDERER_TEXT.expectedSentence}: {result.expected[0] ?? ""}
+          {t("renderer.expectedSentence")}: {result.expected[0] ?? ""}
         </p>
       )}
       <button
@@ -101,7 +101,7 @@ export function WordOrderingRenderer({
         disabled={disabled || orderedTokenIds.length !== exercise.tokens.length}
         onClick={() => onAnswer({ type: "word-ordering", tokenIds: orderedTokenIds })}
       >
-        {EXERCISE_RENDERER_TEXT.checkAnswer}
+        {t("renderer.checkAnswer")}
       </button>
     </div>
   );

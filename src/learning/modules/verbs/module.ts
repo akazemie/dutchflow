@@ -1,6 +1,7 @@
 import rawVerbContent from "@/content/verbs/verbs.json";
 import { verbCollectionSchema, type VerbContent } from "@/content/verbs/schema";
 import type { Answer, ExerciseFocus, ExerciseType, LearningExercise, LearningItem, LearningModule } from "@/learning/contracts/module";
+import { message } from "@/learning/contracts/message";
 import { isLevelAvailableAt } from "@/learning/core/preferences";
 import { evaluateMatching } from "@/learning/exercises/evaluate-matching";
 import { evaluateFillGap } from "@/learning/exercises/evaluate-fill-gap";
@@ -20,9 +21,9 @@ import {
 const verbCollection = verbCollectionSchema.parse(rawVerbContent);
 const verbsById = new Map(verbCollection.items.map((item) => [item.id, item]));
 const exerciseFocuses: ExerciseFocus[] = [
-  { id: "perfectum", label: "Perfectum" },
-  { id: "imperfectum-singular", label: "Imperfectum · singular" },
-  { id: "imperfectum-plural", label: "Imperfectum · plural" },
+  { id: "perfectum", label: message("focus.perfectum") },
+  { id: "imperfectum-singular", label: message("focus.imperfectum.singular") },
+  { id: "imperfectum-plural", label: message("focus.imperfectum.plural") },
 ];
 
 function getVerb(itemId: string): VerbContent {

@@ -36,6 +36,7 @@ describe("learning session lifecycle", () => {
         updatedAt: "2026-11-24T11:00:00.000Z",
       },
       dueReviews: [],
+      minutesSpentToday: 0,
     }, {
       now: () => new Date("2026-11-24T12:00:00.000Z"),
       createId: () => "session-lifecycle",
