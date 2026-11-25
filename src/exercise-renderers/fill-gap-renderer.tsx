@@ -34,10 +34,13 @@ export function FillGapRenderer({
                 })}
                 autoComplete="off"
                 disabled={disabled}
-                onChange={(event) => setValues((current) => ({
-                  ...current,
-                  [segment.blankId]: event.currentTarget.value,
-                }))}
+                onChange={(event) => {
+                  const value = event.currentTarget.value;
+                  setValues((current) => ({
+                    ...current,
+                    [segment.blankId]: value,
+                  }));
+                }}
                 value={values[segment.blankId] ?? ""}
               />
               {result && (
